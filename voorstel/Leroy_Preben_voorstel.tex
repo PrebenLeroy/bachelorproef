@@ -1,0 +1,142 @@
+%==============================================================================
+% Sjabloon onderzoeksvoorstel bachelorproef
+%==============================================================================
+% Gebaseerd op LaTeX-sjabloon ‘Stylish Article’ (zie voorstel.cls)
+% Auteur: Jens Buysse, Bert Van Vreckem
+
+% TODO: Compileren document:
+% 1) Vervang ‘naam_voornaam’ in de bestandsnaam door je eigen naam, bv.
+%    buysse_jens_voorstel.tex
+% 2) latexmk -pdf naam_voornaam_voorstel.tex
+% 3) biber naam_voornaam_voorstel
+% 4) latexmk -pdf naam_voornaam_voorstel.tex (1 keer)
+
+\documentclass[fleqn,10pt]{voorstel}
+
+%------------------------------------------------------------------------------
+% Metadata over het artikel
+%------------------------------------------------------------------------------
+
+\JournalInfo{HoGent Bedrijf en Organisatie} % Journal information
+\Archive{Bachelorproef 2017-2018} % Additional notes (e.g. copyright, DOI, review/research article)
+
+%---------- Titel & auteur ----------------------------------------------------
+
+% TODO: geef werktitel van je eigen voorstel op
+\PaperTitle{AI inzetten bij het schrijven van code op basis van functionele specificaties}
+\PaperType{Onderzoeksvoorstel Bachelorproef} % Type document
+
+% TODO: vul je eigen naam in als auteur, geef ook je emailadres mee!
+\Authors{Preben Leroy\textsuperscript{1}} % Authors
+\affiliation{\textbf{Contact:}
+  \textsuperscript{1} \href{mailto:preben.leroy.w1789@student.hogent.be}{preben.leroy.w1789@student.hogent.be}}
+
+%---------- Abstract ----------------------------------------------------------
+
+  \Abstract{Artificiële intelligentie zal in de toekomst meer en meer toegepast worden, zoals in self-driving cars. Dit onderzoek zal zich eerder toespitsen op de vraag of door middel van AI code kan worden gegenereerd op basis van functionele specificaties. Het onderzoek is belangrijk om te weten of het leven van een programmeur drastisch kan veranderd worden. Dienen zij in de toekomst enkel maar hun code hier en daar te optimaliseren? Of kan het zijn dat ze helemaal niets meer hoeven te doen aan de code? Tijdens dit onderzoek ga ik eerst de huidige technologieën onderzoeken. In een verdere fase ga ik onderzoeken of het mogelijk is om dit alles door te trekken naar andere programmeertalen. In dit document kan u lezen wat de huidige stand van zaken is in verband met de reeds bestaande technologieën waarbij AI wordt gebruikt, wat de mogelijkheden zijn om dit alles door te trekken naar andere programmeertalen en hoe haalbaar het is om dit te doen. Ik verwacht van dit onderzoek dat men AI kan inzetten bij het schrijven van code, maar een mogelijke conclusie kan wel zijn dat de implementatie ervan zeer moeilijk en tijdrovend zal zijn. Je weet nog niet voor 100\% hoe ver dit alles staat, en of het wel mogelijk is. In de toekomst zal AI meer en meer de bovenhand nemen in het dagelijkse leven. Ook zal het programmeren van nu niet meer het programmeren van binnen bijvoorbeeld 10 jaar zijn. Waarom zou er dan geen combinatie mogelijk zijn tussen zowel enerzijds AI en anderzijds programmeren? }
+
+%---------- Onderzoeksdomein en sleutelwoorden --------------------------------
+% TODO: Sleutelwoorden:
+%
+% Het eerste sleutelwoord beschrijft het onderzoeksdomein. Je kan kiezen uit
+% deze lijst:
+%
+% - Mobiele applicatieontwikkeling
+% - Webapplicatieontwikkeling
+% - Applicatieontwikkeling (andere)
+% - Systeem- en netwerkbeheer
+% - Mainframe
+% - E-business
+% - Databanken en big data
+% - Machine learning en kunstmatige intelligentie
+% - Andere (specifieer)
+%
+% De andere sleutelwoorden zijn vrij te kiezen
+
+\Keywords{Development. Artificiële Intelligentie --- Machine Learning --- Microsoft --- Google} % Keywords
+\newcommand{\keywordname}{Sleutelwoorden} % Defines the keywords heading name
+
+%---------- Titel, inhoud -----------------------------------------------------
+\begin{document}
+
+\flushbottom % Makes all text pages the same height
+\maketitle % Print the title and abstract box
+\tableofcontents % Print the contents section
+\thispagestyle{empty} % Removes page numbering from the first page
+
+%------------------------------------------------------------------------------
+% Hoofdtekst
+%------------------------------------------------------------------------------
+
+%---------- Inleiding ---------------------------------------------------------
+
+\section{Introductie} % The \section*{} command stops section numbering
+\label{sec:introductie}
+
+Artificiële intelligentie wordt als maar belangrijker in de toekomst. Self-driving cars, machine learning, ... Binnenkort komt overal AI aan te pas. Waarom dan niet in de wereld van de programmeurs? Is het bijvoorbeeld mogelijk om AI in te zetten bij het schrijven van code op basis van functionele specificaties? Indien dit mogelijk is, moeten programmeurs dan enkel de code nog finetunen om ze volledig op punt te zetten? Of zijn programmeurs dan totaal overbodig? Eén van de voordelen zou zijn dat je herhalende stukken code niet zelf meer moet herschrijven.
+\break \break \break
+In dit onderzoek ga ik op zoek naar antwoorden op de volgende onderzoeksvragen:
+\begin{itemize}
+	\item Hoe ver staat de technologie om AI in te zetten bij het schrijven van code op basis van functionele specificaties?
+	\item Kan het doorgetrokken worden naar andere programmeertalen?
+	\item Wat is de haalbaarheid om deze technologie te gebruiken in andere programmeertalen?
+\end{itemize}
+
+
+%---------- Stand van zaken ---------------------------------------------------
+
+\section{State-of-the-art}
+\label{sec:state-of-the-art}
+
+Er zijn al onderzoeken gebeurd naar de technologie om AI in te zetten bij het programmeren van code. Onder andere Microsoft is met DeepCoder al bezig met het ontwikkelen van zo'n systeem \autocite{DeepCoder}. Via DeepCoder kan een idee in een paar seconden omgezet worden in code. Maar programmeurs zullen hierbij niet moeten vrezen voor hun job. Programmeurs zullen bij DeepCoder eerder ingezet worden voor het moeilijke, uitdagende werk, terwijl AI gebruikt zal worden voor het eerder minder leuke werk.
+\break \break
+Dankzij mijn stagebedrijf \(Delaware\), heb ik nog meer informatie te weten gekomen in verband met zelfschrijvende code. In het artikel van  \textcite{primaryObject} staat een volledig artikel geschreven over hoe AI kan gebruikt worden om code te laten genereren. Daarnaast is er via deze site een mogelijkheid om een tutorial te volgen over hoe AI programming kan geïmplementeerd kan worden. De broncode kan hiervan op Github \autocite{github} teruggevonden worden. Verder valt er ook een volledige studie \autocite{aiProgrammer} terug te vinden over het allereerste machine learning systeem, \textbf{AI Programmer} genaamd. AI Programmer kan automatisch code genereren met een minimum aan menselijke assistentie.
+\break \break
+Google is ook bezig met een gelijksoortig onderzoek, dit valt te lezen in het artikel van \textcite{green}. Google zijn \textbf{AutoML} is een machine learning taal die nu al slimmer is dan de programmeurs die het ontwikkeld hebben.
+\break \break
+Dit zijn een aantal voorbeelden van huidige technologieën in verband met AI en automatisch geschreven code. Maar mijn onderzoek gaat verder. Ik ga namelijk onderzoeken hoe ver men staat met de huidige technieken, zoals DeepCoder, maar ook of het mogelijk is dit verder door te trekken naar andere programmeertalen.
+
+
+% Voor literatuurverwijzingen zijn er twee belangrijke commando's:
+% \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
+%   geen onderdeel is van de zin.
+% \textcite{KEY} => Auteur (jaartal)  Gebruik dit als de auteursnaam wel een
+%   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
+%   ...'')
+
+
+
+%---------- Methodologie ------------------------------------------------------
+\section{Methodologie}
+\label{sec:methodologie}
+
+Allereerst voer ik een literatuurstudie uit over de huidige machine learning technieken (DeepCoder, Google AutoML). Later zal ik ook de tutorial van \textcite{github} volgen om te weten te komen hoe deze techniek in elkaar zit. \break \break
+Daarnaast zal ik onderzoeken hoe ver dit alles op punt staat. Om dan uiteindelijk onderzoek te voeren naar de haalbaarheid om dit alles uit te breiden naar andere programmeertalen. Bijvoorbeeld: Is het mogelijk om AI te gebruiken om op basis van functionele specificaties Java-code te schrijven? Dit ga ik onderzoeken door middel van literatuurstudies en het zelf uit proberen van allerhande algoritmen, die nu al bijvoorbeeld bij Microsoft gebruikt worden, om code in Java te laten genereren. 
+\break \break
+Naast literatuurstudies zal ik ook uitgebreid de tijd nemen om de theorie om te zetten in de praktijk. Ik zal allerlei mogelijke praktijktoepassingen bedenken en door middel van experimenten bepalen voor welke cases deze technieken al dan niet geschikt zijn.
+
+
+%---------- Verwachte resultaten ----------------------------------------------
+\section{Verwachte resultaten}
+\label{sec:verwachte_resultaten}
+
+Bij de resultaten zal er niet alleen de uitkomst van de haalbaarheid vermeld worden, maar ook de uitkomst van het onderzoek naar de huidige technieken. Wat is de huidige stand van zaken? Wat kan er verbeterd worden? Is het wel mogelijk om AI overal in het programmeren te gebruiken? Dit zal allemaal worden onderzocht.
+
+%---------- Verwachte conclusies ----------------------------------------------
+\section{Verwachte conclusies}
+\label{sec:verwachte_conclusies}
+
+Ik verwacht wel dat het mogelijk is om AI in te zetten bij het genereren van code door middel van functionele specificaties. De moeilijkheid in dit onderzoek zal eerder liggen bij het feit dat de implementatie ervan moeilijk zal verlopen. Moeilijke implementaties duren dan ook zeer lang. Indien het echt een must is om via AI code te laten genereren, zou het aangeraden zijn om er op tijd aan te beginnen.
+
+%------------------------------------------------------------------------------
+% Referentielijst
+%------------------------------------------------------------------------------
+% TODO: de gerefereerde werken moeten in BibTeX-bestand ``biblio.bib''
+% voorkomen. Gebruik JabRef om je bibliografie bij te houden en vergeet niet
+% om compatibiliteit met Biber/BibLaTeX aan te zetten (File > Switch to
+% BibLaTeX mode)
+
+\phantomsection
+\printbibliography[heading=bibintoc]
+
+\end{document}
