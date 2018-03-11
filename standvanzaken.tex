@@ -15,49 +15,42 @@
 %\textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
 
 
-Al een geruime tijd zijn bedrijven aan het experimenteren met artificiële intelligentie. Zo worden er tegenwoordig experimenten uitgevoerd met zelfrijdende auto's, robotstofzuigers en spraakherkenning. Spraakherkenning wordt op verschillende manieren gebruikt. Dat kan gaan van het dicteren van een tekst, tot het invoeren van een zoekopdracht in Google, dit via de smartphone. Maar is het ook mogelijk om via spraakherkenning, of in het algemeen tekstherkenning, programmeercode te schrijven door middel van AI? 
+Tegenwoordig is artificiële intelligentie niet meer weg te denken uit onze maatschappij. Denk hierbij maar aan zelfrijdende auto’s of robotstofzuigers die weten waar het vuil is. Naast deze reeds bekendere voorbeelden, kan je met AI nog veel meer doen. Denk hierbij maar aan spraak- en tekstherkenning. Een voorbeeld hiervan is het al sprekend ingeven van zoekopdrachten op Google. Maar bestaat er ook een mogelijkheid om op deze manier, dus via spraak- of tekstherkenning, code te laten genereren?
 
-Blijkbaar wel! Bedrijven zoals Microsoft en Google zijn al een tijdje bezig met het ontwikkelen van zo'n technologieën. Hier volgt een overzicht van mogelijke technologieën:
+Verscheidene bedrijven en organisaties zoals Google en Microsoft experimenteren met code generatie door middel van AI. Meestal gaat het hierbij over de generatie van SQL-queries, maar in de toekomst zou het misschien ook mogelijk zijn om bijvoorbeeld Java-code te laten genereren. 
+
+In volgende lijst worden er een aantal voorbeelden weergegeven:
 \begin{itemize}
 	\item Microsoft DeepCoder
 	\item Google AutoML
 	\item Salesforce - Seq2SQL
 	\item SQLNet
 	\item Primary Objects - AI Programmer
+	\item Algoritmes voor het transformeren van tekst naar SQL-queries
+	\item Microsoft Research - NL2Prog 
 	\item \ldots
 \end{itemize}
+\break
+\break
+Hier volgt nu informatie over alle opgelijste voorbeelden.
 
 \textbf{Microsoft Deepcoder}
 
-Onderzoekers van Microsoft hebben, in samenwerking met de universiteit van Cambridge, een machine learning taal ontwikkeld die, door middel van artificiële intelligentie en program synthesis, zelf code kan schrijven. Dit mechanisme heeft de naam Deepcoder gekregen.
+In samenwerking met de universiteit van Cambridge, ontwikkelde Microsoft een mechanisme voor het “zelf schrijven van code”. Hierbij werd gebruik gemaakt van artificiële intelligentie en program synthesis. Het mechanisme kreeg de naam DeepCoder.
 
-De bedoeling van Deepcoder is eigenlijk dat een idee omgezet kan worden naar bruikbare code en dat binnen een paar seconden. Op dit moment zijn ze al zo ver gevorderd, dat Deepcoder in staat is om basis problemen op te lossen (welke niets meer dan 5 lijnen zijn).
+Met DeepCoder zouden mensen, ook al hebben ze geen enkele programmeerachtergrond, werkende code kunnen laten schrijven binnen een paar seconden. DeepCoder kan nu al gebruikt worden voor basis problemen op te lossen.
 
-Het is niet zo dat Microsoft Deepcoder de plaats zal innemen van duizenden programmeurs, deze programmeurs zullen de moeilijkste problemen moeten aanpakken, AI zal eerder de veel voorkomende problemen aanpakken. 
+DeepCoder maakt gebruik van Program Synthesis, waarbij DeepCoder eigenlijk lijnen code “steelt” van werkende software. Daarnaast wordt er bruikbare code gezocht op websites zoals StackOverflow om te gebruiken in de te schrijven code. Eigenlijk volgt Program Synthesis de manier van werken van een programmeur (code opzoeken op het internet), maar doet dat veel sneller.
 
-Voor dit systeem is geheugen zeer belangrijk. Zo kan het systeem onthouden welke stukken code in het verleden werkten, en andere niet werkten.
-
-Program Synthesis wil zeggen dat het programma lijnen code steelt van reeds afgewerkte software. Deze manier van werken wordt nu al toegepast door sommige ontwikkelaars(zoals jongeren, script-kiddies, …). Het zoekt eigenlijk bruikbare code op bijvoorbeeld StackOverflow en plaatst deze in jouw te schrijven code.
-
-Er zijn veel werkmogelijkheden met dit soort AI. Het kan sneller en grondiger broncode-databanken doorzoeken om de meest bruikbare code terug te vinden en te gebruiken in de te schrijven programma’s. 
-
-AI is veel slimmer dan de mens, het kan grondiger te werk gaan. DeepCoder gebruikt machine learning om databases van broncode te doorzoeken en de fragmenten te sorteren op basis van hun visie op hun waarschijnlijke bruikbaarheid.
-
-Door dit alles wordt werkende software in een fractie van een seconde geschreven, terwijl oudere mechanismen er minuten aan moeten werken.
-
-Deze technologie kan vele uitwerkingen hebben, zo kan het al foutjes ontdekken in software en deze automatisch oplossen door de foute lijnen te vervangen door werklijnen uit andere programma’s. In de toekomst zou het makkelijker zijn om allerlei routineprogramma’s te maken (info schrappen op websites, facebook foto’s categoriseren, …).
+Programmeurs hoeven geen schrik te hebben voor hun job. DeepCoder zou in de toekomst kunnen gebruikt worden om het vuile, herhalende werk op te knappen. Programmeurs zouden de eerder moeilijke taken uitvoeren.
 
 \textbf{Google AutoML}
 
-Google heeft machine learning taal ontwikkeld, onder de naam Google AutoML. Deze toepassing schrijft code door middel van het toepassen van artificiële intelligentie. Één van de belangrijkste toepassingen van AutoML, is dat dit mechanisme zichzelf verbeterd. Het is nu zoveel beter geworden, dat het betere code kan “schrijven” dan de programmeurs en ingenieurs die het hebben ontwikkeld. 
+Naast Microsoft is Google ook bezig met het ontwikkelen van een mechanisme waarbij artificiële intelligentie wordt gebruikt voor de generatie van code. Dit onder de naam “Google AutoML”. Eén van de belangrijkste kenmerken van AutoML, is dat het mechanisme zichzelf altijd tracht te verbeteren. Het is nu al zo ver gekomen dat dit mechanisme betere code kan schrijven dan de programmeurs die het ontwikkeld hebben. 
 
-AutoML werd ontwikkeld als oplossing bij gebrek aan uitmuntend talent in AI-programmeren. Er zijn niet genoeg gespecialiseerde ontwikkelaars om te voldoen aan de vraag, waardoor ze een machine learning taal ontwikkeld hebben die zichzelf blijft verbeteren (zelflerende code). Het systeem voert duizenden simulaties uit om te bepalen welke delen van de code kunnen worden verbeterd, de wijzigingen aan te brengen en de procesadvertentie oneindig door te zetten of totdat het doel is bereikt.  
+Google ontwikkelde hun AutoML als oplossing voor het gebrek aan talent bij de AI-programmeurs. De vraag naar gespecialiseerde programmeurs is zo groot geworden, dat AutoML als oplossing werd aangereikt. 
 
-AutoML is minder dan een jaar geleden voorgesteld. Het is de basis voor volgende generaties machine-learning.
+Het systeem voert duizenden simulaties uit om te bepalen welke delen van de code kunnen worden verbeterd, de wijzigingen aan te brengen en de procesadvertentie oneindig door te zetten of totdat het doel is bereikt. 
+ 
+AutoML is nog gloednieuw. Het is ongeveer een jaar geleden voorgesteld. Het vormt de basis voor de volgende generaties in machine-learning.
 
-
-\textbf{Salesforce - Seq2SQL}
-
-\textbf{SQLNet}
-
-\textbf{AI Programmer}
