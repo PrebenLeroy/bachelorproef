@@ -14,37 +14,25 @@
 
 %\textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
 
+%proberen meer in detail te treden per aangehaalde case
 
 Tegenwoordig is artificiële intelligentie niet meer weg te denken uit onze maatschappij. Denk hierbij maar aan zelfrijdende auto’s of robotstofzuigers die weten waar het vuil is. Naast deze reeds bekendere voorbeelden, kan je met AI nog veel meer doen. Denk hierbij maar aan spraak- en tekstherkenning. Een voorbeeld hiervan is het al sprekend ingeven van zoekopdrachten op Google. Maar bestaat er ook een mogelijkheid om op deze manier, dus via spraak- of tekstherkenning, code te laten genereren?
 
-Verscheidene bedrijven en organisaties zoals Google en Microsoft experimenteren met code generatie door middel van AI. Meestal gaat het hierbij over de generatie van SQL-queries, maar in de toekomst zou het misschien ook mogelijk zijn om bijvoorbeeld Java-code te laten genereren. 
+Verscheidene bedrijven en organisaties zoals Google en Microsoft experimenteren met code generatie door middel van AI. Meestal gaat het hierbij over de generatie van SQL-query's, maar in de toekomst zou het misschien ook mogelijk zijn om bijvoorbeeld Java-code te laten genereren. 
 
-In volgende lijst worden er een aantal voorbeelden weergegeven:
-\begin{itemize}
-	\item Microsoft DeepCoder
-	\item Google AutoML
-	\item Salesforce - Seq2SQL
-	\item SQLNet
-	\item Primary Objects - AI Programmer
-	\item Algoritmes voor het transformeren van tekst naar SQL-queries
-	\item Microsoft Research - NL2Prog 
-	\item \ldots
-\end{itemize}
-\break
-\break
-Hier volgt nu informatie over alle opgelijste voorbeelden.
-
-\textbf{Microsoft Deepcoder}
+\textbf{In de volgende secties worden er een aantal cases besproken.}
+\section{Microsoft DeepCoder}
 
 In samenwerking met de universiteit van Cambridge, ontwikkelde Microsoft een mechanisme voor het “zelf schrijven van code”. Hierbij werd gebruik gemaakt van artificiële intelligentie en program synthesis. Het mechanisme kreeg de naam DeepCoder.
 
 Met DeepCoder zouden mensen, ook al hebben ze geen enkele programmeerachtergrond, werkende code kunnen laten schrijven binnen een paar seconden. DeepCoder kan nu al gebruikt worden voor basis problemen op te lossen.
 
-DeepCoder maakt gebruik van Program Synthesis, waarbij DeepCoder eigenlijk lijnen code “steelt” van werkende software. Daarnaast wordt er bruikbare code gezocht op websites zoals StackOverflow om te gebruiken in de te schrijven code. Eigenlijk volgt Program Synthesis de manier van werken van een programmeur (code opzoeken op het internet), maar doet dat veel sneller.
+\break
+DeepCoder maakt gebruik van Program Synthesis, waarbij DeepCoder eigenlijk lijnen code “steelt” van werkende software. Daarnaast wordt er bruikbare code gezocht op websites zoals StackOverflow om te gebruiken in de te schrijven code. Eigenlijk volgt Program Synthesis de manier van werken van een programmeur (code opzoeken op het internet), maar doet dat veel sneller. Dit wordt onder andere vermeld in het artikel van \textcite{techcrunch}.
 
 Programmeurs hoeven geen schrik te hebben voor hun job. DeepCoder zou in de toekomst kunnen gebruikt worden om het vuile, herhalende werk op te knappen. Programmeurs zouden de eerder moeilijke taken uitvoeren.
 
-\textbf{Google AutoML}
+\section{Google AutoML}
 
 Naast Microsoft is Google ook bezig met het ontwikkelen van een mechanisme waarbij artificiële intelligentie wordt gebruikt voor de generatie van code. Dit onder de naam “Google AutoML”. Eén van de belangrijkste kenmerken van AutoML, is dat het mechanisme zichzelf altijd tracht te verbeteren. Het is nu al zo ver gekomen dat dit mechanisme betere code kan schrijven dan de programmeurs die het ontwikkeld hebben. 
 
@@ -54,3 +42,89 @@ Het systeem voert duizenden simulaties uit om te bepalen welke delen van de code
  
 AutoML is nog gloednieuw. Het is ongeveer een jaar geleden voorgesteld. Het vormt de basis voor de volgende generaties in machine-learning.
 
+\section{Salesforce - Seq2SQL}
+
+Het Seq2SQL van Salesforce is een eerder concreet voorbeeld voor code generatie door middel van artificiële intelligentie. Seq2SQL is een mechanisme dat, door middel van AI en reinforcement learning , gestructureerde SQL-query’s kan genereren. 
+
+Tegenwoordig wordt data bijna altijd opgeslagen in een relationale databank. Gegevens kunnen enkel via query’s, eigen aan de vooropgestelde SQL-syntax, opgehaald worden. Seq2SQL werkt anders.
+
+Via dit model kunnen er vanuit natuurlijke taal, SQL-query’s gegenereerd worden. Hiervoor wordt gebruik gemaakt van neurale netwerken. Deze neurale netwerken worden zo geprogrammeerd dat deze gelijkaardig werken als het menselijke brein. 
+
+\break
+Experimenten met Seq2SQL worden in deze paper uitgevoerd op de WikiSQL-dataset. Deze dataset is een verzameling van de meest gebruikte SQL-query’s die gebruikt werden tijdens de zoekopdrachten op Wikipedia. WikiSQL wordt gebruikt om het model van Seq2SQL te trainen.
+
+\section{SQLNet}
+
+Naast Seq2SQL, bestaat er ook SQLNet. Dit mechanisme werkt op een ongeveer gelijkaardige manier als Seq2SQL, maar hier wordt geen reinforcement learning toegepast. De huidige manier van werken (het belonen van het model) is niet eerder beperkt. Daarom is het nodig dat er verandering komt. SQLNet komt hier dus met de oplossing.
+
+SQLNet werkt volgens een schetsmatige benadering waarbij een schets een afhankelijkheidsgrafiek bevat. Op die manier kan een voorspelling gedaan worden wanneer eerdere, afhankelijke voorspellingen in overweging te nemen. 
+
+Net als bij Seq2SQL wordt voor dit model gebruik gemaakt van de WikiSQL-dataset voor het uitvoeren van de experimenten en het trainen van het model. Zo kan er bewezen worden dat door het uitvoeren van het SQLNet-mechanisme, 9 tot 13 procent beter werkt dan een ander mechanisme.
+
+\section{Algoritmes voor het transformeren van tekst naar SQL-query's (NLIDBS)}
+
+Zoals vermeld bij Seq2SQL, worden grote hoeveelheden data opgeslagen in relationele databanken. Een groot nadeel hierbij is dat de meeste mensen de kennis niet hebben inzake SQL om te communiceren met de databank. Een oplossing hiervoor zou zijn dat mensen in hun eigen taal zouden kunnen communiceren met de databank.
+
+Onderzoekers hebben een intelligente interface ontwikkeld die natuurlijke taalquery’s (zoals “Geef een lijst van de laatste 5 presidenten van Amerika.”) omzet naar SQL-query’s. Er wordt hier gebruik gemaakt van semantische matchingtechnieken. Hierbij wordt er rekening gehouden met de betekenis van de woorden in de opgegeven zoekstring. 
+
+\break
+Er worden een aantal stappen uitgevoerd om tot de juiste query uit te komen. Door deze query dan uit te voeren op de databank, komt het juiste antwoord naar boven. 
+
+Enkele van de stappen, welke gebruikt worden om vanuit natuurlijke taal SQL-query’s te genereren:
+
+\begin{itemize}
+\item Hoofdletters naar kleine letters omzetten
+\item Tokenisatie
+\item Het verwijderen van extra/stop woorden
+\item Classificatie van de overgebleven woorden
+\item Het bouwen van de query
+\item \dots
+\end{itemize}
+
+\section{Microsoft Research - NL2Prog}
+
+Eigenlijk is het doel van het onderzoek, beschreven in de paper NL2Prog, gelijkaardig aan het onderzoek uitgevoerd in Seq2SQL en in NLIDBS. De meeste mensen zijn niet in staat om via query's te communiceren met de databank wegens geen (of alleszins te weinig) programmeerkennis. De mens wil instaat zijn op een normale manier te kunnen communiceren met de databank, dus eigenlijk via hun eigen taal. 
+
+Voor dit model wordt gebruik gemaakt van een deep sequence-to-sequence model. Hierbij wordt als decoder een eenvoudig type systeem van SQL-expressies gebruikt, welke gebruikt worden om de uitvoervoorspelling te structureren. Door middel van het type kopieert de decoder een mogelijke output van de inputstring. Dit met behulp van een op aandacht-gebaseerd kopieermechanisme, ofwel genereerd het een query vanuit een vast vocabulair.
+
+Zoals bij Seq2SQL en SQLNet wordt ook dit model geëvalueerd op de WikiSQL dataset. Via gesuperviseerd leren kan aangetoond worden dat het model van NL2Prog, beter presteert dat de eerst genoemde mechanismen. 
+
+\section{Primary Objects - AI Programmer}
+
+AI Programmer is het eerste machine learning systeem dat in staat is om volledige code te genereren. De mens dient maar weinig hulp eraan te bieden om het te doen slagen. Door middel van artificiële intelligentie en enkele genetische algoritmes, is AI Programmer in staat om een aantal kleine programmatjes te produceren. 
+
+Deze kleine programmatjes zijn bijvoorbeeld de volgende:
+\begin{itemize}
+	\item Hello World
+	\item Fibonnaci
+	\item Optellen en Aftrekken
+	\item \dots
+\end{itemize}
+
+AI Programmer is een zelflerend mechanisme. Het is een AI genetisch algoritme dat zichzelf altijd tracht te verbeteren.
+
+De computer alle soorten programma’s laten creëren is het achterliggend idee voor de creatie van AI Programmer. Het ultieme doel is dan weer om computerprogramma’s te genereren voor het oplossen van problemen.
+
+\textbf{In de volgende secties wordt onder andere gesproken over de technieken die achter de mechanismen zit. Daarnaast wordt er ook informatie aangehaald over de meest voorkomende programmeertaal uit de cases.}
+\section{Vierde generatie programmeertalen}
+
+Zoals vermeld bij de opgegeven cases, worden in de meeste gevallen SQL-query’s gegenereerd. Maar wat voor soort programmeertaal is SQL eigenlijk? Wel, SQL behoort tot de groep van de vierde generatie programmeertalen. 
+
+Maar wat is er zo speciaal aan deze generatie programmeertalen? Tot de 4GL behoren de talen die het dichtst aanleunen tegen de natuurlijke taal. Ze hebben het voordeel van onder andere sneller te kunnen verlopen en de kosten voor de ontwikkeling te verminderen.
+
+Vierde generatie programmeertalen zijn de enige talen die vaak in contact komen met grote hoeveelheden aan data. Onder de vierde generatie programmeertalen kan je daarom volgende domeinen terugvinden:
+
+\begin{itemize}
+	\item Databasequery’s
+	\item Rapporteringen
+	\item Gegevensmanipulatie
+	\item \dots
+\end{itemize}
+
+Het is dus via zo’n talen mogelijk om data op te vragen uit tabellen, deze aan te passen of mooi uit te schrijven in een rapport.
+
+Naast SQL behoren onder andere volgende programmeertalen ook tot de vierde generatie: R, S, ABAP, Oracle Forms en Bizagi.
+
+\section{Neurale netwerken}
+
+TODO
