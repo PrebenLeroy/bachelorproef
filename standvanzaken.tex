@@ -44,13 +44,13 @@ AutoML is nog gloednieuw. Het is ongeveer een jaar geleden voorgesteld. Het vorm
 
 \section{Salesforce - Seq2SQL}
 
-Het Seq2SQL van Salesforce is een eerder concreet voorbeeld voor code generatie door middel van artificiële intelligentie. Seq2SQL is een mechanisme dat, door middel van AI en reinforcement learning , gestructureerde SQL-query’s kan genereren. 
+Het Seq2SQL van Salesforce is een eerder concreet voorbeeld voor code generatie door middel van artificiële intelligentie. Seq2SQL is een mechanisme dat, door middel van AI en reinforcement learning\footnote{Het is een mechanisme dat in staat is om uit eigen ervaringen te leren. Wanneer het mechanisme iets goed doet, wordt het hiervoor beloond. Het zal die stappen blijven uitvoeren waarvoor het de meeste beloningen heeft gekregen. Het doel is om het meeste beloningen te verkrijgen.}, gestructureerde SQL-query’s kan genereren. 
 
 Tegenwoordig wordt data bijna altijd opgeslagen in een relationale databank. Gegevens kunnen enkel via query’s, eigen aan de vooropgestelde SQL-syntax, opgehaald worden. Seq2SQL werkt anders.
 
+\break
 Via dit model kunnen er vanuit natuurlijke taal, SQL-query’s gegenereerd worden. Hiervoor wordt gebruik gemaakt van neurale netwerken. Deze neurale netwerken worden zo geprogrammeerd dat deze gelijkaardig werken als het menselijke brein. 
 
-\break
 Experimenten met Seq2SQL worden in deze paper uitgevoerd op de WikiSQL-dataset. Deze dataset is een verzameling van de meest gebruikte SQL-query’s die gebruikt werden tijdens de zoekopdrachten op Wikipedia. WikiSQL wordt gebruikt om het model van Seq2SQL te trainen.
 
 \section{SQLNet}
@@ -67,9 +67,9 @@ Zoals vermeld bij Seq2SQL, worden grote hoeveelheden data opgeslagen in relation
 
 Onderzoekers hebben een intelligente interface ontwikkeld die natuurlijke taalquery’s (zoals “Geef een lijst van de laatste 5 presidenten van Amerika.”) omzet naar SQL-query’s. Er wordt hier gebruik gemaakt van semantische matchingtechnieken. Hierbij wordt er rekening gehouden met de betekenis van de woorden in de opgegeven zoekstring. 
 
-\break
 Er worden een aantal stappen uitgevoerd om tot de juiste query uit te komen. Door deze query dan uit te voeren op de databank, komt het juiste antwoord naar boven. 
 
+\break
 Enkele van de stappen, welke gebruikt worden om vanuit natuurlijke taal SQL-query’s te genereren:
 
 \begin{itemize}
@@ -131,7 +131,27 @@ Achter alle mechanismen om code te laten genereren, zit er artificiële intellig
 
 Wanneer iemand denkt aan neurale netwerken, wordt er meer bepaald gedacht aan het menselijke brein. Het menselijk brein bestaat uit een groot aantal neuronen. Deze neuronen werken samen door middel van elektrochemische signalen. Bij artificiële neurale netwerken probeert men alle kenmerken van een menselijk neuron samen te voegen in een wiskundig model. 
 
+\break
 Hoe werken artificiële neurale netwerken nu eigenlijk? 
 
 Neurale netwerken worden getraind om te kunnen werken. Denk bijvoorbeeld aan het herkennen van nummers uit een lijst. Of zoals Facebook, die gezichten op foto’s herkend en vraagt om eventueel deze herkende mensen te taggen in de bewuste foto’s. 
 
+Het voorbeeld dat wordt omschreven in het artikel op de website van tweakers gaat over het herkennen van handgeschreven getallen uit een foto. Deze foto of afbeelding (meestal 28 bij 28 pixels) wordt gebruikt als input voor het neurale netwerk. In de datasets die gebruikt worden voor het netwerk te trainen, zitten er ook afbeeldingen van 28 bij 28 pixels met handgeschreven cijfers op. De mens herkent makkelijk de cijfers in de afbeeldingen, door te kijken naar de grijswaarden in de pixels. Het neurale netwerk moet wel gaan rekenen, daarom worden aan alle ingaven (28 x 28 = 784) een waarde tussen 0 en 1 gegeven. Een neuraal netwerk is NIET binair, maar wel analoog. 
+
+De data uit deze eerste laag neuronen, wordt doorgestuurd naar de tweede, verborgen, laag. Dit is een veel kleinere laag neuronen. In deze laag wordt er een bepaald gewicht gegeven aan de data van de input grijswaarden. De data uit de tweede laag krijgt dus ook weer een waarde tussen 0 en 1. Deze waarden worden dan doorgegeven aan de uitvoer neuronen. Het neuron dat het dichtste aanleunt tegen 1, geeft het cijfer aan dat het net “gezien” zou hebben. 
+
+Een neuraal netwerk zou ook kunnen bestaan uit meerdere lagen neuronen. Voor de simpliciteit werd in dit voorbeeld maar één tussenlaag gebruikt.
+
+Maar hoe worden neurale netwerken nu getraind? Voor het trainen van een neuraal netwerk, kan men één van de volgende vijf optimalisatiealgoritmen toepassen.
+
+\begin{description}
+	\item[Gradient Descent] Gradient Descent is het makkelijkste algoritme voor het trainen van een neuraal netwerk. Het is een eerste orde iteratief optimalisatie algoritme voor het vinden van een minimum van een functie. Door eerst voorwaartse propagatie uit te voeren en daarna achterwaartse propagatie, kan men de gradiënt berekenen. Het is wel de bedoeling dat de gehele training dataset onderzocht wordt. Door het uitvoeren van het gradiënt descent algoritme, kan men al een idee krijgen in welke richting de gewichten zich zouden aanpassen.
+	\item[Methode van Newton] Gradiënt Descent is dan wel een eerste orde algoritme, de methode van Newton is een tweede orde algoritme. Het maakt gebruik van de Hessiaan\footnote{Dit is een matrix van de tweede orde partiële afgeleiden van een functie.} van de te minimaliseren functie. Deze functie wordt gebruikt om een betere trainingsrichting te vinden door de tweede orde afgeleiden van de verliesfunctie te gebruiken.
+	\item[Conjugate gradient] De conjugate gradiënt is een vorm tussen de gradiënt descent en de methode van Newton. Via deze methode is het mogelijk om de normaal gezien langzame convergentie te versnellen (dit is zo bij gradiënt descent). Daarnaast wordt het werken met de Hessiaan matrix en alle andere benodigdheden van de methode van Newton ook vermeden.
+	
+	\break
+	\item[Quasi-Newton-methode] De methode van Newton is duur in uitvoer. Er zijn veel bewerkingen nodig om voor die methode alles te berekenen. De quasi-Newton methode is een beter alternatief. Het is ontwikkeld om een antwoord te bieden alle nadelen van de methode van Newton. Bij deze methode wordt er per iteratie van het algoritme, een benadering gegeven op de inverse Hessiaan. Hiervoor worden enkel de eerste afgeleiden van de verliesfunctie gebruikt.
+	\item[Het algoritme van Levenberg-Marquardt] Dit algoritme is speciaal ontworpen om te werken met verliesfuncties die de vorm aannemen van een som kwadratische fouten. In plaats van de Hessiaan-matrix te gebruiken, wordt er gebruik gemaakt van de Jacobi-matrix\footnote{De Jacobi-matrix van een functie is de matrix van de eerste-orde partiële afgeleiden van een functie.}.
+\end{description}
+
+Neurale netwerken zijn belangrijk voor het genereren van code uit tekst of uit natuurlijke taal. Deze neurale netwerken worden getraind om woorden te herkennen uit de gestelde vragen. Door middel van die woorden wordt er via allerhande mechanismen en algoritmen code gegenereerd.
