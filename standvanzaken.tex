@@ -34,7 +34,7 @@ Programmeurs hoeven geen schrik te hebben voor hun job. DeepCoder zou in de toek
 
 \section{Google AutoML}
 
-Naast Microsoft is Google ook bezig met het ontwikkelen van een mechanisme waarbij artificiële intelligentie wordt gebruikt voor de generatie van code. Dit onder de naam “Google AutoML”. Eén van de belangrijkste kenmerken van AutoML, is dat het mechanisme zichzelf altijd tracht te verbeteren. Het is nu al zo ver gekomen dat dit mechanisme betere code kan schrijven dan de programmeurs die het ontwikkeld hebben. 
+Naast Microsoft is Google ook bezig met het ontwikkelen van een mechanisme waarbij artificiële intelligentie wordt gebruikt voor de generatie van code. Dit onder de naam “Google AutoML”. Eén van de belangrijkste kenmerken van AutoML, is dat het mechanisme zichzelf altijd tracht te verbeteren. Het is nu al zo ver gekomen dat dit mechanisme betere code kan schrijven dan de programmeurs die het ontwikkeld hebben. Dit werd beschreven door \textcite{greene}.
 
 Google ontwikkelde hun AutoML als oplossing voor het gebrek aan talent bij de AI-programmeurs. De vraag naar gespecialiseerde programmeurs is zo groot geworden, dat AutoML als oplossing werd aangereikt. 
 
@@ -51,7 +51,7 @@ Tegenwoordig wordt data bijna altijd opgeslagen in een relationale databank. Geg
 \break
 Via dit model kunnen er vanuit natuurlijke taal, SQL-query’s gegenereerd worden. Hiervoor wordt gebruik gemaakt van neurale netwerken. Deze neurale netwerken worden zo geprogrammeerd dat deze gelijkaardig werken als het menselijke brein. 
 
-Experimenten met Seq2SQL worden in deze paper uitgevoerd op de WikiSQL-dataset. Deze dataset is een verzameling van de meest gebruikte SQL-query’s die gebruikt werden tijdens de zoekopdrachten op Wikipedia. WikiSQL wordt gebruikt om het model van Seq2SQL te trainen.
+Experimenten met Seq2SQL worden in deze paper uitgevoerd op de WikiSQL-dataset (\textcite{wikisql}). Deze dataset is een verzameling van de meest gebruikte SQL-query’s die gebruikt werden tijdens de zoekopdrachten op Wikipedia. WikiSQL wordt gebruikt om het model van Seq2SQL te trainen. De source code kan gevonden worden op de Github-repository van \textcite{seq2sql}.
 
 \section{SQLNet}
 
@@ -59,7 +59,7 @@ Naast Seq2SQL, bestaat er ook SQLNet. Dit mechanisme werkt op een ongeveer gelij
 
 SQLNet werkt volgens een schetsmatige benadering waarbij een schets een afhankelijkheidsgrafiek bevat. Op die manier kan een voorspelling gedaan worden wanneer eerdere, afhankelijke voorspellingen in overweging te nemen. 
 
-Net als bij Seq2SQL wordt voor dit model gebruik gemaakt van de WikiSQL-dataset voor het uitvoeren van de experimenten en het trainen van het model. Zo kan er bewezen worden dat door het uitvoeren van het SQLNet-mechanisme, 9 tot 13 procent beter werkt dan een ander mechanisme.
+Net als bij Seq2SQL wordt voor dit model gebruik gemaakt van de WikiSQL-dataset (\textcite{wikisql}) voor het uitvoeren van de experimenten en het trainen van het model. Zo kan er bewezen worden dat door het uitvoeren van het SQLNet-mechanisme, 9 tot 13 procent beter werkt dan een ander mechanisme. De volledige source code kan gevonden worden op de Github-repository van \textcite{sqlnet}.
 
 \section{Algoritmes voor het transformeren van tekst naar SQL-query's (NLIDBS)}
 
@@ -87,7 +87,7 @@ Eigenlijk is het doel van het onderzoek, beschreven in de paper NL2Prog, gelijka
 
 Voor dit model wordt gebruik gemaakt van een deep sequence-to-sequence model. Hierbij wordt als decoder een eenvoudig type systeem van SQL-expressies gebruikt, welke gebruikt worden om de uitvoervoorspelling te structureren. Door middel van het type kopieert de decoder een mogelijke output van de inputstring. Dit met behulp van een op aandacht-gebaseerd kopieermechanisme, ofwel genereerd het een query vanuit een vast vocabulair.
 
-Zoals bij Seq2SQL en SQLNet wordt ook dit model geëvalueerd op de WikiSQL dataset. Via gesuperviseerd leren kan aangetoond worden dat het model van NL2Prog, beter presteert dat de eerst genoemde mechanismen. 
+Zoals bij Seq2SQL en SQLNet wordt ook dit model geëvalueerd op de WikiSQL dataset (\textcite{wikisql}). Via gesuperviseerd leren kan aangetoond worden dat het model van NL2Prog, beter presteert dat de eerst genoemde mechanismen. 
 
 \section{Primary Objects - AI Programmer}
 
@@ -129,7 +129,7 @@ Naast SQL behoren onder andere volgende programmeertalen ook tot de vierde gener
 
 Achter alle mechanismen om code te laten genereren, zit er artificiële intelligentie. Meer bepaald artificiële neurale netwerken. Maar wat zijn neurale netwerken? 
 
-Wanneer iemand denkt aan neurale netwerken, wordt er meer bepaald gedacht aan het menselijke brein. Het menselijk brein bestaat uit een groot aantal neuronen. Deze neuronen werken samen door middel van elektrochemische signalen. Bij artificiële neurale netwerken probeert men alle kenmerken van een menselijk neuron samen te voegen in een wiskundig model. 
+Wanneer iemand denkt aan neurale netwerken, wordt er meer bepaald gedacht aan het menselijke brein. Het menselijk brein bestaat uit een groot aantal neuronen. Deze neuronen werken samen door middel van elektrochemische signalen. Bij artificiële neurale netwerken probeert men alle kenmerken van een menselijk neuron samen te voegen in een wiskundig model. Herover valt te lezen in onze cursus Artificiële Intelligentie, door \textcite{cursusAI}.
 
 \break
 Hoe werken artificiële neurale netwerken nu eigenlijk? 
@@ -142,7 +142,7 @@ De data uit deze eerste laag neuronen, wordt doorgestuurd naar de tweede, verbor
 
 Een neuraal netwerk zou ook kunnen bestaan uit meerdere lagen neuronen. Voor de simpliciteit werd in dit voorbeeld maar één tussenlaag gebruikt.
 
-Maar hoe worden neurale netwerken nu getraind? Voor het trainen van een neuraal netwerk, kan men één van de volgende vijf optimalisatiealgoritmen toepassen.
+Maar hoe worden neurale netwerken nu getraind? Voor het trainen van een neuraal netwerk, kan men één van de volgende vijf optimalisatiealgoritmen toepassen, welke beschreven zijn door \textcite{neuraldesigners}.
 
 \begin{description}
 	\item[Gradient Descent] Gradient Descent is het makkelijkste algoritme voor het trainen van een neuraal netwerk. Het is een eerste orde iteratief optimalisatie algoritme voor het vinden van een minimum van een functie. Door eerst voorwaartse propagatie uit te voeren en daarna achterwaartse propagatie, kan men de gradiënt berekenen. Het is wel de bedoeling dat de gehele training dataset onderzocht wordt. Door het uitvoeren van het gradiënt descent algoritme, kan men al een idee krijgen in welke richting de gewichten zich zouden aanpassen.
