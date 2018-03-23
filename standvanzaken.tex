@@ -23,12 +23,12 @@ Verscheidene bedrijven en organisaties zoals Google en Microsoft experimenteren 
 \textbf{In de volgende secties worden er een aantal cases besproken.}
 \section{Microsoft DeepCoder}
 
-In samenwerking met de universiteit van Cambridge, ontwikkelde Microsoft een mechanisme voor het “zelf schrijven van code”. Hierbij werd gebruik gemaakt van artificiële intelligentie en program synthesis. Het mechanisme kreeg de naam DeepCoder.
+In samenwerking met de universiteit van Cambridge, ontwikkelde Microsoft een mechanisme voor het “zelf schrijven van code”. Hierbij werd gebruik gemaakt van artificiële intelligentie en program synthesis. Het mechanisme kreeg de naam DeepCoder. Dat schrijft \textcite{DeepCoder} in een artikel op LinkedIn.
 
 Met DeepCoder zouden mensen, ook al hebben ze geen enkele programmeerachtergrond, werkende code kunnen laten schrijven binnen een paar seconden. DeepCoder kan nu al gebruikt worden voor basis problemen op te lossen.
 
 \break
-DeepCoder maakt gebruik van Program Synthesis, waarbij DeepCoder eigenlijk lijnen code “steelt” van werkende software. Daarnaast wordt er bruikbare code gezocht op websites zoals StackOverflow om te gebruiken in de te schrijven code. Eigenlijk volgt Program Synthesis de manier van werken van een programmeur (code opzoeken op het internet), maar doet dat veel sneller. Dit wordt onder andere vermeld in het artikel van \textcite{techcrunch}.
+DeepCoder maakt gebruik van Program Synthesis, waarbij DeepCoder eigenlijk lijnen code “steelt” van werkende software. Daarnaast wordt er bruikbare code gezocht op websites zoals StackOverflow om te gebruiken in de te schrijven code. Eigenlijk volgt Program Synthesis de manier van werken van een programmeur (code opzoeken op het internet), maar doet dat veel sneller. Dit wordt onder andere vermeld in het artikel van \textcite{techcrunch} en het artikel van \textcite{NewScientist}.
 
 Programmeurs hoeven geen schrik te hebben voor hun job. DeepCoder zou in de toekomst kunnen gebruikt worden om het vuile, herhalende werk op te knappen. Programmeurs zouden de eerder moeilijke taken uitvoeren.
 
@@ -44,7 +44,7 @@ AutoML is nog gloednieuw. Het is ongeveer een jaar geleden voorgesteld. Het vorm
 
 \section{Salesforce - Seq2SQL}
 
-Het Seq2SQL van Salesforce is een eerder concreet voorbeeld voor code generatie door middel van artificiële intelligentie. Seq2SQL is een mechanisme dat, door middel van AI en reinforcement learning\footnote{Het is een mechanisme dat in staat is om uit eigen ervaringen te leren. Wanneer het mechanisme iets goed doet, wordt het hiervoor beloond. Het zal die stappen blijven uitvoeren waarvoor het de meeste beloningen heeft gekregen. Het doel is om het meeste beloningen te verkrijgen.}, gestructureerde SQL-query’s kan genereren. 
+Het Seq2SQL van Salesforce is een eerder concreet voorbeeld voor code generatie door middel van artificiële intelligentie. Seq2SQL is een mechanisme dat, door middel van AI en reinforcement learning\footnote{Het is een mechanisme dat in staat is om uit eigen ervaringen te leren. Wanneer het mechanisme iets goed doet, wordt het hiervoor beloond. Het zal die stappen blijven uitvoeren waarvoor het de meeste beloningen heeft gekregen. Het doel is om het meeste beloningen te verkrijgen.}, gestructureerde SQL-query’s kan genereren. Hier werd grondig onderzoek naar gedaan. Dit valt allemaal te lezen in de paper, opgesteld door \textcite{seq2sqlPaper}.
 
 Tegenwoordig wordt data bijna altijd opgeslagen in een relationale databank. Gegevens kunnen enkel via query’s, eigen aan de vooropgestelde SQL-syntax, opgehaald worden. Seq2SQL werkt anders.
 
@@ -55,7 +55,7 @@ Experimenten met Seq2SQL worden in deze paper uitgevoerd op de WikiSQL-dataset (
 
 \section{SQLNet}
 
-Naast Seq2SQL, bestaat er ook SQLNet. Dit mechanisme werkt op een ongeveer gelijkaardige manier als Seq2SQL, maar hier wordt geen reinforcement learning toegepast. De huidige manier van werken (het belonen van het model) is niet eerder beperkt. Daarom is het nodig dat er verandering komt. SQLNet komt hier dus met de oplossing.
+Naast Seq2SQL, bestaat er ook SQLNet. Dit mechanisme werkt op een ongeveer gelijkaardige manier als Seq2SQL, maar hier wordt geen reinforcement learning toegepast. De huidige manier van werken (het belonen van het model) is niet eerder beperkt. Daarom is het nodig dat er verandering komt. SQLNet komt hier dus met de oplossing. Dit valt allemaal te lezen in de paper, opgesteld door \textcite{sqlnetPaper}.
 
 SQLNet werkt volgens een schetsmatige benadering waarbij een schets een afhankelijkheidsgrafiek bevat. Op die manier kan een voorspelling gedaan worden wanneer eerdere, afhankelijke voorspellingen in overweging te nemen. 
 
@@ -63,7 +63,7 @@ Net als bij Seq2SQL wordt voor dit model gebruik gemaakt van de WikiSQL-dataset 
 
 \section{Algoritmes voor het transformeren van tekst naar SQL-query's (NLIDBS)}
 
-Zoals vermeld bij Seq2SQL, worden grote hoeveelheden data opgeslagen in relationele databanken. Een groot nadeel hierbij is dat de meeste mensen de kennis niet hebben inzake SQL om te communiceren met de databank. Een oplossing hiervoor zou zijn dat mensen in hun eigen taal zouden kunnen communiceren met de databank.
+Zoals vermeld bij Seq2SQL, worden grote hoeveelheden data opgeslagen in relationele databanken. Een groot nadeel hierbij is dat de meeste mensen de kennis niet hebben inzake SQL om te communiceren met de databank. Een oplossing hiervoor zou zijn dat mensen in hun eigen taal zouden kunnen communiceren met de databank. Deze oplossing staat beschreven in het artikel van \textcite{nlidbs}.
 
 Onderzoekers hebben een intelligente interface ontwikkeld die natuurlijke taalquery’s (zoals “Geef een lijst van de laatste 5 presidenten van Amerika.”) omzet naar SQL-query’s. Er wordt hier gebruik gemaakt van semantische matchingtechnieken. Hierbij wordt er rekening gehouden met de betekenis van de woorden in de opgegeven zoekstring. 
 
@@ -81,9 +81,11 @@ Enkele van de stappen, welke gebruikt worden om vanuit natuurlijke taal SQL-quer
 \item \dots
 \end{itemize}
 
+Er kan een gelijkaardig algoritme teruggevonden worden op de Github-repository van \textcite{nlidb}.
+
 \section{Microsoft Research - NL2Prog}
 
-Eigenlijk is het doel van het onderzoek, beschreven in de paper NL2Prog, gelijkaardig aan het onderzoek uitgevoerd in Seq2SQL en in NLIDBS. De meeste mensen zijn niet in staat om via query's te communiceren met de databank wegens geen (of alleszins te weinig) programmeerkennis. De mens wil instaat zijn op een normale manier te kunnen communiceren met de databank, dus eigenlijk via hun eigen taal. 
+Eigenlijk is het doel van het onderzoek, beschreven in de paper NL2Prog, gelijkaardig aan het onderzoek uitgevoerd in Seq2SQL en in NLIDBS. De meeste mensen zijn niet in staat om via query's te communiceren met de databank wegens geen (of alleszins te weinig) programmeerkennis. De mens wil instaat zijn op een normale manier te kunnen communiceren met de databank, dus eigenlijk via hun eigen taal. Hiervoor probeert men een oplossing te geven in de paper van \textcite{nl2prog}.
 
 Voor dit model wordt gebruik gemaakt van een deep sequence-to-sequence model. Hierbij wordt als decoder een eenvoudig type systeem van SQL-expressies gebruikt, welke gebruikt worden om de uitvoervoorspelling te structureren. Door middel van het type kopieert de decoder een mogelijke output van de inputstring. Dit met behulp van een op aandacht-gebaseerd kopieermechanisme, ofwel genereerd het een query vanuit een vast vocabulair.
 
@@ -110,7 +112,7 @@ De computer alle soorten programma’s laten creëren is het achterliggend idee 
 
 Zoals vermeld bij de opgegeven cases, worden in de meeste gevallen SQL-query’s gegenereerd. Maar wat voor soort programmeertaal is SQL eigenlijk? Wel, SQL behoort tot de groep van de vierde generatie programmeertalen. 
 
-Maar wat is er zo speciaal aan deze generatie programmeertalen? Tot de 4GL behoren de talen die het dichtst aanleunen tegen de natuurlijke taal. Ze hebben het voordeel van onder andere sneller te kunnen verlopen en de kosten voor de ontwikkeling te verminderen.
+Maar wat is er zo speciaal aan deze generatie programmeertalen? Volgens \textcite{fourthgenpl} behoren de 4GL tot de talen die het dichtst aanleunen tegen de natuurlijke taal. Ze hebben het voordeel van onder andere sneller te kunnen verlopen en de kosten voor de ontwikkeling te verminderen.
 
 Vierde generatie programmeertalen zijn de enige talen die vaak in contact komen met grote hoeveelheden aan data. Onder de vierde generatie programmeertalen kan je daarom volgende domeinen terugvinden:
 
@@ -129,14 +131,14 @@ Naast SQL behoren onder andere volgende programmeertalen ook tot de vierde gener
 
 Achter alle mechanismen om code te laten genereren, zit er artificiële intelligentie. Meer bepaald artificiële neurale netwerken. Maar wat zijn neurale netwerken? 
 
-Wanneer iemand denkt aan neurale netwerken, wordt er meer bepaald gedacht aan het menselijke brein. Het menselijk brein bestaat uit een groot aantal neuronen. Deze neuronen werken samen door middel van elektrochemische signalen. Bij artificiële neurale netwerken probeert men alle kenmerken van een menselijk neuron samen te voegen in een wiskundig model. Herover valt te lezen in onze cursus Artificiële Intelligentie, door \textcite{cursusAI}.
+Wanneer iemand denkt aan neurale netwerken, wordt er meer bepaald gedacht aan het menselijke brein. Het menselijk brein bestaat uit een groot aantal neuronen. Deze neuronen werken samen door middel van elektrochemische signalen. Bij artificiële neurale netwerken probeert men alle kenmerken van een menselijk neuron samen te voegen in een wiskundig model. Over artificiële neurale netwerken valt er nog meer te lezen in de Hogeschool Cursus AI door \textcite{cursusAI} en in het artikel van \textcite{techpulse}.
 
 \break
 Hoe werken artificiële neurale netwerken nu eigenlijk? 
 
 Neurale netwerken worden getraind om te kunnen werken. Denk bijvoorbeeld aan het herkennen van nummers uit een lijst. Of zoals Facebook, die gezichten op foto’s herkend en vraagt om eventueel deze herkende mensen te taggen in de bewuste foto’s. 
 
-Het voorbeeld dat wordt omschreven in het artikel op de website van tweakers gaat over het herkennen van handgeschreven getallen uit een foto. Deze foto of afbeelding (meestal 28 bij 28 pixels) wordt gebruikt als input voor het neurale netwerk. In de datasets die gebruikt worden voor het netwerk te trainen, zitten er ook afbeeldingen van 28 bij 28 pixels met handgeschreven cijfers op. De mens herkent makkelijk de cijfers in de afbeeldingen, door te kijken naar de grijswaarden in de pixels. Het neurale netwerk moet wel gaan rekenen, daarom worden aan alle ingaven (28 x 28 = 784) een waarde tussen 0 en 1 gegeven. Een neuraal netwerk is NIET binair, maar wel analoog. 
+Het voorbeeld dat wordt omschreven in het artikel op de website van tweakers (\textcite{tweakers}) gaat over het herkennen van handgeschreven getallen uit een foto. Deze foto of afbeelding (meestal 28 bij 28 pixels) wordt gebruikt als input voor het neurale netwerk. In de datasets die gebruikt worden voor het netwerk te trainen, zitten er ook afbeeldingen van 28 bij 28 pixels met handgeschreven cijfers op. De mens herkent makkelijk de cijfers in de afbeeldingen, door te kijken naar de grijswaarden in de pixels. Het neurale netwerk moet wel gaan rekenen, daarom worden aan alle ingaven (28 x 28 = 784) een waarde tussen 0 en 1 gegeven. Een neuraal netwerk is NIET binair, maar wel analoog. 
 
 De data uit deze eerste laag neuronen, wordt doorgestuurd naar de tweede, verborgen, laag. Dit is een veel kleinere laag neuronen. In deze laag wordt er een bepaald gewicht gegeven aan de data van de input grijswaarden. De data uit de tweede laag krijgt dus ook weer een waarde tussen 0 en 1. Deze waarden worden dan doorgegeven aan de uitvoer neuronen. Het neuron dat het dichtste aanleunt tegen 1, geeft het cijfer aan dat het net “gezien” zou hebben. 
 
