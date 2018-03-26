@@ -27,7 +27,6 @@ In samenwerking met de universiteit van Cambridge, ontwikkelde Microsoft een mec
 
 Met DeepCoder zouden mensen, ook al hebben ze geen enkele programmeerachtergrond, werkende code kunnen laten schrijven binnen een paar seconden. DeepCoder kan nu al gebruikt worden voor basis problemen op te lossen.
 
-\break
 DeepCoder maakt gebruik van Program Synthesis, waarbij DeepCoder eigenlijk lijnen code “steelt” van werkende software. Daarnaast wordt er bruikbare code gezocht op websites zoals StackOverflow om te gebruiken in de te schrijven code. Eigenlijk volgt Program Synthesis de manier van werken van een programmeur (code opzoeken op het internet), maar doet dat veel sneller. Dit wordt onder andere vermeld in het artikel van \textcite{techcrunch} en het artikel van \textcite{NewScientist}.
 
 Programmeurs hoeven geen schrik te hebben voor hun job. DeepCoder zou in de toekomst kunnen gebruikt worden om het vuile, herhalende werk op te knappen. Programmeurs zouden de eerder moeilijke taken uitvoeren.
@@ -48,10 +47,24 @@ Het Seq2SQL van Salesforce is een eerder concreet voorbeeld voor code generatie 
 
 Tegenwoordig wordt data bijna altijd opgeslagen in een relationale databank. Gegevens kunnen enkel via query’s, eigen aan de vooropgestelde SQL-syntax, opgehaald worden. Seq2SQL werkt anders.
 
-\break
 Via dit model kunnen er vanuit natuurlijke taal, SQL-query’s gegenereerd worden. Hiervoor wordt gebruik gemaakt van neurale netwerken. Deze neurale netwerken worden zo geprogrammeerd dat deze gelijkaardig werken als het menselijke brein. 
 
-Experimenten met Seq2SQL worden in deze paper uitgevoerd op de WikiSQL-dataset (\textcite{wikisql}). Deze dataset is een verzameling van de meest gebruikte SQL-query’s die gebruikt werden tijdens de zoekopdrachten op Wikipedia. WikiSQL wordt gebruikt om het model van Seq2SQL te trainen. De source code kan gevonden worden op de Github-repository van \textcite{seq2sql}.
+Het Seq2SQL-model maakt volgens de paper (\textcite{seq2sqlPaper}) gebruik van het Seq2Seq-model. Volgens de basistheorie, beschreven door \textcite{drnn}, bestaat zo’n model uit 2 belangrijke onderdelen, een encoder en een decoder. Beiden zijn recurrente lagen van het neurale netwerk\footnote{De mogelijkheid om verder te bouwen op eerdere typen netwerken met ingangsvectoren van een vaste grootte en uitgangsvectoren – Definitie door \textcite{rnn}.}. Er wordt, door de encoder, een invoerreeks verwerkt tot een vaste representatie. De uitkomst van de encoder dient als context voor de decoder. Deze verwerkte informatie wordt hier dan gedecodeerd tot een bepaalde uitvoerreeks. In figuur … wordt er een visueel beeld gegeven van dit model. Dit voorbeeld wordt ook door \textcite{drnn} gegeven.
+
+Een SQL-query bestaat meestal uit drie onderdelen. Als eerste component heeft u de aggregatie-operator (zoals COUNT en SUM). Dit geeft een samenvatting weer van de rijen die door de SQL-query worden aangeroepen. Ook kan het mogelijk zijn dat er geen operator meegegeven wordt. Het tweede component is de kolom waarop de query dient uitgevoerd te worden. Het derde en laatste component is de WHERE-clause. Dit geeft aan op welke rij(en) er dient gefilterd te worden. Seq2SQL zorgt ervoor dat een vraag direct in zo’n vorm kan gegoten worden (zie figuur …).
+
+Het augmented pointer network is een zeer belangrijk netwerk voor Seq2SQL. Dit netwerk genereert woord voor woord de SQL-query van een invoerreeks. De uitkomst van dit netwerk mag dan wel een SQL-query zijn, maar dit is niet volledig volgens de reeds beschreven vorm. Daarvoor dient dan Seq2SQL. Eerst wordt door het netwerk de aggregatie-operator gezocht in de invoerreeks. Deze waarde kan eveneens null zijn, wanneer er geen aggregatie voorgeschreven is. Voor het volgende onderdeel zoekt het netwerk naar de kolom waarop het de query dient uit te voeren. Als laatste wordt via een pointer network gezocht naar de condities waarop eventueel gefilterd kan worden. De twee eerste componenten worden gesuperviseerd door middel van cross entropy\footnote{cross entropy is het aantal bits dat nodig is om symbolen uit de verzameling p te encoderen, gebruik makend van de foutieve verzameling q – Definitie door \textcite{rdp}.} loss. Het derde component wordt getraind door middel van policy reïnforcement learning. Hiermee wordt de ongeordende aard van de query aangepakt.
+
+Seq2SQL wordt in deze paper van \textcite{seq2sqlPaper} niet enkel theoretisch aangehaald. Er wordt ook een experiment beschreven waarbij het algoritme wordt uitgetest inzake performantie.  Voor deze experimenten werd gebruik gemaakt van de WikiSQL-dataset (\textcite{wikisql}). Deze dataset is een verzameling van de meest gebruikte SQL-query’s die gebruikt werden tijdens de zoekopdrachten op Wikipedia. WikiSQL wordt gebruikt om het model van Seq2SQL te trainen. De broncode kan gevonden worden op de Github-repository van \textcite{seq2sql}.
+
+Uit de resultaten van de uitgevoerde experimenten blijkt dat de performantie het grootst is bij het uitvoeren van het volledige Seq2SQL algoritme. Dit dus met het toepassen van reïnforcement learning. Seq2SQL zonder het gebruik van reïnforcement learning levert een performantie op die zo’n 2,7\% lager is dan het volledige model. De volledige resultaten worden voorgesteld in tabel …. 
+
+Enkele conclusies die hierbij getrokken kunnen worden:
+\begin{itemize}
+	\item Het beperken van de uitvoerruimte leidt tot meer nauwkeurige omstandigheden.
+	\item Het toepassen van de juiste SQL-structuur zorgt voor minder ongeldige queries.
+	\item Reïnforcement learning zorgt ervoor dat de WHERE-clauses van een goede kwaliteit zijn.
+\end{itemize}
 
 \section{SQLNet}
 
@@ -69,7 +82,6 @@ Onderzoekers hebben een intelligente interface ontwikkeld die natuurlijke taalqu
 
 Er worden een aantal stappen uitgevoerd om tot de juiste query uit te komen. Door deze query dan uit te voeren op de databank, komt het juiste antwoord naar boven. 
 
-\break
 Enkele van de stappen, welke gebruikt worden om vanuit natuurlijke taal SQL-query’s te genereren:
 
 \begin{itemize}
@@ -85,7 +97,7 @@ Er kan een gelijkaardig algoritme teruggevonden worden op de Github-repository v
 
 \section{Microsoft Research - NL2Prog}
 
-Eigenlijk is het doel van het onderzoek, beschreven in de paper NL2Prog, gelijkaardig aan het onderzoek uitgevoerd in Seq2SQL en in NLIDBS. De meeste mensen zijn niet in staat om via query's te communiceren met de databank wegens geen (of alleszins te weinig) programmeerkennis. De mens wil instaat zijn op een normale manier te kunnen communiceren met de databank, dus eigenlijk via hun eigen taal. Hiervoor probeert men een oplossing te geven in de paper van \textcite{nl2prog}.
+Eigenlijk is het doel van het onderzoek, beschreven in de paper NL2Prog, gelijkaardig aan het onderzoek uitgevoerd in Seq2SQL en in NLIDBS. De meeste mensen zijn niet in staat om via query's te communiceren met de databank wegens geen (of alleszins te weinig) programmeerkennis. De mens wil instaat zijn op een normale manier te kunnen communiceren met de databank, dus eigenlijk via hun eigen taal. Hiervoor probeert men een oplossing te geven in de paper van \textcite{nl2prog}.		
 
 Voor dit model wordt gebruik gemaakt van een deep sequence-to-sequence model. Hierbij wordt als decoder een eenvoudig type systeem van SQL-expressies gebruikt, welke gebruikt worden om de uitvoervoorspelling te structureren. Door middel van het type kopieert de decoder een mogelijke output van de inputstring. Dit met behulp van een op aandacht-gebaseerd kopieermechanisme, ofwel genereerd het een query vanuit een vast vocabulair.
 
@@ -133,7 +145,6 @@ Achter alle mechanismen om code te laten genereren, zit er artificiële intellig
 
 Wanneer iemand denkt aan neurale netwerken, wordt er meer bepaald gedacht aan het menselijke brein. Het menselijk brein bestaat uit een groot aantal neuronen. Deze neuronen werken samen door middel van elektrochemische signalen. Bij artificiële neurale netwerken probeert men alle kenmerken van een menselijk neuron samen te voegen in een wiskundig model. Over artificiële neurale netwerken valt er nog meer te lezen in de Hogeschool Cursus AI door \textcite{cursusAI} en in het artikel van \textcite{techpulse}.
 
-\break
 Hoe werken artificiële neurale netwerken nu eigenlijk? 
 
 Neurale netwerken worden getraind om te kunnen werken. Denk bijvoorbeeld aan het herkennen van nummers uit een lijst. Of zoals Facebook, die gezichten op foto’s herkend en vraagt om eventueel deze herkende mensen te taggen in de bewuste foto’s. 
@@ -150,8 +161,6 @@ Maar hoe worden neurale netwerken nu getraind? Voor het trainen van een neuraal 
 	\item[Gradient Descent] Gradient Descent is het makkelijkste algoritme voor het trainen van een neuraal netwerk. Het is een eerste orde iteratief optimalisatie algoritme voor het vinden van een minimum van een functie. Door eerst voorwaartse propagatie uit te voeren en daarna achterwaartse propagatie, kan men de gradiënt berekenen. Het is wel de bedoeling dat de gehele training dataset onderzocht wordt. Door het uitvoeren van het gradiënt descent algoritme, kan men al een idee krijgen in welke richting de gewichten zich zouden aanpassen.
 	\item[Methode van Newton] Gradiënt Descent is dan wel een eerste orde algoritme, de methode van Newton is een tweede orde algoritme. Het maakt gebruik van de Hessiaan\footnote{Dit is een matrix van de tweede orde partiële afgeleiden van een functie.} van de te minimaliseren functie. Deze functie wordt gebruikt om een betere trainingsrichting te vinden door de tweede orde afgeleiden van de verliesfunctie te gebruiken.
 	\item[Conjugate gradient] De conjugate gradiënt is een vorm tussen de gradiënt descent en de methode van Newton. Via deze methode is het mogelijk om de normaal gezien langzame convergentie te versnellen (dit is zo bij gradiënt descent). Daarnaast wordt het werken met de Hessiaan matrix en alle andere benodigdheden van de methode van Newton ook vermeden.
-	
-	\break
 	\item[Quasi-Newton-methode] De methode van Newton is duur in uitvoer. Er zijn veel bewerkingen nodig om voor die methode alles te berekenen. De quasi-Newton methode is een beter alternatief. Het is ontwikkeld om een antwoord te bieden alle nadelen van de methode van Newton. Bij deze methode wordt er per iteratie van het algoritme, een benadering gegeven op de inverse Hessiaan. Hiervoor worden enkel de eerste afgeleiden van de verliesfunctie gebruikt.
 	\item[Het algoritme van Levenberg-Marquardt] Dit algoritme is speciaal ontworpen om te werken met verliesfuncties die de vorm aannemen van een som kwadratische fouten. In plaats van de Hessiaan-matrix te gebruiken, wordt er gebruik gemaakt van de Jacobi-matrix\footnote{De Jacobi-matrix van een functie is de matrix van de eerste-orde partiële afgeleiden van een functie.}.
 \end{description}
