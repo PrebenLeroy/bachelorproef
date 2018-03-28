@@ -42,6 +42,7 @@ Het systeem voert duizenden simulaties uit om te bepalen welke delen van de code
 AutoML is nog gloednieuw. Het is ongeveer een jaar geleden voorgesteld. Het vormt de basis voor de volgende generaties in machine-learning.
 
 \section{Salesforce - Seq2SQL}
+\label{sec:Salesforce - Seq2SQL}
 
 Het Seq2SQL van Salesforce is een eerder concreet voorbeeld voor code generatie door middel van artificiële intelligentie. Seq2SQL is een mechanisme dat, door middel van AI en reinforcement learning\footnote{Het is een mechanisme dat in staat is om uit eigen ervaringen te leren. Wanneer het mechanisme iets goed doet, wordt het hiervoor beloond. Het zal die stappen blijven uitvoeren waarvoor het de meeste beloningen heeft gekregen. Het doel is om het meeste beloningen te verkrijgen.}, gestructureerde SQL-query’s kan genereren. Hier werd grondig onderzoek naar gedaan. Dit valt allemaal te lezen in de paper, opgesteld door \textcite{seq2sqlPaper}.
 
@@ -68,13 +69,17 @@ Enkele conclusies die hierbij getrokken kunnen worden:
 
 \section{SQLNet}
 
-Naast Seq2SQL, bestaat er ook SQLNet. Dit mechanisme werkt op een ongeveer gelijkaardige manier als Seq2SQL, maar hier wordt geen reinforcement learning toegepast. De huidige manier van werken (het belonen van het model) is niet eerder beperkt. Daarom is het nodig dat er verandering komt. SQLNet komt hier dus met de oplossing. Dit valt allemaal te lezen in de paper, opgesteld door \textcite{sqlnetPaper}.
+Naast Seq2SQL, bestaat er ook SQLNet. Dit mechanisme werkt op een ongeveer gelijkaardige manier als Seq2SQL, maar hier wordt geen reinforcement learning toegepast. De huidige manier van werken (het belonen van het model) is niet eerder beperkt. Daarom is het nodig dat er verandering komt. SQLNet komt hier dus met de oplossing.
 
 SQLNet werkt volgens een schetsmatige benadering waarbij een schets een afhankelijkheidsgrafiek bevat. Op die manier kan een voorspelling gedaan worden wanneer eerdere, afhankelijke voorspellingen in overweging te nemen. 
 
-Net als bij Seq2SQL wordt voor dit model gebruik gemaakt van de WikiSQL-dataset (\textcite{wikisql}) voor het uitvoeren van de experimenten en het trainen van het model. Zo kan er bewezen worden dat door het uitvoeren van het SQLNet-mechanisme, 9 tot 13 procent beter werkt dan een ander mechanisme. De volledige source code kan gevonden worden op de Github-repository van \textcite{sqlnet}.
+Maar hoe werkt dat nu precies? SQLNet wordt in de paper van \textcite{sqlnetPaper} grondig voorgesteld. Het basisidee van SQLNet is het gebruik van een schetsmatige voorstelling die overeenkomt met de SQL-grammatica. Het mechanisme dient enkel de plaatsen in de schets op te vullen. De schets is zo opgebouwd, dat het mogelijk is om alle soorten query’s te kunnen genereren.
 
-\section{Algoritmes voor het transformeren van tekst naar SQL-query's (NLIDBS)}
+Het gebruikmaken van zo’n schets heeft als voordeel dat de orderaangelegenheden die kunnen voorkomen in een sequence-to-sequence-model (zie  sectie \ref{sec:Salesforce - Seq2SQL} ) te voorkomen. Dit komt omdat de schets de afhankelijkheid van de voorspellingen vastlegt. 
+
+Net als bij Seq2SQL wordt voor dit model gebruik gemaakt van de WikiSQL-dataset voor het uitvoeren van de experimenten en het trainen van het model. Zo kan er bewezen worden dat door het uitvoeren van het SQLNet-mechanisme, 9 tot 13 procent beter werkt dan een ander mechanisme. De volledige source code kan gevonden worden op de Github-repository van \textcite{sqlnet}.
+
+\section{Algoritme voor transformatie van tekst naar SQL-query's (NLIDBS)}
 
 Zoals vermeld bij Seq2SQL, worden grote hoeveelheden data opgeslagen in relationele databanken. Een groot nadeel hierbij is dat de meeste mensen de kennis niet hebben inzake SQL om te communiceren met de databank. Een oplossing hiervoor zou zijn dat mensen in hun eigen taal zouden kunnen communiceren met de databank. Deze oplossing staat beschreven in het artikel van \textcite{nlidbs}.
 
