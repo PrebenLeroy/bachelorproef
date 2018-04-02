@@ -75,7 +75,29 @@ SQLNet werkt volgens een schetsmatige benadering waarbij een schets een afhankel
 
 Maar hoe werkt dat nu precies? SQLNet wordt in de paper van \textcite{sqlnetPaper} grondig voorgesteld. Het basisidee van SQLNet is het gebruik van een schetsmatige voorstelling die overeenkomt met de SQL-grammatica. Het mechanisme dient enkel de plaatsen in de schets op te vullen. De schets is zo opgebouwd, dat het mogelijk is om alle soorten query’s te kunnen genereren.
 
-Het gebruikmaken van zo’n schets heeft als voordeel dat de orderaangelegenheden die kunnen voorkomen in een sequence-to-sequence-model (zie  sectie \ref{sec:Salesforce - Seq2SQL} ) te voorkomen. Dit komt omdat de schets de afhankelijkheid van de voorspellingen vastlegt. 
+Het gebruikmaken van zo’n schets heeft als voordeel dat de orderaangelegenheden die kunnen voorkomen in een sequence-to-sequence-model (zie  sectie \ref{sec:Salesforce - Seq2SQL} ) te voorkomen. Dit komt omdat de schets de afhankelijkheid van de voorspellingen vastlegt. Om te kunnen voldoen aan deze schets, wordt er gebruik gemaakt van twee technieken: sequence-to-set en column attention. Alle mogelijke technieken worden gebruikt zodat er een SQLNet neuraal netwerk wordt gecreëerd waarbij het mogelijk is om een SQL-query te genereren vanuit een natuurlijke taalvraag en een tabelschema.
+
+De eerste stap voor het uitvoeren van het SQLNet-algoritme, is het opstellen van de schets. Dit gebeurd door middel van de zogenaamde “sketch-based query synthese”. De SQL sleutelwoorden worden al gegeven. Dit zijn SELECT, WHERE en AND. In de paper wordt volgende figuur getoond (figuur …). Hierin kan er gezien worden dat deze woorden reeds ingevuld zijn. De operatoren die starten met “\$” dienen gevonden te worden. Enkel en alleen de AND-clausule dient niet ingevuld te worden. Om dit duidelijk te maken, wordt er gebruik gemaakt van een reguliere expressie (“()*”). In figuur … kan de zogenaamde afhankelijkheidsgrafiek teruggevonden worden. De nog te vinden operatoren worden hier voorgesteld in kaders. Elke afhankelijkheid wordt voorgesteld door middel van een gerichte pijlen. Deze pijlen geven de afhankelijkheden weer ten opzichte van zowel de kolom als de gestelde vraag. Het model kan gezien worden als een grafisch model op basis van de afhankelijkheidsgrafiek. Ook het probleem van de vraagsynthese kan gezien worden als een gevolgtrekkingsprobleem in deze grafiek. Als besluit voor dit onderdeel, kan men zeggen dat de voorspelling van een beperking onafhankelijk is van een andere voorspelling. Deze benadering brengt dus een oplossing voor het “order-zaken”-probleem bij een sequence-to-sequence model.
+
+Er werd al gesproken over de sequence-to-set voorspelling en de column attention, maar wat is dit nu? In de paper van \textcite{sqlnetPaper} wordt het voorspellen van de WHERE-kolom gebruikt als voorbeeld om dit uit te leggen. De kolommen in de WHERE-component zijn een subset van een reeks kolomnamen. Sequence-to-set voorspellingen is het voorspellen van de belanghebbende kolomnamen die in deze subset moeten weergegeven worden. Column attention is een speciale vorm van het generieke aandachtsmechanisme om te berekenen op welke kolommen de aandacht moet gevestigd worden. 
+
+Het SQLNet model bestaat uit het voorspellen van het SELECT-statement en het voorspellen van het WHERE-statement. Beiden worden gescheiden van elkaar voorspelt:
+
+\begin{description}
+	\item[WHERE] Het voorspellen van de WHERE-clausule is het moeilijkste van het hele proces. Het maakt gebruik van het sequence-to-set-mechanisme om eerst en vooral de set van kolommen welke nodig zijn voor de WHERE-clausule te voorspellen. Voor elke kolom wordt dan een constraint gegenereert door het voorspellen van de OP- en VALUE-slots 
+	\footnote{
+		\begin{description}
+			\item[OP-slot] De waarde in het OP-slot moet berekend of voorspelt worden voor elke kolom in de WHERE-clausule. Voor het voorspellen van deze waarde heeft het model 3 keuzes, namelijk:
+			\begin{itemize}
+				\item =
+				\item >
+				\item <
+			\end{itemize}
+			\item[VALUE-slot] Hiervoor moet er een substring van de taalvraag voorspelt worden. Aangezien de volgorde van de tokens  in de substring van belang is, maakt het systeem gebruik van het sequence-to-sequence model (zie sectie \ref{sec:Salesforce - Seq2SQL}) om de substring te voorspellen. Het genereren van het VALUE-slot stopt wanneer het (END)-token is voorspelt. Dat token komt voor in elke vraag.
+		\end{description}
+	}.
+	\item[SELECT] Een SELECT-statement bestaat meestal uit een aggregatieparameter en een kolomnaam. Deze kolomnaam voorspellen is gelijkaardig aan het voorspellen van de kolommen die gebruikt worden bij een WHERE-statement. Het grootste verschil tussen beiden is dat voor een SELECT-statement maar één kolom moet voorspelt worden.
+\end{description}
 
 Net als bij Seq2SQL wordt voor dit model gebruik gemaakt van de WikiSQL-dataset voor het uitvoeren van de experimenten en het trainen van het model. Zo kan er bewezen worden dat door het uitvoeren van het SQLNet-mechanisme, 9 tot 13 procent beter werkt dan een ander mechanisme. De volledige source code kan gevonden worden op de Github-repository van \textcite{sqlnet}.
 
@@ -85,28 +107,42 @@ Zoals vermeld bij Seq2SQL, worden grote hoeveelheden data opgeslagen in relation
 
 Onderzoekers hebben een intelligente interface ontwikkeld die natuurlijke taalquery’s (zoals “Geef een lijst van de laatste 5 presidenten van Amerika.”) omzet naar SQL-query’s. Er wordt hier gebruik gemaakt van semantische matchingtechnieken. Hierbij wordt er rekening gehouden met de betekenis van de woorden in de opgegeven zoekstring. 
 
-Er worden een aantal stappen uitgevoerd om tot de juiste query uit te komen. Door deze query dan uit te voeren op de databank, komt het juiste antwoord naar boven. 
+Er worden negen stappen uitgevoerd om tot de juiste query te komen. Door deze query dan uit te voeren op de databank, komt het juiste antwoord naar boven. Hieronder worden de stappen voorgesteld die beschreven staan in het artikel van \textcite{nlidbs}:
 
-Enkele van de stappen, welke gebruikt worden om vanuit natuurlijke taal SQL-query’s te genereren:
+\begin{description}
+	\item[Grafische User Interface] Via de GUI biedt de gebruiker de mogelijkheid aan om een query in te geven. Deze query wordt als een natuurlijke taalvraag ingegeven. Deze vraag wordt verder gebruikt tijdens het gehele algoritme.
+	\item[Omzetten hoofd- naar kleine letters] Elk woord in de vraag wordt bekeken om eventueel de hoofdletters om te zetten naar kleine letters.
+	\item[Zin opdelen in aparte woorden] De volledige vraag wordt opgedeeld in aparte woorden. Elk woord krijgt hier nu een eigen order-nummer.
+	\item[Verwijderen van extra/stopwoorden] Alle woorden die niet nodig zijn worden uit de vraag weggelaten. Enkel de woorden die database-gerelateerd zijn worden geselecteerd. Alle geïdentificeerde SQL-elementen worden in arrays opgeslagen.
+	\item[Classificatie van (voor)naam-/werkwoorden] De overgebleven woorden worden geclassificeerd. Voornaamwoorden krijgen een tag “voornaamwoord”, zelfstandige naamwoorden krijgen de tag “zelfstandige naamwoorden” en werkwoorden de tag “werkwoorden”. Zo worden de overgebleven woorden opgedeeld in klassen.
+	\item[Classificatie van relaties, attributen en clausules] Op basis van de gelabelde elementen worden relaties, attributen en clausules geclassificeerd. Daarnaast worden integers en strings van elkaar gescheiden voor het vormen van de clausules.
+	\item[Verwijderen van dubbelzinnigheid] De dubbelzinnigheden die meerdere keren bestaan worden uit de vraag verwijderd. Daarna wordt het meest geschikte attribuut geëxtraheerd en wordt het samen let de relatie in kaart gebracht.
+	\item[Genereren van een query] Na allerhande operaties wordt de gevraagde query gegenereerd.
+	\item[Resultaat] De gegenereerde query wordt uitgevoerd op de testdataset. De interface toont dan de verkregen resultaten aan de gebruiker.
+\end{description}
 
-\begin{itemize}
-\item Hoofdletters naar kleine letters omzetten
-\item Tokenisatie
-\item Het verwijderen van extra/stop woorden
-\item Classificatie van de overgebleven woorden
-\item Het bouwen van de query
-\item \dots
-\end{itemize}
+Het volledige proces wordt voorgesteld in figuur ..., verkregen uit het artikel van \textcite{nlidbs}.
 
-Er kan een gelijkaardig algoritme teruggevonden worden op de Github-repository van \textcite{nlidb}.
+Dit systeem werd geïmplementeerd in PHP, HTML, CSS en Javascript (als frontend), met een MySQL-databank als backend systeem.
+
+Van het in het artikel beschreven algoritme is er helaas geen open source code teruggevonden. Wel bestaan er gelijkaardige Github-repositories waarbij er een mechanisme gebouwd wordt die dient als gebruikersinterface van een databank. Bij deze soort interfaces dient men een natuurlijke vraag in te geven. Een voorbeeld van zo'n Github-repository is de repository van \textcite{nlidb}.
 
 \section{Microsoft Research - NL2Prog}
 
-Eigenlijk is het doel van het onderzoek, beschreven in de paper NL2Prog, gelijkaardig aan het onderzoek uitgevoerd in Seq2SQL en in NLIDBS. De meeste mensen zijn niet in staat om via query's te communiceren met de databank wegens geen (of alleszins te weinig) programmeerkennis. De mens wil instaat zijn op een normale manier te kunnen communiceren met de databank, dus eigenlijk via hun eigen taal. Hiervoor probeert men een oplossing te geven in de paper van \textcite{nl2prog}.		
+Eigenlijk is het doel van het onderzoek, beschreven in de paper NL2Prog, gelijkaardig aan het onderzoek uitgevoerd in Seq2SQL en in NLIDBS. De meeste mensen zijn niet in staat om via query's te communiceren met de databank wegens geen (of alleszins te weinig) programmeerkennis. De mens wil instaat zijn op een normale manier te kunnen communiceren met de databank, dus eigenlijk via hun eigen taal. Hiervoor probeert men een oplossing te bieden in de paper van \textcite{nl2prog}.		
 
 Voor dit model wordt gebruik gemaakt van een deep sequence-to-sequence model. Hierbij wordt als decoder een eenvoudig type systeem van SQL-expressies gebruikt, welke gebruikt worden om de uitvoervoorspelling te structureren. Door middel van het type kopieert de decoder een mogelijke output van de inputstring. Dit met behulp van een op aandacht-gebaseerd kopieermechanisme, ofwel genereerd het een query vanuit een vast vocabulair.
 
-Zoals bij Seq2SQL en SQLNet wordt ook dit model geëvalueerd op de WikiSQL dataset (\textcite{wikisql}). Via gesuperviseerd leren kan aangetoond worden dat het model van NL2Prog, beter presteert dat de eerst genoemde mechanismen. 
+Meer in detail: NL2Prog genereert SQL-query’s met behulp van een RNN-gebaseerd encoder-decoder model. Er wordt uitgegaan van het bekende ontwerp van een SQL-query. Dit om statisch het type van uitvoer van de decodeerstap te bepalen tijdens de generatie van een query. Zo weet men dat het derde woord in een query, na de aggregatieoperator, altijd een kolomnaam is. 
+
+Tijdens het decoderen wordt statisch het type woord bepaald dat dient gegenereerd te worden. Dit gebeurt aan de hand van zijn decodering time stamp. Dan wordt er gebruik gemaakt van een gespecialiseerde decoder om de uitvoer te genereren. Wanneer er een kolomnaam of een constante dient gegenereerd te worden, wordt er gebruik gemaakt van een kopieermechanisme. Anders wordt de achterliggende status geprojecteerd naar een ingebouwd vocabulair om een ingebouwde SQL-operator te verkrijgen. Dit betekent op zijn beurt dat men enkel een kleine hoeveelheid vocabulair van de ingebouwde decoder dient te onderhouden voor elke operator.
+
+\begin{description}
+	\item[ENCODER] beschrijving
+	\item[TYPED DECODER] beschrijving
+\end{description}
+
+Zoals bij Seq2SQL en SQLNet wordt ook dit model geëvalueerd op de WikiSQL dataset (\textcite{wikisql}). Via gesuperviseerd leren kan aangetoond worden dat het model van NL2Prog, beter presteert dat de eerst genoemde mechanismen. Dit wordt aangetoond in tabel … waarin de performantie vergeleken wordt met de performantie verkregen in het onderzoek naar het Seq2SQL-model (zie sectie  \ref{sec:Salesforce - Seq2SQL} en de paper van \textcite{seq2sqlPaper}). Men kan, vanuit de tabel, zeggen dat dit model zo’n 5,7\% performanter is dan Seq2SQL (65,1\% ten opzichte van 59,4\%). We kunnen dus concluderen dat dit model, NL2Prog, veel beter presteert dan Seq2SQL.
 
 \section{Primary Objects - AI Programmer}
 
