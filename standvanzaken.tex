@@ -138,8 +138,17 @@ Meer in detail: NL2Prog genereert SQL-query’s met behulp van een RNN-gebaseerd
 Tijdens het decoderen wordt statisch het type woord bepaald dat dient gegenereerd te worden. Dit gebeurt aan de hand van zijn decodering time stamp. Dan wordt er gebruik gemaakt van een gespecialiseerde decoder om de uitvoer te genereren. Wanneer er een kolomnaam of een constante dient gegenereerd te worden, wordt er gebruik gemaakt van een kopieermechanisme. Anders wordt de achterliggende status geprojecteerd naar een ingebouwd vocabulair om een ingebouwde SQL-operator te verkrijgen. Dit betekent op zijn beurt dat men enkel een kleine hoeveelheid vocabulair van de ingebouwde decoder dient te onderhouden voor elke operator.
 
 \begin{description}
-	\item[ENCODER] beschrijving
-	\item[TYPED DECODER] beschrijving
+	\item[ENCODER] Dit is een bi-directioneel recurrent neuraal netwerk (RNN) welke gebruik maakt van Long Short-Term Memory eenheden \footnote{Long Short-Term Memory eenheden zijn bouwstenen van een RNN. Een LSTM bestaat uit een cel, een invoerpoort, een uitvoerpoort en een vergeetpoort. De cellen van zo’n geheugen zijn verantwoordelijk voor het onthouden van waarden op willekeurige tijdsintervallen. Alle soorten poorten kunnen aanzien worden als een conventioneel kunstmatig neuron. We kunnen ze voorstellen als regulators van de stroom van waarden die in de LSTM gaat.Dit is een bi-directioneel recurrent neuraal netwerk (RNN) welke gebruik maakt van Long Short-Term Memory cellen. Long Short-Term Memory eenheden zijn bouwstenen van een RNN. Een LSTM bestaat uit een cel, een invoerpoort, een uitvoerpoort en een vergeetpoort. De cellen van zo’n geheugen zijn verantwoordelijk voor het onthouden van waarden op willekeurige tijdsintervallen. Alle soorten poorten kunnen aanzien worden als een conventioneel kunstmatig neuron. We kunnen ze voorstellen als regulators van de stroom van waarden die in de LSTM gaat.}. Een concatenatie van de table header (i.e. de kolomnamen) van de gevraagde tabel en de gebruikersvraag wordt gebruikt als invoertoken. Deze concatenatie laat het model toe te leren hoe een gezamenlijke representatie voor de beide kolommen en de invoervraag kan worden berekend.
+	\begin{description}
+		\item[Token Embedding] Een invoervraag bestaat meestal uit meerdere verschillende tokens. Om dit grote aantal verschillende tokens te verwerken, combineren we een pre-trained character n-gram embedding met een pre-trained global word embedding. 
+		\item[Bidirectionele RNN] De embedded tokens worden toegevoegd aan de RNN, welke bestaat uit LSTM eenheden. Hieruit wordt er een sequentie berekend die dient als representatie van een token voor de attentie en de kopieermechanismen van de decoder.
+	\end{description}
+	\item[TYPED DECODER] De typed decoder kan beschreven worden in twee verschillende delen:
+	\begin{description}
+		\item[Output Grammar] Het model van NL2Prog maakt gebruik van types die geëxtraheerd zijn uit de grammatica van de doeltaal. Dit om de decodeerprestaties te verbeteren.
+		\item[Decoder RNN] Er wordt gebruik gemaakt van een standaard RNN, die bestaat uit LSTM eenheden om het doelprogramma te genereren. 
+	\end{description}
+	Verschillende decoders verbruiken en produceren gelijkaardige waarden. Daardoor kunnen ze uitgebreid of aangepast worden indien ze meerdere types moeten kunnen ondersteunen. Het voordeel hierbij is dat er maar een kleine output vocabulair van SQL-operatoren dient te worden beschouwd. De andere waarden zijn bekomen door kopiëren.
 \end{description}
 
 Zoals bij Seq2SQL en SQLNet wordt ook dit model geëvalueerd op de WikiSQL dataset (\textcite{wikisql}). Via gesuperviseerd leren kan aangetoond worden dat het model van NL2Prog, beter presteert dat de eerst genoemde mechanismen. Dit wordt aangetoond in tabel … waarin de performantie vergeleken wordt met de performantie verkregen in het onderzoek naar het Seq2SQL-model (zie sectie  \ref{sec:Salesforce - Seq2SQL} en de paper van \textcite{seq2sqlPaper}). Men kan, vanuit de tabel, zeggen dat dit model zo’n 5,7\% performanter is dan Seq2SQL (65,1\% ten opzichte van 59,4\%). We kunnen dus concluderen dat dit model, NL2Prog, veel beter presteert dan Seq2SQL.
@@ -159,6 +168,10 @@ Deze kleine programmatjes zijn bijvoorbeeld de volgende:
 AI Programmer is een zelflerend mechanisme. Het is een AI genetisch algoritme dat zichzelf altijd tracht te verbeteren.
 
 De computer alle soorten programma’s laten creëren is het achterliggend idee voor de creatie van AI Programmer. Het ultieme doel is dan weer om computerprogramma’s te genereren voor het oplossen van problemen.
+
+Deze informatie alsook broncode over AIProgrammer zijn terug te vinden via de tutorial van \textcite{primaryObject} op de website van PrimaryObjects en op de Github-repository van \textcite{github}.
+
+In de paper van \textcite{aiProgrammer} wordt het volledige model voorgesteld.
 
 \textbf{In de volgende secties wordt onder andere gesproken over de technieken die achter de mechanismen zit. Daarnaast wordt er ook informatie aangehaald over de meest voorkomende programmeertaal uit de cases.}
 \section{Vierde generatie programmeertalen}
