@@ -169,9 +169,24 @@ AI Programmer is een zelflerend mechanisme. Het is een AI genetisch algoritme da
 
 De computer alle soorten programma’s laten creëren is het achterliggend idee voor de creatie van AI Programmer. Het ultieme doel is dan weer om computerprogramma’s te genereren voor het oplossen van problemen.
 
-Deze informatie alsook broncode over AIProgrammer zijn terug te vinden via de tutorial van \textcite{primaryObject} op de website van PrimaryObjects en op de Github-repository van \textcite{github}.
+Deze informatie alsook broncode over AI Programmer zijn terug te vinden via de tutorial van \textcite{primaryObject} op de website van PrimaryObjects en op de Github-repository van \textcite{github}.
 
-In de paper van \textcite{aiProgrammer} wordt het volledige model voorgesteld.
+In de paper van \textcite{aiProgrammer} wordt het volledige model voorgesteld. In figuur … wordt het ontwerp van AI Programmer (door Salesforce) voorgesteld. 
+
+Er wordt bij AI Programmer gebruik gemaakt van een typeloze programmeertaal. Deze programmeertaal bevat maar acht instructies om de generatie van software door middel van AI Programmer te sturen. De acht instructies zijn: '<' , '>' , '+' , '-' , '.' , ',' , '[' en ']'. Deze manier van werken brengt een aantal voordelen met zich mee, alsook een aantal aanpassingen aan de taal om alles te kunnen integreren:
+\begin{description}
+	\item[Turing compleet] Dit wil zeggen dan een Turing complete programmeertaal in theorie in staat is om, gegeven een onbepaald aantal resources en tijd, een programmeertaak te voltooien. Programmeertalen die Turing compleet zijn, zijn in staat om een groot aantal programmeerproblemen aan te pakken. Door AI Programmer gegenereerde programma’s zijn dus theoretisch in staat om alle te voldoen aan alle taken die men zou willen of kunnen uitvoeren met een computer.
+	\item[GA-Engine en Uniforme Gene Distributions] Het genetisch algoritme (GA) mechanisme van AI Programmer toont de instructies van de gegenereerde programma’s als een array van floating point waarden. Wanneer dit beschouwd wordt als een eenheid, is dit zijn genoom. Een individuele locatie binnen een bepaald genoom staat bekend als een gen (gene). Een bepaald gen binnen een genoom komt overeen met één van de acht opgegeven instructies. Tijdens het uitvoeren van dit algoritme wordt er aan elke instructie een bepaald bereik waartussen de genwaarde kan vallen. Dit gebeurt via een continue uniforme verdeling (de grootte van het bereik is voor elke instructie even groot). De reden om dit zo te doen, is het feit dat iedere instructie een willekeurige kans had om op iedere mogelijke locatie in een gensequentie te worden gekozen (wanneer willekeur nodig is).
+	\item[Vereenvoudige set van instructies]  Een vereenvoudigde instructieset zorgt ervoor dat de zoekruimte waarin doelprogrammacode dient gevonden te worden verkleint. Indien de resources van een computer inzake snelheid vergroten, is het mogelijk om grotere probleemruimten te doorzoeken. Indien er minder resources voorhanden zijn, dient deze ruimte beperkter te zijn. Het is belangrijk te onthouden dat AI Programmer bedoeld is voor ontwikkelaars voor algemene doeleinden. Het beperken van de instructies (op acht instructies) kan ervoor zorgen dat dit mechanisme binnen een redelijke tijd uitgevoerd kan worden op basis hardware.
+\end{description}
+
+AI Programmer is een genetisch algoritme. Voor het genereren van een programma via zo'n algoritme, moet er eerst een genoom gecreëerd worden. In de biologie wordt een genoom beschreven als de complete genetische samenstelling van een organisme, cel of virus. In deze context wordt een genoom ongeveer gelijkaardig beschreven. Zoals eerder beschreven, is een genoom (bij AI Programmer) een array van floating point waarden. 
+
+//Verder model//
+
+Er worden in de paper ook een aantal testen beschreven. Zo hebben de onderzoekers een aantal programma’s laten genereren. Deze programma’s gingen van begroetingen tot conversies van invoergegevens. Voor deze testen werd er gebruik gemaakt van een computer met een Intel Quad-Core i7 CPU (2.7GHz), 16 GB ram met een 64-bit systeem. In tabel … wordt er een overzicht getoond van de gegenereerde programma’s, alsook de tijd die nodig was om deze te produceren en het totaal aantal evolutionaire generaties welke gebruikt werden voor het builden van de programma’s. Het is belangrijk te weten dat, door de variatie in genoomgrootte en de berekening van de fitnessfunctie welke voor elk programma uniek is, het aantal evolutionaire generaties \textbf{NIET} gelijk is aan de totale computertijd voor de generatie van het programma.
+
+De programmeerwereld blijft zichzelf altijd heruitvinden. Software en hardware wordt altijd complexer. De software-ontwikkeling zal de capaciteit van programmeurs binnenkort overstijgen. Naarmate deze tijd nadert, zullen programmeurs nood hebben aan assistentie van automatische softwareontwikkelingsalgoritmen. Hiervoor kan AI Programmer dan een mogelijke oplossing zijn.
 
 \textbf{In de volgende secties wordt onder andere gesproken over de technieken die achter de mechanismen zit. Daarnaast wordt er ook informatie aangehaald over de meest voorkomende programmeertaal uit de cases.}
 \section{Vierde generatie programmeertalen}
