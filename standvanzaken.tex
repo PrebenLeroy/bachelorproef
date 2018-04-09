@@ -29,6 +29,23 @@ Met DeepCoder zouden mensen, ook al hebben ze geen enkele programmeerachtergrond
 
 DeepCoder maakt gebruik van Program Synthesis, waarbij DeepCoder eigenlijk lijnen code “steelt” van werkende software. Daarnaast wordt er bruikbare code gezocht op websites zoals StackOverflow om te gebruiken in de te schrijven code. Eigenlijk volgt Program Synthesis de manier van werken van een programmeur (code opzoeken op het internet), maar doet dat veel sneller. Dit wordt onder andere vermeld in het artikel van \textcite{techcrunch} en het artikel van \textcite{NewScientist}.
 
+DeepCoder is eigenlijk een implementatie van Program Synthesis. In de paper van \textcite{deepcoderpaper} wordt dit mechanisme \textit{Learning Inductive Program Synthesis (LIPS)} genoemd. Voor DeepCoder kunnen volgende componenten beschreven worden:
+\begin{description}
+	\item[Domein Specifieke Taal (DSL) en attributen] Er dient een DSL te worden gekozen die high-level constructies bevat die allemaal voorkomen in een overgrote meerderheid van de programma's. Tegelijkertijd dienen deze constructies algemeen genoeg te zijn, opdat het voorspellen van hun voorkomen door middel van input-outputvoorbeelden succesvol kan aangeleerd worden.
+	\item[Data generatie] Wanneer er een geldige invoer voor een programma dient gegenereert te worden, dient er een beperking op de uitgangswaarde te worden afgedwongen. Deze beperking stelt dat gehele getallen dienen begrenst te worden tot een vooraf bepaald bereik. Nadien worden deze beperkingen achterwaarts verspreid door het programma. Als resultaat wordt er een bereik van geldige waarden voor elke invoer verkregen.
+	\item[Machine Learning Model] Het doel van DeepCoder is om patronen te herkennen in input-outputvoorbeelden. Deze worden dan ook gebruikt om de aan- of afwezigheid van individuele functies te voorspellen. Er wordt gebruik gemaakt van neurale netwerken voor moddeleren van de toewijzing van de input-outputvoorbeelden aan de attributen. Deze netwerken bestaan uit twee onderdelen:
+	\begin{itemize}
+		\item Encoder
+		\item Decoder
+	\end{itemize}
+	\item[Zoekprocedures] Door middel van een neuraal netwerk wordt er gezocht naar programma's die consistent zijn met de input-outputvoorbeelden. Het voorspellen van broncode wordt niet direct gedaan. Volgende zoektechnieken worden toegepast voor dit tot een goed einde te brengen:
+	\begin{itemize}
+		\item Depth-first search (DFS): Zoekalgoritme voor het doorzoeken van een boom of graaf. Er wordt gestart bij de wortel om dan een tak te kiezen om deze dan verder te onderzoeken, zonder terug te keren naar de vorige stappen.
+		\item Sorteren en toevoegen enumeratie:  Dit is een manier om de voorspelde kansen op functies in een enumeratieve zoekprocedure te gebruiken. Hierbij wordt er DFS toegepast op de actieve functieset. Indien bijvoorbeeld een zoekopdracht mislukt, wordt de zoekopdracht opnieuw gestart met een grotere actieve set. Deze set werd uitgebreid met de volgende meest waarschijnlijke functie.
+		\item Sketch: Een succesvol SMT-gebaseerd programma welke kan gebruikt worden programma's te doorzoeken om zo "gaten" in de onvolledige broncode in te vullen. Zo kan voldaan worden aan de opgegeven vereisten.Er kan voor dit mechanisme gebruik gemaakt worden van "Sorteren en Toevoegen"-mechanisme. De mogelijkheden voor elk "gat" kunnen beperkt worden tot de huidige actieve set.
+	\end{itemize}
+\end{description}
+
 Programmeurs hoeven geen schrik te hebben voor hun job. DeepCoder zou in de toekomst kunnen gebruikt worden om het vuile, herhalende werk op te knappen. Programmeurs zouden de eerder moeilijke taken uitvoeren.
 
 \section{Google AutoML}
@@ -38,8 +55,14 @@ Naast Microsoft is Google ook bezig met het ontwikkelen van een mechanisme waarb
 Google ontwikkelde hun AutoML als oplossing voor het gebrek aan talent bij de AI-programmeurs. De vraag naar gespecialiseerde programmeurs is zo groot geworden, dat AutoML als oplossing werd aangereikt. 
 
 Het systeem voert duizenden simulaties uit om te bepalen welke delen van de code kunnen worden verbeterd, de wijzigingen aan te brengen en de procesadvertentie oneindig door te zetten of totdat het doel is bereikt. 
+
+AutoML Vision is de eerste service die uitgebracht werd voor het totale AutoML plaatje, zo meldt \textcite{automl}. Via AutoML Vision is het mogelijk om zaken te herkennen in foto’s van personen of dingen. Het is zeer eenvoudig om naar eigen nood modellen te trainen voor het herkennen van beelden. Binnenkort zal Google nog meerdere services toevoegen aan hun AutoML.
+
+AutoML behoort tot Google Cloud. Eén van de features van dit mechanisme is dan ook dat het volledig is geïntegreerd met andere Google Cloud services. Het maakt de klant mogelijk om de volledige Cloud service van Google op een consistente manier te gebruiken. Trainingsgegevens kunnen makkelijk worden opgeslagen op de Google Cloud Storage, voorspellingen voor getrainde modellen (AutoML Vision) kunnen eenvoudigweg gegenereerd worden door de Vision API of door de voorspellingsservice van de Cloud ML Engine, \dots.
+
+Volgens het artikel van \textcite{tc} meldt Google dat AutoML het enige systeem van zijn soort is die op dit moment op de markt is. Maar dat is niet zo! Er zijn op dit moment reeds gelijkaardige services beschikbaar. Clarif.ai is bijvoorbeeld zo’n service. Men is zelfs in staat om de vooraf gestelde visie, spraakherkenning en besluitvorming van de Cognitieve Services van Microsoft aan te passen.
  
-AutoML is nog gloednieuw. Het is ongeveer een jaar geleden voorgesteld. Het vormt de basis voor de volgende generaties in machine-learning.
+AutoML is nog gloednieuw. Het is ongeveer een jaar geleden voorgesteld. Google verwacht dat AutoML de basis vormt voor de volgende generaties in machine-learning. AutoML is geen open source mechanisme, dit is enkel te gebruiken na het aanschaffen van een nodige licentie.
 
 \section{Salesforce - Seq2SQL}
 \label{sec:Salesforce - Seq2SQL}
@@ -82,7 +105,6 @@ De eerste stap voor het uitvoeren van het SQLNet-algoritme, is het opstellen van
 Er werd al gesproken over de sequence-to-set voorspelling en de column attention, maar wat is dit nu? In de paper van \textcite{sqlnetPaper} wordt het voorspellen van de WHERE-kolom gebruikt als voorbeeld om dit uit te leggen. De kolommen in de WHERE-component zijn een subset van een reeks kolomnamen. Sequence-to-set voorspellingen is het voorspellen van de belanghebbende kolomnamen die in deze subset moeten weergegeven worden. Column attention is een speciale vorm van het generieke aandachtsmechanisme om te berekenen op welke kolommen de aandacht moet gevestigd worden. 
 
 Het SQLNet model bestaat uit het voorspellen van het SELECT-statement en het voorspellen van het WHERE-statement. Beiden worden gescheiden van elkaar voorspelt:
-
 \begin{description}
 	\item[WHERE] Het voorspellen van de WHERE-clausule is het moeilijkste van het hele proces. Het maakt gebruik van het sequence-to-set-mechanisme om eerst en vooral de set van kolommen welke nodig zijn voor de WHERE-clausule te voorspellen. Voor elke kolom wordt dan een constraint gegenereert door het voorspellen van de OP- en VALUE-slots 
 	\footnote{
@@ -191,7 +213,6 @@ Zoals vermeld bij de opgegeven cases, worden in de meeste gevallen SQL-query’s
 Maar wat is er zo speciaal aan deze generatie programmeertalen? Volgens \textcite{fourthgenpl} behoren de 4GL tot de talen die het dichtst aanleunen tegen de natuurlijke taal. Ze hebben het voordeel van onder andere sneller te kunnen verlopen en de kosten voor de ontwikkeling te verminderen.
 
 Vierde generatie programmeertalen zijn de enige talen die vaak in contact komen met grote hoeveelheden aan data. Onder de vierde generatie programmeertalen kan je daarom volgende domeinen terugvinden:
-
 \begin{itemize}
 	\item Databasequery’s
 	\item Rapporteringen
