@@ -11,5 +11,29 @@
 %% mogelijke manier toegepast hebt om een antwoord te vinden op de
 %% onderzoeksvraag.
 
-\lipsum[21-25]
+Zoals te lezen valt in het hoofdstuk~\ref{ch:stand-van-zaken}: Stand van Zaken, gaat het overgrote deel van de cases over de generatie van SQL-queries. Dit komt omdat SQL een programmeertaal is dat dicht aanleunt tegen de menselijke taal. Daarom werd er ook gekozen om twee van de gevonden cases, waarbij queries gegenereerd worden, uit te testen. Er werden gelijkaardige algorimten gekozen, namelijk Seq2SQL (zie sectie \ref{sec:Salesforce - Seq2SQL} uit hoofdstuk~\ref{ch:stand-van-zaken}) en SQLNet (zie sectie \ref{sec:SQLNet} uit hoofdstuk~\ref{ch:stand-van-zaken}).
 
+In beide papers worden experimenten beschreven. Voor deze experimenten werd er telkens gebruik gemaakt van de WikiSQL-dataset. Voor dit onderzoek zal er in een eerste fase ook gebruik gemaakt worden van deze dataset. Hierna kan er een vergelijking gemaakt worden tussen de bekomen resultaten en de resultaten die men kan terugvinden in vernoemde papers. 
+
+In een tweede fase zullen beide algoritmen ook uitgevoerd worden op een andere dataset. Eerst zal gekeken worden hoe deze dataset in elkaar zit en zal deze aangepast worden naar de vereisten om beide algoritmen werkend te krijgen. Daarna zullen zowel Seq2SQL als SQLNet uitgevoerd worden op deze dataset. 
+
+\section{De opzet}
+
+Tijdens de literatuurstudie (zie hoofdstuk~\ref{ch:stand-van-zaken}) werden er voor zowel Seq2SQL als voor SQLNet Github-repositories gevonden die gebruikt kunnen worden tijdens de experimentele fase. Ook werd er een Github-repository gevonden die volledig in het teken staat van de WikiSQL dataset. Seq2SQL kan teruggevonden worden op de repository van \textcite{seq2sql}, SQLNet op de repository van \textcite{sqlnet}. De WikiSQL-dataset kan teruggevonden worden op de repository van \textcite{wikisql}. Om met deze algoritmen te kunnen werken, dienen deze op een lokaal systeem beschikbaar te zijn. 
+
+Aangezien de uitvoering van de scripts, horende bij de gekozen algoritmen, faalde in een Windows-omgeving, werd er gekozen om deze algoritmen uit te voeren in een Linux-omgeving. Hiervoor werd gekozen om gebruik te maken van Ubuntu. Er werd een virtuele machine (in Virtual Box) aangemaakt waarin dit besturingssysteem draait.
+
+Wanneer de Ubuntu setup compleet was, werden ook de volgende tools geïnstalleerd:
+\begin{description}
+	\item[Github] Doordat er een Github-cli (command-line interface) werd geïnstalleerd, is het mogelijk om via commando's github-gerelateerde zaken te regelen (zoals het clonen van repositories op een lokaal systeem).
+	\item[Python 3.6] Tijdens het overlopen van de Github-repositories, werd het nogal snel duidelijk dat er voor de uitvoering van de algoritmen gebruik gemaakt werd van Python-scripts. Voor WikiSQL werd er expliciet gevraagd voor de installatie van deze Python-versie. 
+\end{description}
+
+Nadat de gehele installatie voltooid was, kon er gestart worden met het uitvoeren van deze algoritmen. De informatie over de uitvoering kan teruggevonden worden in de volgende sectie (sectie \ref{sec:uitvoering}).
+
+\section{De uitvoering}
+\label{sec:uitvoering}
+
+-- Experiment in uitvoering --
+
+\lipsum[21-25]

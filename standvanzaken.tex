@@ -20,8 +20,40 @@ Tegenwoordig is artificiële intelligentie niet meer weg te denken uit onze maat
 
 Verscheidene bedrijven en organisaties zoals Google en Microsoft experimenteren met code generatie door middel van AI. Meestal gaat het hierbij over de generatie van SQL-query's, maar in de toekomst zou het misschien ook mogelijk zijn om bijvoorbeeld Java-code te laten genereren. 
 
-\textbf{In de volgende secties worden er een aantal cases besproken.}
-\section{Microsoft DeepCoder}
+\textbf{In deze sectie wordt het gedeelte binnen de AI besproken dat generatie van code mogelijk maakt.}
+\section{Neurale netwerken}
+
+Voor de generatie van code wordt er gebruik gemaakt van artificiële intelligentie, meer bepaald artificiële neurale netwerken. Maar wat zijn neurale netwerken? 
+
+Wanneer iemand denkt aan neurale netwerken, wordt er meer bepaald gedacht aan het menselijke brein. Het menselijk brein bestaat uit een groot aantal neuronen. Deze neuronen werken samen door middel van elektrochemische signalen. Bij artificiële neurale netwerken probeert men alle kenmerken van een menselijk neuron samen te voegen in een wiskundig model. Over artificiële neurale netwerken valt er nog meer te lezen in de Hogeschool Cursus AI door \textcite{cursusAI} en in het artikel van \textcite{techpulse}.
+
+Hoe werken artificiële neurale netwerken nu eigenlijk? 
+
+Neurale netwerken worden getraind om te kunnen werken. Denk bijvoorbeeld aan het herkennen van nummers uit een lijst. Of zoals Facebook, die gezichten op foto’s herkend en vraagt om eventueel deze herkende mensen te taggen in de bewuste foto’s. 
+
+Het voorbeeld dat wordt omschreven in het artikel op de website van tweakers (\textcite{tweakers}) gaat over het herkennen van handgeschreven getallen uit een foto. Deze foto of afbeelding (meestal 28 bij 28 pixels) wordt gebruikt als input voor het neurale netwerk. In de datasets die gebruikt worden voor het netwerk te trainen, zitten er ook afbeeldingen van 28 bij 28 pixels met handgeschreven cijfers op. De mens herkent makkelijk de cijfers in de afbeeldingen, door te kijken naar de grijswaarden in de pixels. Het neurale netwerk moet wel gaan rekenen, daarom worden aan alle ingaven (28 x 28 = 784) een waarde tussen 0 en 1 gegeven. Een neuraal netwerk is NIET binair, maar wel analoog. 
+
+De data uit deze eerste laag neuronen, wordt doorgestuurd naar de tweede, verborgen, laag. Dit is een veel kleinere laag neuronen. In deze laag wordt er een bepaald gewicht gegeven aan de data van de input grijswaarden. De data uit de tweede laag krijgt dus ook weer een waarde tussen 0 en 1. Deze waarden worden dan doorgegeven aan de uitvoer neuronen. Het neuron dat het dichtste aanleunt tegen 1, geeft het cijfer aan dat het net “gezien” zou hebben. 
+
+Een neuraal netwerk zou ook kunnen bestaan uit meerdere lagen neuronen. Voor de simpliciteit werd in dit voorbeeld maar één tussenlaag gebruikt.
+
+Maar hoe worden neurale netwerken nu getraind? Voor het trainen van een neuraal netwerk, kan men één van de volgende vijf optimalisatiealgoritmen toepassen, welke beschreven zijn door \textcite{neuraldesigners}.
+
+\begin{description}
+	\item[Gradient Descent] Gradient Descent is het makkelijkste algoritme voor het trainen van een neuraal netwerk. Het is een eerste orde iteratief optimalisatie algoritme voor het vinden van een minimum van een functie. Door eerst voorwaartse propagatie uit te voeren en daarna achterwaartse propagatie, kan men de gradiënt berekenen. Het is wel de bedoeling dat de gehele training dataset onderzocht wordt. Door het uitvoeren van het gradiënt descent algoritme, kan men al een idee krijgen in welke richting de gewichten zich zouden aanpassen.
+	\item[Methode van Newton] Gradiënt Descent is dan wel een eerste orde algoritme, de methode van Newton is een tweede orde algoritme. Het maakt gebruik van de Hessiaan\footnote{Dit is een matrix van de tweede orde partiële afgeleiden van een functie.} van de te minimaliseren functie. Deze functie wordt gebruikt om een betere trainingsrichting te vinden door de tweede orde afgeleiden van de verliesfunctie te gebruiken.
+	\item[Conjugate gradient] De conjugate gradiënt is een vorm tussen de gradiënt descent en de methode van Newton. Via deze methode is het mogelijk om de normaal gezien langzame convergentie te versnellen (dit is zo bij gradiënt descent). Daarnaast wordt het werken met de Hessiaan matrix en alle andere benodigdheden van de methode van Newton ook vermeden.
+	\item[Quasi-Newton-methode] De methode van Newton is duur in uitvoer. Er zijn veel bewerkingen nodig om voor die methode alles te berekenen. De quasi-Newton methode is een beter alternatief. Het is ontwikkeld om een antwoord te bieden alle nadelen van de methode van Newton. Bij deze methode wordt er per iteratie van het algoritme, een benadering gegeven op de inverse Hessiaan. Hiervoor worden enkel de eerste afgeleiden van de verliesfunctie gebruikt.
+	\item[Het algoritme van Levenberg-Marquardt] Dit algoritme is speciaal ontworpen om te werken met verliesfuncties die de vorm aannemen van een som kwadratische fouten. In plaats van de Hessiaan-matrix te gebruiken, wordt er gebruik gemaakt van de Jacobi-matrix\footnote{De Jacobi-matrix van een functie is de matrix van de eerste-orde partiële afgeleiden van een functie.}.
+\end{description}
+
+Neurale netwerken zijn belangrijk voor het genereren van code uit tekst of uit natuurlijke taal. Deze neurale netwerken worden getraind om woorden te herkennen uit de gestelde vragen. Door middel van die woorden wordt er via allerhande mechanismen en algoritmen code gegenereerd.
+
+\textbf{In de volgende secties worden er een aantal cases besproken waarbij programma's kunnen gegenereerd worden door middel van onder andere neurale netwerken. Hierbij kan er eventueel een onderscheid gemaakt worden tussen algoritmen die instaan voor de generatie van programma's, macchine learning en de generatie van SQL-query's.}
+
+\section{Programma generatie}
+
+\subsection{Microsoft DeepCoder}
 
 In samenwerking met de universiteit van Cambridge, ontwikkelde Microsoft een mechanisme voor het “zelf schrijven van code”. Hierbij werd gebruik gemaakt van artificiële intelligentie en program synthesis. Het mechanisme kreeg de naam DeepCoder. Dat schrijft \textcite{DeepCoder} in een artikel op LinkedIn.
 
@@ -48,7 +80,82 @@ DeepCoder is eigenlijk een implementatie van Program Synthesis. In de paper van 
 
 Programmeurs hoeven geen schrik te hebben voor hun job. DeepCoder zou in de toekomst kunnen gebruikt worden om het vuile, herhalende werk op te knappen. Programmeurs zouden de eerder moeilijke taken uitvoeren.
 
-\section{Google AutoML}
+\subsection{Primary Objects - AI Programmer}
+
+AI Programmer is het eerste machine learning systeem dat in staat is om volledige code te genereren. De mens dient maar weinig hulp eraan te bieden om het te doen slagen. Door middel van artificiële intelligentie en enkele genetische algoritmes, is AI Programmer in staat om een aantal kleine programmatjes te produceren (zie ook de Github-repository van \textcite{github} en de tutorial van \textcite{primaryObject} op de website van PrimaryObjects).
+
+AI Programmer is een zelflerend mechanisme. Het is een AI genetisch algoritme dat zichzelf altijd tracht te verbeteren. Het achterliggende idee voor de ontwikkeling van dit mechanisme, is het mogelijk maken dat een computer allerlei soorten programma's kan creëren. Het ultieme doel is om computerprogramma’s te genereren voor het oplossen van problemen.
+
+In de paper van \textcite{aiProgrammer} wordt het volledige model voorgesteld. In figuur \ref{fig:aiprog} wordt het ontwerp van AI Programmer (door Salesforce) voorgesteld. Het mechanisme maakt gebruik van een typeloze programmeertaal. Deze programmeertaal bevat maar acht instructies om de generatie van software door middel van AI Programmer te sturen. De acht instructies zijn: '<' , '>' , '+' , '-' , '.' , ',' , '[' en ']'. Deze manier van werken brengt een aantal voordelen met zich mee, alsook een aantal aanpassingen aan de taal om alles te kunnen integreren:
+\begin{description}
+	\item[Turing Compleet] Door AI Programmer gegenereerde programma’s zijn in theorie in staat om alle te voldoen aan alle taken die men zou willen of kunnen uitvoeren met een computer.
+	\item[GA-Engine en Uniforme Gene Distributions] Het genetisch algoritme (GA) mechanisme van AI Programmer toont de instructies van de gegenereerde programma’s als een array van floating point waarden. Wanneer dit beschouwd wordt als een eenheid, is dit zijn genoom. Een individuele locatie binnen een bepaald genoom staat bekend als een gen (gene). Een bepaald gen binnen een genoom komt overeen met één van de acht opgegeven instructies. Tijdens het uitvoeren van dit algoritme wordt er aan elke instructie een bepaald bereik waartussen de genwaarde kan vallen. Dit gebeurt via een continue uniforme verdeling (de grootte van het bereik is voor elke instructie even groot). De reden om dit zo te doen, is het feit dat iedere instructie een willekeurige kans had om op iedere mogelijke locatie in een gensequentie te worden gekozen (wanneer willekeur nodig is).
+	\item[Vereenvoudige set van instructies]  Een vereenvoudigde instructieset zorgt ervoor dat de zoekruimte waarin doelprogrammacode dient gevonden te worden verkleint. Het is belangrijk te onthouden dat AI Programmer bedoeld is voor ontwikkelaars voor algemene doeleinden. Het beperken van de instructies (op acht instructies) kan ervoor zorgen dat dit mechanisme binnen een redelijke tijd uitgevoerd kan worden op basis hardware.
+\end{description}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.80\textwidth]{img/aiprogmodel}
+	\caption[AI Programmer Model]{AI Programmer - Softwarearchitectuur}
+	\label{fig:aiprog}
+\end{figure}
+\break 
+
+AI Programmer is een genetisch algoritme. Voor het genereren van een programma via zo'n algoritme, moet er eerst een genoom gecreëerd worden. In de biologie wordt een genoom beschreven als de complete genetische samenstelling van een organisme, cel of virus. In deze context wordt een genoom ongeveer gelijkaardig beschreven. Zoals eerder beschreven, is een genoom (bij AI Programmer) een array van floating point waarden. 
+
+Wanneer zo’n genoom is aangemaakt, wordt dit omgezet naar een overeenkomstig programma. Na deze omzetting wordt het programma uitgevoerd en aan dat resulterend programma wordt er een fitnessscore toegekend. Hoe beter het programma overeenkomt met het gevraagde, hoe groter de fitnessscore. Hierdoor is de kans groter dat het programma doorgaat naar een volgende evolutionaire generatie. Bij elke generatie maakt AI Programmer gebruik van willekeurige selectie, cross-over en mutatie. Hierdoor worden er telkens programma’s gegenereerd met kleine “verstoringen” die mogelijk betere genomen bevatten dan hun parents voor het oplossen van de doeltaak.
+
+Om een genetisch algoritme te kunnen gebruiken, is een fitnesstest nodig om uit te maken hoe  goed een bepaalde oplossing overeenkomt met het beoogde doelprogramma. Dit concept komt overeen met het test-driven ontwikkelen van programma’s. Wanneer alle testen slagen, is een programma pas correct. Bij AI Programmer bezit de fitnesstest meestal een reeks controles voor verschillende scenario’s. Deze begeleiden de genoom selectie. Indien de programma’s goed evalueren op de testsuite, worden deze behouden.
+
+Een gegenereerd programma moet dan ook uitgevoerd kunnen worden. Daarna wordt het beoordeeld aan de hand van fitnesstests. Uitvoeringen van de gegenereerde programma’s kunnen altijd beveiligingsrisico’s of prestatieverminderingen met zich meebrengen. Met dit in het achterhoofd te houden alsook de behoefte aan een complexe fitnessfunctie, ontwikkelde de onderzoekers van AI Programmer een eigen soort tolk (interpreter). Dit mechanisme zit ingebouwd in AI Programmer en biedt een veilige, efficiënte en GA-geschikte uitvoeringsomgeving. Zo’n interpreter brengt ook voordelen en uitdagingen met zich mee:
+
+\begin{itemize}
+	\item Uitvoering in een gecontroleerde omgeving
+	\item Beëindigen van oneindige lussen
+	\item Simulatie van complexe instructies
+\end{itemize}
+
+Er worden in de paper ook een aantal testen beschreven. Zo hebben de onderzoekers een aantal programma’s laten genereren. Deze programma’s gingen van begroetingen tot conversies van invoergegevens. In tabel \ref{table:aiprog} wordt er een overzicht getoond van de gegenereerde programma’s, alsook de tijd die nodig was om deze te produceren en het totaal aantal evolutionaire generaties welke gebruikt werden voor het builden van de programma’s. Het is belangrijk te weten dat, door de variatie in genoomgrootte en de berekening van de fitnessfunctie welke voor elk programma uniek is, het aantal evolutionaire generaties \textbf{NIET} gelijk is aan de totale computertijd voor de generatie van het programma.
+
+\begin{table}[htb]
+	\centering
+	\begin{tabular}{lll}
+		\hline
+		Naam                        & Duur (s) & Generaties \\ \hline
+		hi                          & 52       & 5700       \\
+		Hi!                         & 7644     & 1219400    \\
+		hello                       & 1713     & 252000     \\
+		hello world                 & 7702     & 580900     \\
+		reddit                      & 1362     & 195000     \\
+		Keep Calm Keep Coding       & 944      & 21400      \\
+		I love all humans           & 36000    & 6057200    \\
+		hello\{user\}               & 1793     & 42800      \\
+		Addition                    & 2698     & 92400      \\
+		Substraction                & 4305     & 177900     \\
+		Multiply x2                 & 6353     & 242000     \\
+		Multiply x3                 & 5165     & 87200      \\
+		XOR                         & 2095     & 146400     \\
+		Fibonacci                   & 21862    & 151900     \\
+		If/then conditionals        & 8313     & 46200      \\
+		cats are evil               & 10209    & 814400     \\
+		Bottles of Beer on the Wall & 2957     & 61400      \\
+		Reverse string              & 49       & 2600       \\
+		CSV parse                   & 173      & 9000       \\
+		Extract in quotes           & 6478     & 212100     \\
+		Extract in quotes 2         & 9996     & 188400     \\
+		Trim left of quote          & 9030     & 341700     \\
+		XML to JSON                 & 6866     & 820900     \\
+		Warning countdown           & 48       & 900       
+	\end{tabular}
+	\caption{Resultaten AI Programmer}
+	\label{table:aiprog}
+\end{table}
+
+De programmeerwereld blijft zichzelf altijd heruitvinden. Software en hardware wordt altijd complexer. De software-ontwikkeling zal de capaciteit van programmeurs binnenkort overstijgen. Naarmate deze tijd nadert, zullen programmeurs nood hebben aan assistentie van automatische softwareontwikkelingsalgoritmen. Hiervoor kan AI Programmer dan een mogelijke oplossing zijn.
+
+\section{Machine Learning}
+
+\subsection{Google AutoML}
 
 Naast Microsoft is Google ook bezig met het ontwikkelen van een mechanisme waarbij artificiële intelligentie wordt gebruikt voor de generatie van code. Dit onder de naam “Google AutoML”. Eén van de belangrijkste kenmerken van AutoML, is dat het mechanisme zichzelf altijd tracht te verbeteren. Het is nu al zo ver gekomen dat dit mechanisme betere code kan schrijven dan de programmeurs die het ontwikkeld hebben. Dit werd beschreven door \textcite{greene}.
 
@@ -64,7 +171,27 @@ Volgens het artikel van \textcite{tc} meldt Google dat AutoML het enige systeem 
  
 AutoML is nog gloednieuw. Het is ongeveer een jaar geleden voorgesteld. Google verwacht dat AutoML de basis vormt voor de volgende generaties in machine-learning. AutoML is geen open source mechanisme, dit is enkel te gebruiken na het aanschaffen van een nodige licentie.
 
-\section{Salesforce - Seq2SQL}
+\section{SQL-generatie}
+
+\subsection{Vierde generatie programmeertalen}
+
+De volgende secties beschrijven algoritmen die SQL-query's trachten te genereren door middel van artificiële intelligentie en natuurlijke taal. Maar wat voor soort programmeertaal is SQL eigenlijk? Wel, SQL behoort tot de groep van de vierde generatie programmeertalen.
+
+Maar wat is er zo speciaal aan deze generatie programmeertalen? Volgens \textcite{fourthgenpl} behoren de 4GL tot de talen die het dichtst aanleunen tegen de natuurlijke taal. Ze hebben het voordeel van onder andere sneller te kunnen verlopen en de kosten voor de ontwikkeling te verminderen.
+
+Vierde generatie programmeertalen zijn de enige talen die vaak in contact komen met grote hoeveelheden aan data. Onder de vierde generatie programmeertalen kan je daarom volgende domeinen terugvinden:
+\begin{itemize}
+	\item Databasequery’s
+	\item Rapporteringen
+	\item Gegevensmanipulatie
+	\item \dots
+\end{itemize}
+
+Het is dus via zo’n talen mogelijk om data op te vragen uit tabellen, deze aan te passen of mooi uit te schrijven in een rapport.
+
+Naast SQL behoren onder andere volgende programmeertalen ook tot de vierde generatie: R, S, ABAP, Oracle Forms en Bizagi.
+
+\subsection{Salesforce - Seq2SQL}
 \label{sec:Salesforce - Seq2SQL}
 
 Het Seq2SQL van Salesforce is een eerder concreet voorbeeld voor code generatie door middel van artificiële intelligentie. Seq2SQL is een mechanisme dat, door middel van AI en reinforcement learning\footnote{Het is een mechanisme dat in staat is om uit eigen ervaringen te leren. Wanneer het mechanisme iets goed doet, wordt het hiervoor beloond. Het zal die stappen blijven uitvoeren waarvoor het de meeste beloningen heeft gekregen. Het doel is om het meeste beloningen te verkrijgen.}, gestructureerde SQL-query’s kan genereren. Hier werd grondig onderzoek naar gedaan. Dit valt allemaal te lezen in de paper, opgesteld door \textcite{seq2sqlPaper}.
@@ -73,15 +200,29 @@ Tegenwoordig wordt data bijna altijd opgeslagen in een relationale databank. Geg
 
 Via dit model kunnen er vanuit natuurlijke taal, SQL-query’s gegenereerd worden. Hiervoor wordt gebruik gemaakt van neurale netwerken. Deze neurale netwerken worden zo geprogrammeerd dat deze gelijkaardig werken als het menselijke brein. 
 
-Het Seq2SQL-model maakt volgens de paper (\textcite{seq2sqlPaper}) gebruik van het Seq2Seq-model. Volgens de basistheorie, beschreven door \textcite{drnn}, bestaat zo’n model uit 2 belangrijke onderdelen, een encoder en een decoder. Beiden zijn recurrente lagen van het neurale netwerk\footnote{De mogelijkheid om verder te bouwen op eerdere typen netwerken met ingangsvectoren van een vaste grootte en uitgangsvectoren – Definitie door \textcite{rnn}.}. Er wordt, door de encoder, een invoerreeks verwerkt tot een vaste representatie. De uitkomst van de encoder dient als context voor de decoder. Deze verwerkte informatie wordt hier dan gedecodeerd tot een bepaalde uitvoerreeks. In figuur … wordt er een visueel beeld gegeven van dit model. Dit voorbeeld wordt ook door \textcite{drnn} gegeven.
+Het Seq2SQL-model maakt volgens de paper (\textcite{seq2sqlPaper}) gebruik van het Seq2Seq-model. Volgens de basistheorie, beschreven door \textcite{drnn}, bestaat zo’n model uit 2 belangrijke onderdelen, een encoder en een decoder. Beiden zijn recurrente lagen van het neurale netwerk\footnote{De mogelijkheid om verder te bouwen op eerdere typen netwerken met ingangsvectoren van een vaste grootte en uitgangsvectoren – Definitie door \textcite{rnn}.}. Er wordt, door de encoder, een invoerreeks verwerkt tot een vaste representatie. De uitkomst van de encoder dient als context voor de decoder. Deze verwerkte informatie wordt hier dan gedecodeerd tot een bepaalde uitvoerreeks. In figuur \ref{fig:seq2seq} wordt er een visueel beeld gegeven van dit model. Dit voorbeeld wordt ook door \textcite{drnn} gegeven.
 
-Een SQL-query bestaat meestal uit drie onderdelen. Als eerste component heeft u de aggregatie-operator (zoals COUNT en SUM). Dit geeft een samenvatting weer van de rijen die door de SQL-query worden aangeroepen. Ook kan het mogelijk zijn dat er geen operator meegegeven wordt. Het tweede component is de kolom waarop de query dient uitgevoerd te worden. Het derde en laatste component is de WHERE-clause. Dit geeft aan op welke rij(en) er dient gefilterd te worden. Seq2SQL zorgt ervoor dat een vraag direct in zo’n vorm kan gegoten worden (zie figuur …).
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.80\textwidth]{img/Seq2Seq}
+	\caption[Sequence-To-Sequence Model]{Sequence-To-Sequence Model}
+	\label{fig:seq2seq}
+\end{figure}
+
+Een SQL-query bestaat meestal uit drie onderdelen. Als eerste component heeft u de aggregatie-operator (zoals COUNT en SUM). Dit geeft een samenvatting weer van de rijen die door de SQL-query worden aangeroepen. Ook kan het mogelijk zijn dat er geen operator meegegeven wordt. Het tweede component is de kolom waarop de query dient uitgevoerd te worden. Het derde en laatste component is de WHERE-clause. Dit geeft aan op welke rij(en) er dient gefilterd te worden. Seq2SQL zorgt ervoor dat een vraag direct in zo’n vorm kan gegoten worden (zie figuur \ref{fig:seq2sql}).
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.80\textwidth]{img/seq2sqlmodel}
+	\caption[Seq2SQL Model]{Seq2SQL Model}
+	\label{fig:seq2sql}
+\end{figure}
 
 Het augmented pointer network is een zeer belangrijk netwerk voor Seq2SQL. Dit netwerk genereert woord voor woord de SQL-query van een invoerreeks. De uitkomst van dit netwerk mag dan wel een SQL-query zijn, maar dit is niet volledig volgens de reeds beschreven vorm. Daarvoor dient dan Seq2SQL. Eerst wordt door het netwerk de aggregatie-operator gezocht in de invoerreeks. Deze waarde kan eveneens null zijn, wanneer er geen aggregatie voorgeschreven is. Voor het volgende onderdeel zoekt het netwerk naar de kolom waarop het de query dient uit te voeren. Als laatste wordt via een pointer network gezocht naar de condities waarop eventueel gefilterd kan worden. De twee eerste componenten worden gesuperviseerd door middel van cross entropy\footnote{Cross entropy is het aantal bits dat nodig is om symbolen uit de verzameling p te encoderen, gebruik makend van de foutieve verzameling q – Definitie door \textcite{rdp}.} loss. Het derde component wordt getraind door middel van policy reïnforcement learning. Hiermee wordt de ongeordende aard van de query aangepakt.
 
 Seq2SQL wordt in deze paper van \textcite{seq2sqlPaper} niet enkel theoretisch aangehaald. Er wordt ook een experiment beschreven waarbij het algoritme wordt uitgetest inzake performantie.  Voor deze experimenten werd gebruik gemaakt van de WikiSQL-dataset (\textcite{wikisql}). Deze dataset is een verzameling van de meest gebruikte SQL-query’s die gebruikt werden tijdens de zoekopdrachten op Wikipedia. WikiSQL wordt gebruikt om het model van Seq2SQL te trainen. De broncode kan gevonden worden op de Github-repository van \textcite{seq2sql}.
 
-Uit de resultaten van de uitgevoerde experimenten blijkt dat de performantie het grootst is bij het uitvoeren van het volledige Seq2SQL algoritme. Dit dus met het toepassen van reïnforcement learning. Seq2SQL zonder het gebruik van reïnforcement learning levert een performantie op die zo’n 2,7\% lager is dan het volledige model. De volledige resultaten worden voorgesteld in tabel …. 
+Uit de resultaten van de uitgevoerde experimenten blijkt dat de performantie het grootst is bij het uitvoeren van het volledige Seq2SQL algoritme. Dit dus met het toepassen van reïnforcement learning. Seq2SQL zonder het gebruik van reïnforcement learning levert een performantie op die zo’n 2,7\% lager is dan het volledige model. De volledige resultaten worden voorgesteld in tabel \ref{table:seq2sqltab}.
 
 Enkele conclusies die hierbij getrokken kunnen worden:
 \begin{itemize}
@@ -90,7 +231,22 @@ Enkele conclusies die hierbij getrokken kunnen worden:
 	\item Reïnforcement learning zorgt ervoor dat de WHERE-clauses van een goede kwaliteit zijn.
 \end{itemize}
 
-\section{SQLNet}
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{lllll}
+		\hline
+		Model                & Dev Acc\textsubscript{lf}       & Dev Accex       & Test Acc\textsubscript{lf}      & Test Accex      \\ \hline
+		Attentional Seq2Seq  & 23.3\%          & 37.0\%          & 23.4\%          & 35.9\%          \\
+		Aug. Pointer Network & 44.1\%          & 53.8\%          & 42.8\%          & 52.8\%          \\ \hline
+		Seq2SQL (no RL)      & 47.7\%          & 57.9\%          & 47.2\%          & 57.6\%          \\
+		\textbf{Seq2SQL}     & \textbf{49.8\%} & \textbf{60.7\%} & \textbf{49.2\%} & \textbf{60.3\%}
+	\end{tabular}
+	\caption{Resultaten Seq2SQL}
+	\label{table:seq2sqltab}
+\end{table} 
+
+\subsection{SQLNet}
+\label{sec:SQLNet}
 
 Naast Seq2SQL, bestaat er ook SQLNet. Dit mechanisme werkt op een ongeveer gelijkaardige manier als Seq2SQL, maar hier wordt geen reinforcement learning toegepast. De huidige manier van werken (het belonen van het model) is niet eerder beperkt. Daarom is het nodig dat er verandering komt. SQLNet komt hier dus met de oplossing.
 
@@ -100,7 +256,14 @@ Maar hoe werkt dat nu precies? SQLNet wordt in de paper van \textcite{sqlnetPape
 
 Het gebruikmaken van zo’n schets heeft als voordeel dat de orderaangelegenheden die kunnen voorkomen in een sequence-to-sequence-model (zie  sectie \ref{sec:Salesforce - Seq2SQL} ) te voorkomen. Dit komt omdat de schets de afhankelijkheid van de voorspellingen vastlegt. Om te kunnen voldoen aan deze schets, wordt er gebruik gemaakt van twee technieken: sequence-to-set en column attention. Alle mogelijke technieken worden gebruikt zodat er een SQLNet neuraal netwerk wordt gecreëerd waarbij het mogelijk is om een SQL-query te genereren vanuit een natuurlijke taalvraag en een tabelschema.
 
-De eerste stap voor het uitvoeren van het SQLNet-algoritme, is het opstellen van de schets. Dit gebeurd door middel van de zogenaamde “sketch-based query synthese”. De SQL sleutelwoorden worden al gegeven. Dit zijn SELECT, WHERE en AND. In de paper wordt volgende figuur getoond (figuur …). Hierin kan er gezien worden dat deze woorden reeds ingevuld zijn. De operatoren die starten met “\$” dienen gevonden te worden. Enkel en alleen de AND-clausule dient niet ingevuld te worden. Om dit duidelijk te maken, wordt er gebruik gemaakt van een reguliere expressie (“()*”). In figuur … kan de zogenaamde afhankelijkheidsgrafiek teruggevonden worden. De nog te vinden operatoren worden hier voorgesteld in kaders. Elke afhankelijkheid wordt voorgesteld door middel van een gerichte pijlen. Deze pijlen geven de afhankelijkheden weer ten opzichte van zowel de kolom als de gestelde vraag. Het model kan gezien worden als een grafisch model op basis van de afhankelijkheidsgrafiek. Ook het probleem van de vraagsynthese kan gezien worden als een gevolgtrekkingsprobleem in deze grafiek. Als besluit voor dit onderdeel, kan men zeggen dat de voorspelling van een beperking onafhankelijk is van een andere voorspelling. Deze benadering brengt dus een oplossing voor het “order-zaken”-probleem bij een sequence-to-sequence model.
+De eerste stap voor het uitvoeren van het SQLNet-algoritme, is het opstellen van de schets. Dit gebeurd door middel van de zogenaamde “sketch-based query synthese”. De SQL sleutelwoorden worden al gegeven. Dit zijn SELECT, WHERE en AND. In de paper wordt volgende figuur getoond (figuur \ref{fig:sqlnet}a). Hierin kan er gezien worden dat deze woorden reeds ingevuld zijn. De operatoren die starten met “\$” dienen gevonden te worden. Enkel en alleen de AND-clausule dient niet ingevuld te worden. Om dit duidelijk te maken, wordt er gebruik gemaakt van een reguliere expressie (“()*”). In figuur \ref{fig:sqlnet}b kan de zogenaamde afhankelijkheidsgrafiek teruggevonden worden. De nog te vinden operatoren worden hier voorgesteld in kaders. Elke afhankelijkheid wordt voorgesteld door middel van een gerichte pijlen. Deze pijlen geven de afhankelijkheden weer ten opzichte van zowel de kolom als de gestelde vraag. Het model kan gezien worden als een grafisch model op basis van de afhankelijkheidsgrafiek. Ook het probleem van de vraagsynthese kan gezien worden als een gevolgtrekkingsprobleem in deze grafiek. Als besluit voor dit onderdeel, kan men zeggen dat de voorspelling van een beperking onafhankelijk is van een andere voorspelling. Deze benadering brengt dus een oplossing voor het “order-zaken”-probleem bij een sequence-to-sequence model.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.80\textwidth]{img/sqlnetmodel}
+	\caption[SQLNet Model]{Syntax van de schets en zijn afhankelijkheden}
+	\label{fig:sqlnet}
+\end{figure}
 
 Er werd al gesproken over de sequence-to-set voorspelling en de column attention, maar wat is dit nu? In de paper van \textcite{sqlnetPaper} wordt het voorspellen van de WHERE-kolom gebruikt als voorbeeld om dit uit te leggen. De kolommen in de WHERE-component zijn een subset van een reeks kolomnamen. Sequence-to-set voorspellingen is het voorspellen van de belanghebbende kolomnamen die in deze subset moeten weergegeven worden. Column attention is een speciale vorm van het generieke aandachtsmechanisme om te berekenen op welke kolommen de aandacht moet gevestigd worden. 
 
@@ -123,7 +286,7 @@ Het SQLNet model bestaat uit het voorspellen van het SELECT-statement en het voo
 
 Net als bij Seq2SQL wordt voor dit model gebruik gemaakt van de WikiSQL-dataset voor het uitvoeren van de experimenten en het trainen van het model. Zo kan er bewezen worden dat door het uitvoeren van het SQLNet-mechanisme, 9 tot 13 procent beter werkt dan een ander mechanisme. De volledige source code kan gevonden worden op de Github-repository van \textcite{sqlnet}.
 
-\section{Algoritme voor transformatie van tekst naar SQL-query's (NLIDBS)}
+\subsection{Algoritme voor transformatie van tekst naar SQL-query's (NLIDBS)}
 
 Zoals vermeld bij Seq2SQL, worden grote hoeveelheden data opgeslagen in relationele databanken. Een groot nadeel hierbij is dat de meeste mensen de kennis niet hebben inzake SQL om te communiceren met de databank. Een oplossing hiervoor zou zijn dat mensen in hun eigen taal zouden kunnen communiceren met de databank. Deze oplossing staat beschreven in het artikel van \textcite{nlidbs}.
 
@@ -143,13 +306,20 @@ Er worden negen stappen uitgevoerd om tot de juiste query te komen. Door deze qu
 	\item[Resultaat] De gegenereerde query wordt uitgevoerd op de testdataset. De interface toont dan de verkregen resultaten aan de gebruiker.
 \end{description}
 
-Het volledige proces wordt voorgesteld in figuur ..., verkregen uit het artikel van \textcite{nlidbs}.
+Het volledige proces wordt voorgesteld in figuur \ref{fig:nlidbs}, verkregen uit het artikel van \textcite{nlidbs}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.80\textwidth]{img/nlidbs}
+	\caption[NLIDBS proces]{NLIDBS Process control flow diagram}
+	\label{fig:nlidbs}
+\end{figure}
 
 Dit systeem werd geïmplementeerd in PHP, HTML, CSS en Javascript (als frontend), met een MySQL-databank als backend systeem.
 
 Van het in het artikel beschreven algoritme is er helaas geen open source code teruggevonden. Wel bestaan er gelijkaardige Github-repositories waarbij er een mechanisme gebouwd wordt die dient als gebruikersinterface van een databank. Bij deze soort interfaces dient men een natuurlijke vraag in te geven. Een voorbeeld van zo'n Github-repository is de repository van \textcite{nlidb}.
 
-\section{Microsoft Research - NL2Prog}
+\subsection{Microsoft Research - NL2Prog}
 
 Eigenlijk is het doel van het onderzoek, beschreven in de paper NL2Prog, gelijkaardig aan het onderzoek uitgevoerd in Seq2SQL en in NLIDBS. De meeste mensen zijn niet in staat om via query's te communiceren met de databank wegens geen (of alleszins te weinig) programmeerkennis. De mens wil instaat zijn op een normale manier te kunnen communiceren met de databank, dus eigenlijk via hun eigen taal. Hiervoor probeert men een oplossing te bieden in de paper van \textcite{nl2prog}.		
 
@@ -173,81 +343,17 @@ Tijdens het decoderen wordt statisch het type woord bepaald dat dient gegenereer
 	Verschillende decoders verbruiken en produceren gelijkaardige waarden. Daardoor kunnen ze uitgebreid of aangepast worden indien ze meerdere types moeten kunnen ondersteunen. Het voordeel hierbij is dat er maar een kleine output vocabulair van SQL-operatoren dient te worden beschouwd. De andere waarden zijn bekomen door kopiëren.
 \end{description}
 
-Zoals bij Seq2SQL en SQLNet wordt ook dit model geëvalueerd op de WikiSQL dataset (\textcite{wikisql}). Via gesuperviseerd leren kan aangetoond worden dat het model van NL2Prog, beter presteert dat de eerst genoemde mechanismen. Dit wordt aangetoond in tabel … waarin de performantie vergeleken wordt met de performantie verkregen in het onderzoek naar het Seq2SQL-model (zie sectie  \ref{sec:Salesforce - Seq2SQL} en de paper van \textcite{seq2sqlPaper}). Men kan, vanuit de tabel, zeggen dat dit model zo’n 5,7\% performanter is dan Seq2SQL (65,1\% ten opzichte van 59,4\%). We kunnen dus concluderen dat dit model, NL2Prog, veel beter presteert dan Seq2SQL.
+Zoals bij Seq2SQL en SQLNet wordt ook dit model geëvalueerd op de WikiSQL dataset (\textcite{wikisql}). Via gesuperviseerd leren kan aangetoond worden dat het model van NL2Prog, beter presteert dat de eerst genoemde mechanismen. Dit wordt aangetoond in tabel \ref{table:nlprog} waarin de performantie vergeleken wordt met de performantie verkregen in het onderzoek naar het Seq2SQL-model (zie sectie  \ref{sec:Salesforce - Seq2SQL} en de paper van \textcite{seq2sqlPaper}). Men kan, vanuit de tabel, zeggen dat dit model zo’n 5,7\% performanter is dan Seq2SQL (65,1\% ten opzichte van 59,4\%). We kunnen dus concluderen dat dit model, NL2Prog, veel beter presteert dan Seq2SQL.
 
-\section{Primary Objects - AI Programmer}
-
-AI Programmer is het eerste machine learning systeem dat in staat is om volledige code te genereren. De mens dient maar weinig hulp eraan te bieden om het te doen slagen. Door middel van artificiële intelligentie en enkele genetische algoritmes, is AI Programmer in staat om een aantal kleine programmatjes te produceren (zie ook de Github-repository van \textcite{github} en de tutorial van \textcite{primaryObject} op de website van PrimaryObjects).
-
-AI Programmer is een zelflerend mechanisme. Het is een AI genetisch algoritme dat zichzelf altijd tracht te verbeteren. Het achterliggende idee voor de ontwikkeling van dit mechanisme, is het mogelijk maken dat een computer allerlei soorten programma's kan creëren. Het ultieme doel is om computerprogramma’s te genereren voor het oplossen van problemen.
-
-In de paper van \textcite{aiProgrammer} wordt het volledige model voorgesteld. In figuur … wordt het ontwerp van AI Programmer (door Salesforce) voorgesteld. Het mechanisme maakt gebruik van een typeloze programmeertaal. Deze programmeertaal bevat maar acht instructies om de generatie van software door middel van AI Programmer te sturen. De acht instructies zijn: '<' , '>' , '+' , '-' , '.' , ',' , '[' en ']'. Deze manier van werken brengt een aantal voordelen met zich mee, alsook een aantal aanpassingen aan de taal om alles te kunnen integreren:
-\begin{description}
-	\item[Turing Compleet] Door AI Programmer gegenereerde programma’s zijn in theorie in staat om alle te voldoen aan alle taken die men zou willen of kunnen uitvoeren met een computer.
-	\item[GA-Engine en Uniforme Gene Distributions] Het genetisch algoritme (GA) mechanisme van AI Programmer toont de instructies van de gegenereerde programma’s als een array van floating point waarden. Wanneer dit beschouwd wordt als een eenheid, is dit zijn genoom. Een individuele locatie binnen een bepaald genoom staat bekend als een gen (gene). Een bepaald gen binnen een genoom komt overeen met één van de acht opgegeven instructies. Tijdens het uitvoeren van dit algoritme wordt er aan elke instructie een bepaald bereik waartussen de genwaarde kan vallen. Dit gebeurt via een continue uniforme verdeling (de grootte van het bereik is voor elke instructie even groot). De reden om dit zo te doen, is het feit dat iedere instructie een willekeurige kans had om op iedere mogelijke locatie in een gensequentie te worden gekozen (wanneer willekeur nodig is).
-	\item[Vereenvoudige set van instructies]  Een vereenvoudigde instructieset zorgt ervoor dat de zoekruimte waarin doelprogrammacode dient gevonden te worden verkleint. Het is belangrijk te onthouden dat AI Programmer bedoeld is voor ontwikkelaars voor algemene doeleinden. Het beperken van de instructies (op acht instructies) kan ervoor zorgen dat dit mechanisme binnen een redelijke tijd uitgevoerd kan worden op basis hardware.
-\end{description}
-
-AI Programmer is een genetisch algoritme. Voor het genereren van een programma via zo'n algoritme, moet er eerst een genoom gecreëerd worden. In de biologie wordt een genoom beschreven als de complete genetische samenstelling van een organisme, cel of virus. In deze context wordt een genoom ongeveer gelijkaardig beschreven. Zoals eerder beschreven, is een genoom (bij AI Programmer) een array van floating point waarden. 
-
-Wanneer zo’n genoom is aangemaakt, wordt dit omgezet naar een overeenkomstig programma. Na deze omzetting wordt het programma uitgevoerd en aan dat resulterend programma wordt er een fitnessscore toegekend. Hoe beter het programma overeenkomt met het gevraagde, hoe groter de fitnessscore. Hierdoor is de kans groter dat het programma doorgaat naar een volgende evolutionaire generatie. Bij elke generatie maakt AI Programmer gebruik van willekeurige selectie, cross-over en mutatie. Hierdoor worden er telkens programma’s gegenereerd met kleine “verstoringen” die mogelijk betere genomen bevatten dan hun parents voor het oplossen van de doeltaak.
-
-Om een genetisch algoritme te kunnen gebruiken, is een fitnesstest nodig om uit te maken hoe  goed een bepaalde oplossing overeenkomt met het beoogde doelprogramma. Dit concept komt overeen met het test-driven ontwikkelen van programma’s. Wanneer alle testen slagen, is een programma pas correct. Bij AI Programmer bezit de fitnesstest meestal een reeks controles voor verschillende scenario’s. Deze begeleiden de genoom selectie. Indien de programma’s goed evalueren op de testsuite, worden deze behouden.
-
-Een gegenereerd programma moet dan ook uitgevoerd kunnen worden. Daarna wordt het beoordeeld aan de hand van fitnesstests. Uitvoeringen van de gegenereerde programma’s kunnen altijd beveiligingsrisico’s of prestatieverminderingen met zich meebrengen. Met dit in het achterhoofd te houden alsook de behoefte aan een complexe fitnessfunctie, ontwikkelde de onderzoekers van AI Programmer een eigen soort tolk (interpreter). Dit mechanisme zit ingebouwd in AI Programmer en biedt een veilige, efficiënte en GA-geschikte uitvoeringsomgeving. Zo’n interpreter brengt ook voordelen en uitdagingen met zich mee:
-\begin{itemize}
-	\item Uitvoering in een gecontroleerde omgeving
-	\item Beëindigen van oneindige lussen
-	\item Simulatie van complexe instructies
-\end{itemize}
-
-Er worden in de paper ook een aantal testen beschreven. Zo hebben de onderzoekers een aantal programma’s laten genereren. Deze programma’s gingen van begroetingen tot conversies van invoergegevens. In tabel … wordt er een overzicht getoond van de gegenereerde programma’s, alsook de tijd die nodig was om deze te produceren en het totaal aantal evolutionaire generaties welke gebruikt werden voor het builden van de programma’s. Het is belangrijk te weten dat, door de variatie in genoomgrootte en de berekening van de fitnessfunctie welke voor elk programma uniek is, het aantal evolutionaire generaties \textbf{NIET} gelijk is aan de totale computertijd voor de generatie van het programma.
-
-De programmeerwereld blijft zichzelf altijd heruitvinden. Software en hardware wordt altijd complexer. De software-ontwikkeling zal de capaciteit van programmeurs binnenkort overstijgen. Naarmate deze tijd nadert, zullen programmeurs nood hebben aan assistentie van automatische softwareontwikkelingsalgoritmen. Hiervoor kan AI Programmer dan een mogelijke oplossing zijn.
-
-\textbf{In de volgende secties wordt onder andere gesproken over de technieken die achter de mechanismen zit. Daarnaast wordt er ook informatie aangehaald over de meest voorkomende programmeertaal uit de cases.}
-\section{Vierde generatie programmeertalen}
-
-Zoals vermeld bij de opgegeven cases, worden in de meeste gevallen SQL-query’s gegenereerd. Maar wat voor soort programmeertaal is SQL eigenlijk? Wel, SQL behoort tot de groep van de vierde generatie programmeertalen. 
-
-Maar wat is er zo speciaal aan deze generatie programmeertalen? Volgens \textcite{fourthgenpl} behoren de 4GL tot de talen die het dichtst aanleunen tegen de natuurlijke taal. Ze hebben het voordeel van onder andere sneller te kunnen verlopen en de kosten voor de ontwikkeling te verminderen.
-
-Vierde generatie programmeertalen zijn de enige talen die vaak in contact komen met grote hoeveelheden aan data. Onder de vierde generatie programmeertalen kan je daarom volgende domeinen terugvinden:
-\begin{itemize}
-	\item Databasequery’s
-	\item Rapporteringen
-	\item Gegevensmanipulatie
-	\item \dots
-\end{itemize}
-
-Het is dus via zo’n talen mogelijk om data op te vragen uit tabellen, deze aan te passen of mooi uit te schrijven in een rapport.
-
-Naast SQL behoren onder andere volgende programmeertalen ook tot de vierde generatie: R, S, ABAP, Oracle Forms en Bizagi.
-
-\section{Neurale netwerken}
-
-Achter alle mechanismen om code te laten genereren, zit er artificiële intelligentie. Meer bepaald artificiële neurale netwerken. Maar wat zijn neurale netwerken? 
-
-Wanneer iemand denkt aan neurale netwerken, wordt er meer bepaald gedacht aan het menselijke brein. Het menselijk brein bestaat uit een groot aantal neuronen. Deze neuronen werken samen door middel van elektrochemische signalen. Bij artificiële neurale netwerken probeert men alle kenmerken van een menselijk neuron samen te voegen in een wiskundig model. Over artificiële neurale netwerken valt er nog meer te lezen in de Hogeschool Cursus AI door \textcite{cursusAI} en in het artikel van \textcite{techpulse}.
-
-Hoe werken artificiële neurale netwerken nu eigenlijk? 
-
-Neurale netwerken worden getraind om te kunnen werken. Denk bijvoorbeeld aan het herkennen van nummers uit een lijst. Of zoals Facebook, die gezichten op foto’s herkend en vraagt om eventueel deze herkende mensen te taggen in de bewuste foto’s. 
-
-Het voorbeeld dat wordt omschreven in het artikel op de website van tweakers (\textcite{tweakers}) gaat over het herkennen van handgeschreven getallen uit een foto. Deze foto of afbeelding (meestal 28 bij 28 pixels) wordt gebruikt als input voor het neurale netwerk. In de datasets die gebruikt worden voor het netwerk te trainen, zitten er ook afbeeldingen van 28 bij 28 pixels met handgeschreven cijfers op. De mens herkent makkelijk de cijfers in de afbeeldingen, door te kijken naar de grijswaarden in de pixels. Het neurale netwerk moet wel gaan rekenen, daarom worden aan alle ingaven (28 x 28 = 784) een waarde tussen 0 en 1 gegeven. Een neuraal netwerk is NIET binair, maar wel analoog. 
-
-De data uit deze eerste laag neuronen, wordt doorgestuurd naar de tweede, verborgen, laag. Dit is een veel kleinere laag neuronen. In deze laag wordt er een bepaald gewicht gegeven aan de data van de input grijswaarden. De data uit de tweede laag krijgt dus ook weer een waarde tussen 0 en 1. Deze waarden worden dan doorgegeven aan de uitvoer neuronen. Het neuron dat het dichtste aanleunt tegen 1, geeft het cijfer aan dat het net “gezien” zou hebben. 
-
-Een neuraal netwerk zou ook kunnen bestaan uit meerdere lagen neuronen. Voor de simpliciteit werd in dit voorbeeld maar één tussenlaag gebruikt.
-
-Maar hoe worden neurale netwerken nu getraind? Voor het trainen van een neuraal netwerk, kan men één van de volgende vijf optimalisatiealgoritmen toepassen, welke beschreven zijn door \textcite{neuraldesigners}.
-
-\begin{description}
-	\item[Gradient Descent] Gradient Descent is het makkelijkste algoritme voor het trainen van een neuraal netwerk. Het is een eerste orde iteratief optimalisatie algoritme voor het vinden van een minimum van een functie. Door eerst voorwaartse propagatie uit te voeren en daarna achterwaartse propagatie, kan men de gradiënt berekenen. Het is wel de bedoeling dat de gehele training dataset onderzocht wordt. Door het uitvoeren van het gradiënt descent algoritme, kan men al een idee krijgen in welke richting de gewichten zich zouden aanpassen.
-	\item[Methode van Newton] Gradiënt Descent is dan wel een eerste orde algoritme, de methode van Newton is een tweede orde algoritme. Het maakt gebruik van de Hessiaan\footnote{Dit is een matrix van de tweede orde partiële afgeleiden van een functie.} van de te minimaliseren functie. Deze functie wordt gebruikt om een betere trainingsrichting te vinden door de tweede orde afgeleiden van de verliesfunctie te gebruiken.
-	\item[Conjugate gradient] De conjugate gradiënt is een vorm tussen de gradiënt descent en de methode van Newton. Via deze methode is het mogelijk om de normaal gezien langzame convergentie te versnellen (dit is zo bij gradiënt descent). Daarnaast wordt het werken met de Hessiaan matrix en alle andere benodigdheden van de methode van Newton ook vermeden.
-	\item[Quasi-Newton-methode] De methode van Newton is duur in uitvoer. Er zijn veel bewerkingen nodig om voor die methode alles te berekenen. De quasi-Newton methode is een beter alternatief. Het is ontwikkeld om een antwoord te bieden alle nadelen van de methode van Newton. Bij deze methode wordt er per iteratie van het algoritme, een benadering gegeven op de inverse Hessiaan. Hiervoor worden enkel de eerste afgeleiden van de verliesfunctie gebruikt.
-	\item[Het algoritme van Levenberg-Marquardt] Dit algoritme is speciaal ontworpen om te werken met verliesfuncties die de vorm aannemen van een som kwadratische fouten. In plaats van de Hessiaan-matrix te gebruiken, wordt er gebruik gemaakt van de Jacobi-matrix\footnote{De Jacobi-matrix van een functie is de matrix van de eerste-orde partiële afgeleiden van een functie.}.
-\end{description}
-
-Neurale netwerken zijn belangrijk voor het genereren van code uit tekst of uit natuurlijke taal. Deze neurale netwerken worden getraind om woorden te herkennen uit de gestelde vragen. Door middel van die woorden wordt er via allerhande mechanismen en algoritmen code gegenereerd.
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{llllll}
+		\hline
+		Model         & \begin{tabular}[c]{@{}l@{}}Filtered \\ Dev Acc\textsubscript{syn}\end{tabular} & Dev Acc\textsubscript{syn}      & Dev Acc\textsubscript{ex}       & Test Acc\textsubscript{syn}     & Test Acc\textsubscript{ex}      \\ \hline
+		Pointer Model & -                   & 44.1\%          & 53.8\%          & 43.3\%          & 53.3\%          \\
+		Seq2SQL       & -                   & 49.5\%          & 60.8\%          & 48.3\%          & 59.4\%          \\
+		NL2Prog Model & 61.0\%              & \textbf{59.6\%} & \textbf{65.2\%} & \textbf{59.5\%} & \textbf{65.1\%}
+	\end{tabular}
+	\caption{Resultaten NL2Prog}
+	\label{table:nlprog}
+\end{table}
