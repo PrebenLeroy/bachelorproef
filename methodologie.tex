@@ -26,7 +26,8 @@ Aangezien de uitvoering van de scripts, horende bij de gekozen algoritmen, faald
 Wanneer de Ubuntu setup compleet was, werden ook de volgende tools geïnstalleerd:
 \begin{description}
 	\item[Github] Doordat er een Github-cli (command-line interface) werd geïnstalleerd, is het mogelijk om via commando's github-gerelateerde zaken te regelen (zoals het clonen van repositories op een lokaal systeem).
-	\item[Python 3.6] Tijdens het overlopen van de Github-repositories, werd het nogal snel duidelijk dat er voor de uitvoering van de algoritmen gebruik gemaakt werd van Python-scripts. Voor WikiSQL werd er expliciet gevraagd voor de installatie van deze Python-versie. 
+	\item[Python 2.7] Tijdens het overlopen van de Github-repositories, werd het nogal snel duidelijk dat er voor de uitvoering van de algoritmen gebruik gemaakt werd van Python-scripts.
+	\item[Python 3.6] De scripts, horende bij het WikiSQL-algoritme, vereisen het gebruik van Python 3.6. Daarom werd naast de installatie van Python 2.7 ook Python 3.6 geïnstalleerd.
 \end{description}
 
 Nadat de gehele installatie voltooid was, kon er gestart worden met het uitvoeren van deze algoritmen. De informatie over de uitvoering kan teruggevonden worden in de volgende sectie (sectie \ref{sec:uitvoering}).
@@ -34,6 +35,30 @@ Nadat de gehele installatie voltooid was, kon er gestart worden met het uitvoere
 \section{De uitvoering}
 \label{sec:uitvoering}
 
--- Experiment in uitvoering --
+In het volgend hoofdstuk, hoofdstuk~\ref{ch:experiment} Experiment, zal de uitvoering van het onderzoek concreet besproken worden. In volgende subsecties wordt de complete eerste fase van het experiment besproken. Ook wordt de manier van uitvoering hier besproken.
 
-\lipsum[21-25]
+\subsection{Algoritme}
+
+Het eerste deel van het onderzoek gaat vooral uit naar de achterliggende gedacht van het experiment. In hoofdstuk~\ref{ch:stand-van-zaken} werden alle algoritmen reeds aangehaald. In dit deel wordt er nog eens kort aangehaald wat het algoritme is en waarvoor het dient. Deze subsectie zorgt er dan ook voor dat deze algoritmen beter te begrijpen vallen. 
+
+\subsection{Opbouw}
+
+In het tweede deel ligt de nadruk vooral op de bouw van de scripts. Ook zal er hier gekeken worden naar de opbouw van de dataset die gebruikt wordt voor de uitvoering van de scripts, namelijk de WikiSQL dataset. 
+
+Per script wordt er gekeken uit welke delen het bestaat. Per onderdeel wordt er bekeken wat het doet en waarom het nodig is dat het vermeld wordt in het script. Het is namelijk niet alleen belangrijk dat het algoritme werkt, maar het is even belangrijk dat de achterliggende code begrepen wordt door zowel de onderzoeker als de lezer van deze bachelorproef.
+
+\subsection{Uitvoering}
+
+Deze derde subsectie staat volledig in het teken van de uitvoering van de algoritmen. In dit deel van het onderzoek worden alle besproken algoritmen uitgevoerd. Hierin wordt besproken hoe elk algoritme dient uitgevoerd te worden. Welke bestanden zijn er nodig voor de uitvoering? Welke commando's dienen er gebruikt te worden om de scripts te laten werken? 
+
+In deze subsectie worden dus de stappen van uitvoering besproken. Daarnaast zal hier ook uitgebreid aandacht geschonken worden aan de feedback, welke verkregen wordt tijdens en/of na de uitvoering van een algoritme. Deze feedback kan bijvoorbeeld zijn wanneer het algoritme is vastgelopen, wat er verkeerd is, \dots 
+
+\subsection{Resultaten}
+
+Het belangrijkste onderdeel van het onderzoek. De resultaten worden bekomen na de uitvoering van de algoritmen. De volgende stap in het proces, is de vergelijking van deze bekomen resultaten met de verkregen resultaten (uit de papers of vermeld in de Github-repository). Komen deze resultaten overeen, of zijn de resultaten helemaal niet correct? 
+
+Indien de bekomen resultaten overeenkomen met de vooropgestelde resultaten, kan er verder gegaan worden naar de tweede fase van het totale onderzoek. Wanneer de resultaten niet overeenkomen of wanneer de algoritmen helemaal niet werken, zal er gekeken worden waar het foutgelopen is. Ook zal er indien mogelijk een oplossing voorhanden gegeven worden. Mogelijke oplossingen zullen uitgebreid beschreven worden. Indien er geen oplossingen zijn gevonden, zullen de problemen uitgebreid besproken worden.
+
+Wanneer het gelukt is om de drie algoritmen werkend te krijgen, en dat de verkregen resultaten overeen kwamen met de vermelde resultaten in de verkregen papers, zal er geprobeerd worden deze algoritmen uit te voeren op een andere dataset. Het doel van deze tweede fase van het experiment is om te kijken of het mogelijk is om gelijkaardige resultaten te verkrijgen nadat deze algoritmen op een niet gekende dataset uitgevoerd worden.
+
+Na de uitvoering van alle experimenten zullen alle resultaten ook gebundeld worden. Hierop wordt dan de conclusie van deze bachelorproef gebaseerd. Deze conclusie valt te lezen in hoofdstuk~\ref{ch:conclusie}.
