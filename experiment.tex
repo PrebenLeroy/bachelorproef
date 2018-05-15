@@ -9,6 +9,16 @@ In dit hoofstuk zal het complete experiment besproken worden. Eerst en vooral za
 
 Het gevolg van deze experimenten valt dan te lezen in het volgende hoofdstuk. Er wordt getracht een duidelijke conclusie te vormen die antwoord bied op de vooropgestelde onderzoeksvragen. Het kan natuurlijk ook anders uitdraaien. De algoritmen zouden bijvoorbeeld niet kunnen werken of de resultaten zouden niet kunnen kloppen. Dan zal er moeten gezocht worden naar een duidelijke reden waarom het niet werkt.
 
+\textbf{\color{red}{In tegenstelling tot wat reeds vermeld werd in hoofdstuk \ref{ch:methodologie} Methodologie, worden de experimenten niet uitgevoerd in een virtuele omgeving. Het Linux besturingssysteem werd geïnstalleerd op een andere computer 
+		\footnote{Dit is een HP laptop, Pavilion 17 met volgende specificaties:
+		\begin{itemize}
+			\item Intel Core i7-4510U processor
+			\item 12 gigabyte RAM
+			\item 1 terabyte harde schijf
+			\item NVIDIA GeForce 840M grafische kaart
+	\end{itemize}}. 
+Dit op een aparte partitie (van 150 gigabyte). Dit wordt in sectie \ref{sec:sqlnet} verder besproken.}}
+
 \section{WikiSQL}
 
 \subsection{Algoritme}
@@ -19,17 +29,154 @@ Naast Seq2SQL wordt de WikiSQL dataset ook veel gebruikt voor andere algoritmen 
 
 \subsection{Opbouw}
 
---Opbouw--
+De complete Github-repository (\textcite{wikisql}) is opgebouwd uit twee mappen (lib en test), 2 Python-scripts, 2 tekstbestanden en een aantal andere bestanden. De lib-map bestaat uit vijf verschillende Python-scripts, welke aangeroepen worden tijdens de uitvoering van het algoritme. Zo bevat deze map bijvoorbeeld het script die de data uit de databank kan lezen. 
+
+De volgende map, test, bevat belangrijke scripts en bestanden voor de training en uitvoering van het algoritme. Volgende bestanden kunnen hier teruggevonden worden:
+\begin{description}
+	\item[Dockerfile] Dit bestand wordt gebruikt om een image te maken voor het trainen en het uitvoeren van het algoritme van WikiSQL via een Docker container. In het bestand zelf worden de commando's beschreven de aanmaak van een voorlopige werkomgeving, waarin het geheel wordt uitgevoerd. Daarnaast zijn de commando's voor de installatie van het algoritme in de Dockerfile terug te vinden, alsook de commando's voor training en uitvoering van het algoritme. Hierover later meer.
+	\item[check.py] Dit Python-script zorgt ervoor dat het algoritme getraind wordt. Het gaat op zoek naar data-bestanden in de data-map om daarmee het algoritme te trainen. Indien er een query geen geldig resultaat teruggeeft, stopt het algoritme en geeft het een foutmelding terug. Ook wordt er een foutmelding gegeven indien er geen correcte query kan teruggevonden worden.
+	\item[example.pred.dev.jsonl.bz2] Dit is een voorbeeld voorspellingsdocument, gebaseerd op de dev dataset. Via het bzip2-commando is het mogelijk dit bestand uit te pakken en te kijken naar de eventuele resultaten voor deze set.
+\end{description}
+
+In de algemene overzichtspagina van de Github-repository worden nog een aantal andere bestanden vermeld, naast de hierboven beschreven mappen. De belangrijkste bestanden hierbij zijn:
+\begin{description}
+	\item[data.tar.bz2] Dit is een gearchiveerd bestand. Wanneer dit uitgepakt wordt, wordt er een map data aangemaakt met daarin data-bestanden voor drie verschillende sets. Voor elke set wordt er een databank bestand teruggevonden (in SQLite-formaat), een .jsonl bestand met de uitleg over de tabellen alsook een .jsonl bestand met de vraag, query en tabelid. In bijlage \ref{ch:bijlage1} kan een voorbeeld van beide .jsonl bestanden teruggevonden worden.
+	\item[evaluate.py] Dit is het script dat uitgevoerd dient te worden nadat het algoritme getraind is. Het script is de uitwerking van het algoritme.
+	\item[requirements.txt] Dit document bevat alle, via pip install, te installeren modules om de uitvoering van de Python-scripts mogelijk te maken.
+\end{description}
 
 \subsection{Uitvoering}
 
---Uitvoering--
+Om het algoritme lokaal op het systeem te draaien, dient het geheel eerst en vooral geïnstalleerd te worden. Wanneer deze repository is gecloned op het lokale systeem, kan de gebruiker verder gaan met de installatie. De volgende stap is de installatie van de alle vereiste modules. Deze modules staan opgelijst in de "requirements.txt" bestand. Met volgend commando is het mogelijk dit te installeren:
+\begin{center}
+	\textit{sudo python3.6 -m pip install -r requirements.txt}
+\end{center}
+Sudo wordt gebruikt opdat de gebruiker direct de correcte rechten bezit om zaken te installeren op het systeem. Door het gebruik van \textit{python3.6 -m} worden de modules enerzijds direct geïnstalleerd voor deze Python-versie, anderzijds helpt Python het zoeken naar deze modules. Er wordt daarnaast ook gebruik gemaakt van de "-r"-tag. Deze tag zorgt ervoor dat het \textit{requirements.txt} gelezen wordt en alle vermelde modules geïnstalleerd worden.
+
+De data, nodig voor de uitvoering van de scripts, is terug te vinden in het data.tar.bz2 bestand. Dit bestand dient door de gebruiker uitgepakt te worden. De gebruiker is nu klaar voor de eigenlijke uitvoering van de scripts.
+
+De uitvoering van de eigenlijke scripts kan op twee manieren gebeuren. Enerzijds kunnen de scripts direct uitgevoerd worden in het terminal-venster. Anderzijds kan dit algoritme uitgevoerd worden vanuit een Docker-container.
+
+\subsubsection{Terminal}
+
+Wanneer de scripts uitgevoerd worden direct vanuit de terminal, dient de gebruiker het volgende commando uit de voeren om het bestand waarin voorbeeld voorspellingen vermeld zijn uit te pakken:
+\begin{center}
+	\textit{sudo apt-get update \&\& sudo apt-get install bzip2}
+\end{center}
+\begin{center}
+	\textit{bzip2 test/example.pred.dev.jsonl.bz2}
+\end{center}
+
+Het eerste script dat dient uitgevoerd te worden, \textit{check.py}, zorgt voor de training van het algoritme. Dit script dient uitgevoerd te worden door middel van volgend commando:
+\begin{center}
+	\textit{sudo python3.6 test/check.py}
+\end{center}
+
+De uitvoering van dit script loopt geregeld mis. Het algoritme wordt hier op basis van drie verschillende data-bestanden getraind. Bij het doorlopen van de eerste dataset, \textit{train} - 56355 query's, loopt het een aantal keren mis\dots Maar liefst bij 14 query's meldt het systeem volgende foutmelding: \textit{raise Exception (‘Query {} did not execute to a valid result’.format(query))}. De uitvoering van de query's zouden geen correct resultaat teruggeven. Deze query's werden ter controle ook uitgevoerd in de DB Browser for SQLite, aangezien het hier gaat over SQLite-databanken. Ook in de volgende twee onderzochte datasets, \textit{dev} en \textit{test} liepen er een aantal query's fout tijdens de uitvoering. In tabel \ref{table:wikisqlerrorstrain} worden de misgelopen query's uit train besproken. In tabellen \ref{table:wikisqlerrorsdev} en \ref{table:wikisqlerrorstest} worden respectievelijk de misgelopen query's besproken voor de dev-dataset als voor de test-dataset.
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ | l | l | p{5cm} | p{5cm} |}
+		\hline
+		Dataset & Na \dots procent & Query & Uitvoering in SQLite-browser \\ \hline
+		train 	& 41 			   & SELECT col4 FROM table WHERE col0 < 1,236 AND col2 = \$817,781 & table\_2\_13663314\_1, resultaat: results  \\ \hline
+		train 	& 42 			   & SELECT col4 FROM table WHERE col1 = civil parish AND col3 = Copeland AND col2 < 1,280 AND col0 = Ennerdale and kinnisde  & table\_2\_1401800\_1, resultaat: ennerdale rural district  \\ \hline
+		train 	& 43 			   & SELECT col0 FROM table WHERE col2 < 11,484 & table\_2\_1601940\_1, resultaat: labour  \\ \hline
+		train 	& 54 			   & SELECT col0 FROM table WHERE col5 < 4,485 & table\_2\_16653153\_28, resultaat: [4 february, 6 february, 7 february, 7 february]  \\ \hline
+		train 	& 57 			   & SELECT col3 FROM table WHERE col6 < 1,258.1 AND col5 < 11.6 & table\_2\_1682026\_3, resultaat: insurance  \\ \hline
+		train 	& 58 			   & SELECT col3 FROM table WHERE col5 = sunk (mine) AND col4 < 2,266 & table\_2\_17166347\_1, resultaat: uk  \\ \hline
+		train 	& 59 			   & SELECT col2 FROM table WHERE col1 = 102.3 AND col3 < 1,000 & table\_2\_17071097\_1, resultaat: kingman, arizona  \\ \hline
+		train 	& 61 			   & SELECT col2 FROM table WHERE col3 < 1,575.0 AND col4 = 1997 AND col0 = philae sulcus & table\_2\_16768245\_5, resultaat: 169.0w  \\ \hline
+		train 	& 65 			   & SELECT col2 FROM table WHERE col4 > 94 AND col1 < 5,297 AND col3 > 0.6106 & table\_2\_11513625\_11, resultaat: 54.0  \\ \hline
+		train 	& 80 			   & SELECT col0 FROM table WHERE col3 < 1,429 & table\_2\_176529\_1, resultaat: [dorchester, port elgin]  \\ \hline
+		train 	& 80 			   & SELECT col3 FROM table WHERE col5 < 1,000 AND col4 = +9 & table\_2\_18007119\_1, resultaat: 70-76-75-76=297  \\ \hline
+		train 	& 85 			   & SELECT col1 FROM table WHERE col3 < 5,361 AND col5 < 4,841 AND col4 < 618 AND col2 < 389 & table\_2\_18894903\_1, resultaat: [91, 907, n, n, n, n, 773, \dots] (16 rijen in totaal)  \\ \hline
+		train	& 89 			   & SELECT col0 FROM table WHERE col2 < 2,198.72 AND col1 > 90909 & table\_2\_1894556\_1, resultaat: [bochum part 1, ramutla, seshego]  \\ \hline
+		train	& 89 			   & SELECT col4 FROM table WHERE col1 < 8,085 AND col3 < 145 & table\_2\_189893\_1, resultaat: 0.42\%  \\ \hline
+	\end{tabular}
+	\caption{Overzicht misgelopen query's WikiSQL - deel train}
+	\label{table:wikisqlerrorstrain}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ | l | l | p{5cm} | p{5cm} |}
+		\hline
+		Dataset & Na \dots procent & Query & Uitvoering in SQLite-browser \\ \hline
+		dev 	& 30 			   & SELECT col0 FROM table WHERE col5 < 1,000 & table\_2\_10581768\_2, resultaat: [alice lloyd college, brescia university]  \\ \hline
+		dev 	& 43 			   & SELECT col6 FROM table WHERE col1 < 1,352.1 AND col4 > 21,615 AND col5 < 75.4 AND col7 = 2.9  & table\_2\_1598533\_8, resultaat: -0.6  \\ \hline
+		dev 	& 52 			   & SELECT col0 FROM table WHERE col3 < 87,585 AND col2 < 1.28 AND col1 > 27504 AND col4 = xhosa & table\_2\_1720632\_2, resultaat: [khaya mnandi, kwa langa, woodridge]  \\ \hline
+		dev 	& 59 			   & SELECT col0 FROM table WHERE col5 < 3,000 AND col1 = marty furgol & table\_2\_17290169\_4, resultaat: t9  \\ \hline
+		dev 	& 84 			   & SELECT col4 FROM table WHERE col3 = north carolina AND col1 < 21,500 & table\_2\_18204624\_1, resultaat: 1926  \\ \hline
+	\end{tabular}
+	\caption{Overzicht misgelopen query's WikiSQL - deel dev}
+	\label{table:wikisqlerrorsdev}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ | l | l | p{5cm} | p{5cm} |}
+		\hline
+		Dataset & Na \dots procent & Query & Uitvoering in SQLite-browser \\ \hline
+		test 	& 38 			   & SELECT col1 FROM table WHERE col3 < 100,000 AND col2 = guymon, oklahoma & table\_2\_14203256\_1, resultaat: 91.3 fm  \\ \hline
+		test 	& 58 			   & Query SELECT col1 FROM table WHERE col3 < 1,137 AND col0 = pointe-verte & table\_2\_171222\_1, resultaat: village  \\ \hline
+		test 	& 95 			   & Query SELECT col2 FROM table WHERE col3 < 32,000 AND col1 = requebra & table\_2\_12937449\_4, resultaat: no. 8  \\ \hline
+	\end{tabular}
+	\caption{Overzicht misgelopen query's WikiSQL - deel test}
+	\label{table:wikisqlerrorstest}
+\end{table}
+
+Er werd getracht elk van deze query's terug werkende te krijgen, maar dit is niet gelukt. Daarom werd er besloten deze query's weg te laten uit de trainingsdatasets. Er bleven per dataset respectievelijk nog 56341, 8416 en 15875 query's over. 
+
+Wanneer de training van het algoritme afgerond was, dient men ook het evaluatiescript uit te voeren. Dit kan met het volgende commando:
+\begin{center}
+	\textit{sudo python3.6 evaluate.py data/dev.jsonl data/dev.db test/example.pred.dev.jsonl}
+\end{center}
+
+Tijdens deze uitvoering wordt de dev dataset doorlopen om zo een mogelijk resultaat te bekomen. Deze resultaten zullen besproken worden in subsectie \ref{sec:resultwikisql}.
+
+\subsubsection{Docker-container}
+
+De uitvoering via Docker bestaat ook uit twee verschillende stappen. Zoals reeds vermeld in de opbouw van dit algoritme, bevat de map "test" ook een Dockerfile. Dit bestand is zeer belangrijk voor deze manier van werken. Eerst dient men volgend commando uit te voeren om zo de test uit te voeren.
+\begin{center}
+	\textit{sudo docker build -t wikisqltest -f test/Dockerfile .}
+\end{center}
+
+Hier wordt een image gebouwd vanuit de root-map. Via dit commando wordt de uitvoering van het algoritme voorbereid. De echte uitvoering, de uitvoering van de image, gebeurd via volgend commando:
+\begin{center}
+	\textit{sudo docker run --rm --name wikisqltest wikisqltest}
+\end{center}
+
+De bekomen resultaten worden besproken in subsectie \ref{sec:resultwikisql}.
 
 \subsection{Resultaten}
+\label{sec:resultwikisql}
 
---Resultaten--
+Na de uitvoering van het WikiSQL algoritme vanuit de terminal, werden volgende resultaten verkregen:
+
+\{ \\
+“ex\_accuracy”: 0.16813212927756654, \\
+“lf\_accuracy”: 0.1091967680608365 \\
+\}
+
+De uitvoering via de Docker-container toonde volgende resultaten: 
+
+\{ \\
+“ex\_accuracy”: 0.5380596128725804, \\
+“lf\_accuracy”: 0.35375846099038116 \\
+\}
+
+Beide methoden bereiken de opgegeven resultaten niet. De nodige resultaten zijn:
+
+\{ \\
+“ex\_accuracy”: 0.37036632039365774, \\
+"lf\_accuracy": 0.2334609075997813 \\
+\}
+
+Zowel bij de uitvoering van het algoritme via de terminal als de uitvoering via een Docker container mislukten aangezien de training van het algoritme niet compleet is. Bij het uitvoeren in de terminal worden er in totaal, over de drie verschillende test-datasets gezien, 22 query's niet uitgevoerd tijdens het trainen van het algoritme. Bij het uitvoeren van het algoritme door middel van een Docker container, stopt de training hoogstwaarschijnlijk al na 41 procent bij de uitvoering van de train dataset (zoals reeds vermeld bij de uitvoering via terminal). Dit is de reden waarom de vereiste resultaten niet bereikt kunnen worden.  
 
 \section{SQLNet}
+\label{sec:sqlnet}
 
 \subsection{Algoritme}
 
