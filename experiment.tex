@@ -29,25 +29,25 @@ Naast Seq2SQL wordt de WikiSQL dataset ook veel gebruikt voor andere algoritmen 
 
 \subsection{Opbouw}
 
-De complete Github-repository (\textcite{wikisql}) is opgebouwd uit twee mappen (lib en test), 2 Python-scripts, 2 tekstbestanden en een aantal andere bestanden. De lib-map bestaat uit vijf verschillende Python-scripts, welke aangeroepen worden tijdens de uitvoering van het algoritme. Zo bevat deze map bijvoorbeeld het script die de data uit de databank kan lezen. 
+De complete Github-repository (\textcite{wikisql}) is opgebouwd uit twee mappen (\textit{lib} en \textit{test}), twee Python-scripts, twee tekstbestanden en een aantal andere bestanden. De lib-map bestaat uit vijf verschillende Python-scripts welke aangeroepen worden tijdens de uitvoering van het algoritme. Zo bevat deze map bijvoorbeeld het script die de data uit de databank kan lezen. 
 
 De volgende map, test, bevat belangrijke scripts en bestanden voor de training en uitvoering van het algoritme. Volgende bestanden kunnen hier teruggevonden worden:
 \begin{description}
 	\item[Dockerfile] Dit bestand wordt gebruikt om een image te maken voor het trainen en het uitvoeren van het algoritme van WikiSQL via een Docker container. In het bestand zelf worden de commando's beschreven de aanmaak van een voorlopige werkomgeving, waarin het geheel wordt uitgevoerd. Daarnaast zijn de commando's voor de installatie van het algoritme in de Dockerfile terug te vinden, alsook de commando's voor training en uitvoering van het algoritme. Hierover later meer.
 	\item[check.py] Dit Python-script zorgt ervoor dat het algoritme getraind wordt. Het gaat op zoek naar data-bestanden in de data-map om daarmee het algoritme te trainen. Indien er een query geen geldig resultaat teruggeeft, stopt het algoritme en geeft het een foutmelding terug. Ook wordt er een foutmelding gegeven indien er geen correcte query kan teruggevonden worden.
-	\item[example.pred.dev.jsonl.bz2] Dit is een voorbeeld voorspellingsdocument, gebaseerd op de dev dataset. Via het bzip2-commando is het mogelijk dit bestand uit te pakken en te kijken naar de eventuele resultaten voor deze set.
+	\item[example.pred.dev.jsonl.bz2] Dit is een voorbeeld voorspellingsdocument, gebaseerd op de dev-dataset. Via het bzip2-commando is het mogelijk dit bestand uit te pakken en te kijken naar de eventuele resultaten voor deze set.
 \end{description}
 
 In de algemene overzichtspagina van de Github-repository worden nog een aantal andere bestanden vermeld, naast de hierboven beschreven mappen. De belangrijkste bestanden hierbij zijn:
 \begin{description}
-	\item[data.tar.bz2] Dit is een gearchiveerd bestand. Wanneer dit uitgepakt wordt, wordt er een map data aangemaakt met daarin data-bestanden voor drie verschillende sets. Voor elke set wordt er een databank bestand teruggevonden (in SQLite-formaat), een .jsonl bestand met de uitleg over de tabellen alsook een .jsonl bestand met de vraag, query en tabelid. In bijlage \ref{ch:bijlage1} kan een voorbeeld van beide .jsonl bestanden teruggevonden worden.
+	\item[data.tar.bz2] Dit is een gearchiveerd bestand. Wanneer dit uitgepakt wordt, wordt er een map \textit{data} aangemaakt met daarin data-bestanden voor drie verschillende sets. Voor elke set wordt er een databank bestand teruggevonden (in SQLite-formaat), een .jsonl bestand met de uitleg over de tabellen alsook een .jsonl bestand met de vraag, query en tabelid. In bijlage \ref{ch:bijlage1} kan een voorbeeld van beide .jsonl bestanden teruggevonden worden.
 	\item[evaluate.py] Dit is het script dat uitgevoerd dient te worden nadat het algoritme getraind is. Het script is de uitwerking van het algoritme.
 	\item[requirements.txt] Dit document bevat alle, via pip install, te installeren modules om de uitvoering van de Python-scripts mogelijk te maken.
 \end{description}
 
 \subsection{Uitvoering}
 
-Om het algoritme lokaal op het systeem te draaien, dient het geheel eerst en vooral geïnstalleerd te worden. Wanneer deze repository is gecloned op het lokale systeem, kan de gebruiker verder gaan met de installatie. De volgende stap is de installatie van de alle vereiste modules. Deze modules staan opgelijst in de "requirements.txt" bestand. Met volgend commando is het mogelijk dit te installeren:
+Om het algoritme lokaal op het systeem te draaien, dient het geheel eerst en vooral geïnstalleerd te worden. Wanneer deze repository is gecloned op het lokale systeem, kan de gebruiker verder gaan met de installatie. De volgende stap is de installatie van de alle vereiste modules. Deze modules staan opgelijst in de \textit{requirements.txt} bestand. Met volgend commando is het mogelijk dit te installeren:
 \begin{center}
 	\textit{sudo python3.6 -m pip install -r requirements.txt}
 \end{center}
@@ -72,7 +72,7 @@ Het eerste script dat dient uitgevoerd te worden, \textit{check.py}, zorgt voor 
 	\textit{sudo python3.6 test/check.py}
 \end{center}
 
-De uitvoering van dit script loopt geregeld mis. Het algoritme wordt hier op basis van drie verschillende data-bestanden getraind. Bij het doorlopen van de eerste dataset, \textit{train} - 56355 query's, loopt het een aantal keren mis\dots Maar liefst bij 14 query's meldt het systeem volgende foutmelding: \textit{raise Exception (‘Query {} did not execute to a valid result’.format(query))}. De uitvoering van de query's zouden geen correct resultaat teruggeven. Deze query's werden ter controle ook uitgevoerd in de DB Browser for SQLite, aangezien het hier gaat over SQLite-databanken. Ook in de volgende twee onderzochte datasets, \textit{dev} en \textit{test} liepen er een aantal query's fout tijdens de uitvoering. In tabel \ref{table:wikisqlerrorstrain} worden de misgelopen query's uit train besproken. In tabellen \ref{table:wikisqlerrorsdev} en \ref{table:wikisqlerrorstest} worden respectievelijk de misgelopen query's besproken voor de dev-dataset als voor de test-dataset.
+De uitvoering van dit script loopt geregeld mis. Het algoritme wordt hier op basis van drie verschillende data-bestanden getraind. Bij het doorlopen van de eerste dataset, \textit{train} - 56355 query's, loopt het een aantal keren mis\dots Maar liefst bij 14 query's meldt het systeem volgende foutmelding: \textit{raise Exception (‘Query {} did not execute to a valid result’.format(query))}. De uitvoering van de query's zouden geen correct resultaat teruggeven. Deze query's werden ter controle ook uitgevoerd in de DB Browser for SQLite. Het betreft hier namelijk SQLite-databanken. Ook in de volgende twee onderzochte datasets, \textit{dev} en \textit{test} liepen er een aantal query's fout tijdens de uitvoering. In tabel \ref{table:wikisqlerrorstrain} worden de misgelopen query's uit train besproken. In tabellen \ref{table:wikisqlerrorsdev} en \ref{table:wikisqlerrorstest} worden respectievelijk de misgelopen query's besproken voor de dev-dataset als voor de test-dataset.
 
 \begin{table}[]
 	\centering
@@ -186,9 +186,24 @@ Het algoritme maakt geen gebruik van reïnforcement learning. Dit is het mechani
 
 \subsection{Opbouw}
 
---Opbouw--
+De complete Github-repository van SQLNet (\textcite{sqlnet}) is opgebouwd uit twee mappen (namelijk \textit{saved\_model} en sqlnet), drie Python-scripts, één tekstbestand en een aantal andere bestanden. De saved\_model-map bevat één bestand, \textit{.keep}. Dit lege bestand zorgt ervoor dat de map waarin het document zich bevindt beschikbaar blijft bij het publiceren op Github.
+
+De tweede map, sqlnet, bevat ook twee mappen (\textit{lib} en \textit{model}) en twee Python-scripts. De lib-map bevat twee Python-scripts welke aangeroepen worden bij de uitvoering van het algoritme. Deze map bevat het script dat toegang bied tot de databank. De model-map bevat op zijn beurt ook nog een map (\textit{modules}) alsook drie verschillende Python-scripts. Dit geheel aan scripts wordt op zijn beurd ook opgeroepen bij de uitvoering van het algoritme. 
+
+In het overzicht van de Github-repository worden er een aantal andere bestanden opgegeven, naast de hierboven beschreven mappen. De belangrijkste bestanden hierbij zijn:
+
+\begin{description}
+	\item[data.tar.bz2] Dit is een gearchiveerd bestand. Nadat het bestand wordt uigepakt, wordt er een map met de naam \textit{data} aangemaakt. Zoals bij WikiSQL, bevat deze map drie verschillende datasets. Per dataset kan er een databank bestand (in SQLite formaat) teruggevonden worden alsook twee .jsonl-bestanden. De .tables.jsonl-bestanden bevatten informatie over de tabellen in de databank. De andere .jsonl-bestanden bevatten de vragen die gesteld kunnen worden aan het systeem, alsook de opbouw van de query's. De uitvoering van de query's zorgen voor een mogelijk antwoord op de beschreven vraag.
+	\item[download\_glove.sh] Door de uitvoering van dit script, wordt er een zip-bestand gedownload met vooraf getrainde glove embedding. Dit zip-bestand bevat een tekstbestand, \textit{glove.42B.300d.txt}. Dit bestand heeft een grootte van 4,67 gigabyte.
+	\item[extract\_vocab.py] Dit script extraheert de glove embedding van het tekstbestand. Verder zorgt dit script voor de training van de word embedding. 
+	\item[requirements.txt] Dit tekstbestand bevat, net zoals bij WikiSQL, alle, via pip install, te installeren modules om de uitvoering van de Python-scripts mogelijk te maken.
+	\item[train.py] Dit script dient uitgevoerd te worden om het SQLNet algoritme te trainen. Dit script maakt gebruik van de CUDA-toolkit \footnote{CUDA staat voor Compute Unified Device Architecture. Deze technologie zorgt ervoor dat de programmeur in staat is om algoritmes op de GPU (grafische processor) uit te voeren. Dit mechanisme is ontwikkeld door NVIDIA.} en heeft vereist de aanwezigheid van een NVIDIA-driver \footnote{Oracle Virtual Box maakt gebruik van een eigen, virtuele GPU. Het is niet mogelijk om GPU van het lokale systeem te delen met een virtuele machine. Daarom werd er besloten Ubuntu te installeren op een andere laptop met NVIDIA GPU, zoals vermeld bij de inleiding van dit hoofdstuk.}.
+	\item[test.py] Dit script zorgt voor de evaluatie van het SQLNet algoritme. Dit op de \textit{dev}- en \textit{test}-dataset. Ook hier wordt gebruik gemaakt van de CUDA-toolkit. Dit algoritme wordt dus ook op de grafische processor (op de grafische kaart) uitgevoerd.
+\end{description}
 
 \subsection{Uitvoering}
+
+In tegenstelling tot het WikiSQL algoritme, wordt voor de uitvoering van SQLNet gebruik gemaakt van Python-versie 2.7.12. De Python-syntax in de scripts is eigen aan de Python-versie. 
 
 --Uitvoering--
 
