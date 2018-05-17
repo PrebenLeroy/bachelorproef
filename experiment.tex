@@ -9,16 +9,6 @@ In dit hoofstuk zal het complete experiment besproken worden. Eerst en vooral za
 
 Het gevolg van deze experimenten valt dan te lezen in het volgende hoofdstuk. Er wordt getracht een duidelijke conclusie te vormen die antwoord bied op de vooropgestelde onderzoeksvragen. Het kan natuurlijk ook anders uitdraaien. De algoritmen zouden bijvoorbeeld niet kunnen werken of de resultaten zouden niet kunnen kloppen. Dan zal er moeten gezocht worden naar een duidelijke reden waarom het niet werkt.
 
-\textbf{\color{red}{In tegenstelling tot wat reeds vermeld werd in hoofdstuk \ref{ch:methodologie} Methodologie, worden de experimenten niet uitgevoerd in een virtuele omgeving. Het Linux besturingssysteem werd geïnstalleerd op een andere computer 
-		\footnote{Dit is een HP laptop, Pavilion 17 met volgende specificaties:
-		\begin{itemize}
-			\item Intel Core i7-4510U processor
-			\item 12 gigabyte RAM
-			\item 1 terabyte harde schijf
-			\item NVIDIA GeForce 840M grafische kaart
-	\end{itemize}}. 
-Dit op een aparte partitie (van 150 gigabyte). Dit wordt in sectie \ref{sec:sqlnet} verder besproken.}}
-
 \section{WikiSQL}
 
 \subsection{Algoritme}
@@ -72,59 +62,7 @@ Het eerste script dat dient uitgevoerd te worden, \textit{check.py}, zorgt voor 
 	\textit{sudo python3.6 test/check.py}
 \end{center}
 
-De uitvoering van dit script loopt geregeld mis. Het algoritme wordt hier op basis van drie verschillende data-bestanden getraind. Bij het doorlopen van de eerste dataset, \textit{train} - 56355 query's, loopt het een aantal keren mis\dots Maar liefst bij 14 query's meldt het systeem volgende foutmelding: \textit{raise Exception (‘Query {} did not execute to a valid result’.format(query))}. De uitvoering van de query's zouden geen correct resultaat teruggeven. Deze query's werden ter controle ook uitgevoerd in de DB Browser for SQLite. Het betreft hier namelijk SQLite-databanken. Ook in de volgende twee onderzochte datasets, \textit{dev} en \textit{test} liepen er een aantal query's fout tijdens de uitvoering. In tabel \ref{table:wikisqlerrorstrain} worden de misgelopen query's uit train besproken. In tabellen \ref{table:wikisqlerrorsdev} en \ref{table:wikisqlerrorstest} worden respectievelijk de misgelopen query's besproken voor de dev-dataset als voor de test-dataset.
-
-\begin{table}[]
-	\centering
-	\begin{tabular}{ | l | l | p{5cm} | p{5cm} |}
-		\hline
-		Dataset & Na \dots procent & Query & Uitvoering in SQLite-browser \\ \hline
-		train 	& 41 			   & SELECT col4 FROM table WHERE col0 < 1,236 AND col2 = \$817,781 & table\_2\_13663314\_1, resultaat: results  \\ \hline
-		train 	& 42 			   & SELECT col4 FROM table WHERE col1 = civil parish AND col3 = Copeland AND col2 < 1,280 AND col0 = Ennerdale and kinnisde  & table\_2\_1401800\_1, resultaat: ennerdale rural district  \\ \hline
-		train 	& 43 			   & SELECT col0 FROM table WHERE col2 < 11,484 & table\_2\_1601940\_1, resultaat: labour  \\ \hline
-		train 	& 54 			   & SELECT col0 FROM table WHERE col5 < 4,485 & table\_2\_16653153\_28, resultaat: [4 february, 6 february, 7 february, 7 february]  \\ \hline
-		train 	& 57 			   & SELECT col3 FROM table WHERE col6 < 1,258.1 AND col5 < 11.6 & table\_2\_1682026\_3, resultaat: insurance  \\ \hline
-		train 	& 58 			   & SELECT col3 FROM table WHERE col5 = sunk (mine) AND col4 < 2,266 & table\_2\_17166347\_1, resultaat: uk  \\ \hline
-		train 	& 59 			   & SELECT col2 FROM table WHERE col1 = 102.3 AND col3 < 1,000 & table\_2\_17071097\_1, resultaat: kingman, arizona  \\ \hline
-		train 	& 61 			   & SELECT col2 FROM table WHERE col3 < 1,575.0 AND col4 = 1997 AND col0 = philae sulcus & table\_2\_16768245\_5, resultaat: 169.0w  \\ \hline
-		train 	& 65 			   & SELECT col2 FROM table WHERE col4 > 94 AND col1 < 5,297 AND col3 > 0.6106 & table\_2\_11513625\_11, resultaat: 54.0  \\ \hline
-		train 	& 80 			   & SELECT col0 FROM table WHERE col3 < 1,429 & table\_2\_176529\_1, resultaat: [dorchester, port elgin]  \\ \hline
-		train 	& 80 			   & SELECT col3 FROM table WHERE col5 < 1,000 AND col4 = +9 & table\_2\_18007119\_1, resultaat: 70-76-75-76=297  \\ \hline
-		train 	& 85 			   & SELECT col1 FROM table WHERE col3 < 5,361 AND col5 < 4,841 AND col4 < 618 AND col2 < 389 & table\_2\_18894903\_1, resultaat: [91, 907, n, n, n, n, 773, \dots] (16 rijen in totaal)  \\ \hline
-		train	& 89 			   & SELECT col0 FROM table WHERE col2 < 2,198.72 AND col1 > 90909 & table\_2\_1894556\_1, resultaat: [bochum part 1, ramutla, seshego]  \\ \hline
-		train	& 89 			   & SELECT col4 FROM table WHERE col1 < 8,085 AND col3 < 145 & table\_2\_189893\_1, resultaat: 0.42\%  \\ \hline
-	\end{tabular}
-	\caption{Overzicht misgelopen query's WikiSQL - deel train}
-	\label{table:wikisqlerrorstrain}
-\end{table}
-
-\begin{table}[]
-	\centering
-	\begin{tabular}{ | l | l | p{5cm} | p{5cm} |}
-		\hline
-		Dataset & Na \dots procent & Query & Uitvoering in SQLite-browser \\ \hline
-		dev 	& 30 			   & SELECT col0 FROM table WHERE col5 < 1,000 & table\_2\_10581768\_2, resultaat: [alice lloyd college, brescia university]  \\ \hline
-		dev 	& 43 			   & SELECT col6 FROM table WHERE col1 < 1,352.1 AND col4 > 21,615 AND col5 < 75.4 AND col7 = 2.9  & table\_2\_1598533\_8, resultaat: -0.6  \\ \hline
-		dev 	& 52 			   & SELECT col0 FROM table WHERE col3 < 87,585 AND col2 < 1.28 AND col1 > 27504 AND col4 = xhosa & table\_2\_1720632\_2, resultaat: [khaya mnandi, kwa langa, woodridge]  \\ \hline
-		dev 	& 59 			   & SELECT col0 FROM table WHERE col5 < 3,000 AND col1 = marty furgol & table\_2\_17290169\_4, resultaat: t9  \\ \hline
-		dev 	& 84 			   & SELECT col4 FROM table WHERE col3 = north carolina AND col1 < 21,500 & table\_2\_18204624\_1, resultaat: 1926  \\ \hline
-	\end{tabular}
-	\caption{Overzicht misgelopen query's WikiSQL - deel dev}
-	\label{table:wikisqlerrorsdev}
-\end{table}
-
-\begin{table}[]
-	\centering
-	\begin{tabular}{ | l | l | p{5cm} | p{5cm} |}
-		\hline
-		Dataset & Na \dots procent & Query & Uitvoering in SQLite-browser \\ \hline
-		test 	& 38 			   & SELECT col1 FROM table WHERE col3 < 100,000 AND col2 = guymon, oklahoma & table\_2\_14203256\_1, resultaat: 91.3 fm  \\ \hline
-		test 	& 58 			   & Query SELECT col1 FROM table WHERE col3 < 1,137 AND col0 = pointe-verte & table\_2\_171222\_1, resultaat: village  \\ \hline
-		test 	& 95 			   & Query SELECT col2 FROM table WHERE col3 < 32,000 AND col1 = requebra & table\_2\_12937449\_4, resultaat: no. 8  \\ \hline
-	\end{tabular}
-	\caption{Overzicht misgelopen query's WikiSQL - deel test}
-	\label{table:wikisqlerrorstest}
-\end{table}
+De uitvoering van dit script loopt geregeld mis. Het algoritme wordt hier op basis van drie verschillende data-bestanden getraind. Bij het doorlopen van de eerste dataset, \textit{train} - 56355 query's, loopt het een aantal keren mis\dots Maar liefst bij 14 query's meldt het systeem volgende foutmelding: \textit{raise Exception (‘Query {} did not execute to a valid result’.format(query))}. De uitvoering van de query's zouden geen correct resultaat teruggeven. Deze query's werden ter controle ook uitgevoerd in de DB Browser for SQLite. Het betreft hier namelijk SQLite-databanken. Ook in de volgende twee onderzochte datasets, \textit{dev} en \textit{test} liepen er een aantal query's fout tijdens de uitvoering. In tabel \ref{table:wikisqlerrorstrain}, welke te vinden is op het einde dit hoofdstuk, worden de misgelopen query's uit train besproken. In tabellen \ref{table:wikisqlerrorsdev} en \ref{table:wikisqlerrorstest}, terug te vinden op het einde van dit hoofdstuk, worden respectievelijk de misgelopen query's besproken voor de dev-dataset als voor de test-dataset.
 
 Er werd getracht elk van deze query's terug werkende te krijgen, maar dit is niet gelukt. Daarom werd er besloten deze query's weg te laten uit de trainingsdatasets. Er bleven per dataset respectievelijk nog 56341, 8416 en 15875 query's over. 
 
@@ -197,7 +135,7 @@ In het overzicht van de Github-repository worden er een aantal andere bestanden 
 	\item[download\_glove.sh] Door de uitvoering van dit script, wordt er een zip-bestand gedownload met vooraf getrainde glove embedding. Dit zip-bestand bevat een tekstbestand, \textit{glove.42B.300d.txt}. Dit bestand heeft een grootte van 4,67 gigabyte.
 	\item[extract\_vocab.py] Dit script extraheert de glove embedding van het tekstbestand. Verder zorgt dit script voor de training van de word embedding. 
 	\item[requirements.txt] Dit tekstbestand bevat, net zoals bij WikiSQL, alle, via pip install, te installeren modules om de uitvoering van de Python-scripts mogelijk te maken.
-	\item[train.py] Dit script dient uitgevoerd te worden om het SQLNet algoritme te trainen. Dit script maakt gebruik van de CUDA-toolkit \footnote{CUDA staat voor Compute Unified Device Architecture. Deze technologie zorgt ervoor dat de programmeur in staat is om algoritmes op de GPU (grafische processor) uit te voeren. Dit mechanisme is ontwikkeld door NVIDIA.} en heeft vereist de aanwezigheid van een NVIDIA-driver \footnote{Oracle Virtual Box maakt gebruik van een eigen, virtuele GPU. Het is niet mogelijk om GPU van het lokale systeem te delen met een virtuele machine. Daarom werd er besloten Ubuntu te installeren op een andere laptop met NVIDIA GPU, zoals vermeld bij de inleiding van dit hoofdstuk.}.
+	\item[train.py] Dit script dient uitgevoerd te worden om het SQLNet algoritme te trainen. Dit script maakt gebruik van de CUDA-toolkit \footnote{CUDA staat voor Compute Unified Device Architecture. Deze technologie zorgt ervoor dat de programmeur in staat is om algoritmes op de GPU (grafische processor) uit te voeren. Dit mechanisme is ontwikkeld door NVIDIA.} en heeft vereist de aanwezigheid van een NVIDIA-driver \footnote{Oracle Virtual Box maakt gebruik van een eigen, virtuele GPU. Het is niet mogelijk om GPU van het lokale systeem te delen met een virtuele machine. Daarom werd er besloten Ubuntu te installeren op een andere laptop met NVIDIA GPU, zoals vermeld in sectie \ref{sec:opzet} van hoofdstuk \ref{ch:methodologie}.}
 	\item[test.py] Dit script zorgt voor de evaluatie van het SQLNet algoritme. Dit op de \textit{dev}- en \textit{test}-dataset. Ook hier wordt gebruik gemaakt van de CUDA-toolkit. Dit algoritme wordt dus ook op de grafische processor (op de grafische kaart) uitgevoerd.
 \end{description}
 
@@ -205,7 +143,43 @@ In het overzicht van de Github-repository worden er een aantal andere bestanden 
 
 In tegenstelling tot het WikiSQL algoritme, wordt voor de uitvoering van SQLNet gebruik gemaakt van Python-versie 2.7.12. De Python-syntax in de scripts is eigen aan de Python-versie. 
 
---Uitvoering--
+De eerste stap van de uitvoering, is het clonen van de Github-repository naar het lokale systeem van de gebruiker. Wanneer dit voltooid is, is de gebruiker in staat verder te gaan met de installatie van het algoritme. 
+
+Voor de uitvoering van zowel het script voor de training van het algoritme als voor het script voor het evalueren van algoritme is er data nodig. De volgende stap in de installatie van het algoritme is het uitpakken van het tar-bestand waarin de data-bestanden kunnen worden teruggevonden. Via volgend commando wordt dit uitgevoerd:
+
+\begin{center}
+	\textit{tar -xvjf data.tar.bz2}
+\end{center}
+
+Vervolgens dient men de nodige modules te installeren. Deze modules staan opgelijst in het tekstbestand \textit{requirements.txt}. Alle beschreven modules dienen geïnstalleerd te worden met de beschreven versie. Voor de installatie wordt volgend commando gebruikt:
+
+\begin{center}
+	\textit{sudo python -m pip install -r requirements.txt}
+\end{center}
+
+Het script stopt tijdens de installatie van module \textit{pkg-resources}, versie 0.0.0. Deze module kan niet geïnstalleerd worden via pip. Volgend commando kan eventueel gebruikt worden:
+
+\begin{center}
+	\textit{sudo apt-get install python-pkg-resources}
+\end{center}
+
+Er zijn dan nog twee mogelijkheden om de overige modules te installeren. Ofwel kan pkg-resources uit het document gehaald worden en kan het "pip install"-commando opnieuw worden uitgevoerd. Ofwel dient de gebruiker nog alle te installeren modules apart te installeren. Dit kan door middel van volgend commando:
+
+\begin{center}
+	\textit{sudo python -m pip install <<module>>}
+\end{center}
+
+Vervolgens werd er een shell-script uitgevoerd, \textit{download\_glove.sh}, welke de vooraf getrainde glove embedding download. Dit wordt uitgevoerd door volgend commando uit te voeren:
+
+\begin{center}
+	\textit{bash download\_glove.sh}
+\end{center}
+
+Bij het uitvoeren van dit script, wordt er eerst gekeken of er een map \textit{glove} bestaat in de map van het algoritme. Zo ja, wordt het glove-bestand naar die map gedownload en uitgepakt. Anders maakt het script eerst een map \textit{glove} aan, wordt het glove-bestand daarin gedownload en uitgepakt. 
+
+--train--
+
+--test--
 
 \subsection{Resultaten}
 
@@ -230,3 +204,55 @@ In tegenstelling tot SQLNet, maat Seq2SQL wel gebruik van reïnforcement learnin
 \subsection{Resultaten}
 
 --Resultaten--
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ | l | l | p{5cm} | p{5cm} |}
+		\hline
+		Dataset & Na \dots procent & Query & Uitvoering in SQLite-browser \\ \hline
+		train 	& 41 			   & SELECT col4 FROM table WHERE col0 < 1,236 AND col2 = \$817,781 & table\_2\_13663314\_1, resultaat: results  \\ \hline
+		train 	& 42 			   & SELECT col4 FROM table WHERE col1 = civil parish AND col3 = Copeland AND col2 < 1,280 AND col0 = Ennerdale and kinnisde  & table\_2\_1401800\_1, resultaat: ennerdale rural district  \\ \hline
+		train 	& 43 			   & SELECT col0 FROM table WHERE col2 < 11,484 & table\_2\_1601940\_1, resultaat: labour  \\ \hline
+		train 	& 54 			   & SELECT col0 FROM table WHERE col5 < 4,485 & table\_2\_16653153\_28, resultaat: [4 february, 6 february, 7 february, 7 february]  \\ \hline
+		train 	& 57 			   & SELECT col3 FROM table WHERE col6 < 1,258.1 AND col5 < 11.6 & table\_2\_1682026\_3, resultaat: insurance  \\ \hline
+		train 	& 58 			   & SELECT col3 FROM table WHERE col5 = sunk (mine) AND col4 < 2,266 & table\_2\_17166347\_1, resultaat: uk  \\ \hline
+		train 	& 59 			   & SELECT col2 FROM table WHERE col1 = 102.3 AND col3 < 1,000 & table\_2\_17071097\_1, resultaat: kingman, arizona  \\ \hline
+		train 	& 61 			   & SELECT col2 FROM table WHERE col3 < 1,575.0 AND col4 = 1997 AND col0 = philae sulcus & table\_2\_16768245\_5, resultaat: 169.0w  \\ \hline
+		train 	& 65 			   & SELECT col2 FROM table WHERE col4 > 94 AND col1 < 5,297 AND col3 > 0.6106 & table\_2\_11513625\_11, resultaat: 54.0  \\ \hline
+		train 	& 80 			   & SELECT col0 FROM table WHERE col3 < 1,429 & table\_2\_176529\_1, resultaat: [dorchester, port elgin]  \\ \hline
+		train 	& 80 			   & SELECT col3 FROM table WHERE col5 < 1,000 AND col4 = +9 & table\_2\_18007119\_1, resultaat: 70-76-75-76=297  \\ \hline
+		train 	& 85 			   & SELECT col1 FROM table WHERE col3 < 5,361 AND col5 < 4,841 AND col4 < 618 AND col2 < 389 & table\_2\_18894903\_1, resultaat: [91, 907, n, n, n, n, 773, \dots] (16 rijen in totaal)  \\ \hline
+		train	& 89 			   & SELECT col0 FROM table WHERE col2 < 2,198.72 AND col1 > 90909 & table\_2\_1894556\_1, resultaat: [bochum part 1, ramutla, seshego]  \\ \hline
+		train	& 89 			   & SELECT col4 FROM table WHERE col1 < 8,085 AND col3 < 145 & table\_2\_189893\_1, resultaat: 0.42\%  \\ \hline
+	\end{tabular}
+	\caption{Overzicht misgelopen query's WikiSQL - deel train}
+	\label{table:wikisqlerrorstrain}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ | l | l | p{5cm} | p{5cm} |}
+		\hline
+		Dataset & Na \dots procent & Query & Uitvoering in SQLite-browser \\ \hline
+		dev 	& 30 			   & SELECT col0 FROM table WHERE col5 < 1,000 & table\_2\_10581768\_2, resultaat: [alice lloyd college, brescia university]  \\ \hline
+		dev 	& 43 			   & SELECT col6 FROM table WHERE col1 < 1,352.1 AND col4 > 21,615 AND col5 < 75.4 AND col7 = 2.9  & table\_2\_1598533\_8, resultaat: -0.6  \\ \hline
+		dev 	& 52 			   & SELECT col0 FROM table WHERE col3 < 87,585 AND col2 < 1.28 AND col1 > 27504 AND col4 = xhosa & table\_2\_1720632\_2, resultaat: [khaya mnandi, kwa langa, woodridge]  \\ \hline
+		dev 	& 59 			   & SELECT col0 FROM table WHERE col5 < 3,000 AND col1 = marty furgol & table\_2\_17290169\_4, resultaat: t9  \\ \hline
+		dev 	& 84 			   & SELECT col4 FROM table WHERE col3 = north carolina AND col1 < 21,500 & table\_2\_18204624\_1, resultaat: 1926  \\ \hline
+	\end{tabular}
+	\caption{Overzicht misgelopen query's WikiSQL - deel dev}
+	\label{table:wikisqlerrorsdev}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ | l | l | p{5cm} | p{5cm} |}
+		\hline
+		Dataset & Na \dots procent & Query & Uitvoering in SQLite-browser \\ \hline
+		test 	& 38 			   & SELECT col1 FROM table WHERE col3 < 100,000 AND col2 = guymon, oklahoma & table\_2\_14203256\_1, resultaat: 91.3 fm  \\ \hline
+		test 	& 58 			   & Query SELECT col1 FROM table WHERE col3 < 1,137 AND col0 = pointe-verte & table\_2\_171222\_1, resultaat: village  \\ \hline
+		test 	& 95 			   & Query SELECT col2 FROM table WHERE col3 < 32,000 AND col1 = requebra & table\_2\_12937449\_4, resultaat: no. 8  \\ \hline
+	\end{tabular}
+	\caption{Overzicht misgelopen query's WikiSQL - deel test}
+	\label{table:wikisqlerrorstest}
+\end{table}

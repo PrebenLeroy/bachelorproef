@@ -18,10 +18,13 @@ In beide papers worden experimenten beschreven. Voor deze experimenten werd er t
 In een tweede fase zullen beide algoritmen ook uitgevoerd worden op een andere dataset. Eerst zal gekeken worden hoe deze dataset in elkaar zit en zal deze aangepast worden naar de vereisten om beide algoritmen werkend te krijgen. Daarna zullen zowel Seq2SQL als SQLNet uitgevoerd worden op deze dataset. 
 
 \section{De opzet}
+\label{sec:opzet}
 
 Tijdens de literatuurstudie (zie hoofdstuk~\ref{ch:stand-van-zaken}) werden er voor zowel Seq2SQL als voor SQLNet Github-repositories gevonden die gebruikt kunnen worden tijdens de experimentele fase. Ook werd er een Github-repository gevonden die volledig in het teken staat van de WikiSQL dataset. Seq2SQL kan teruggevonden worden op de repository van \textcite{seq2sql}, SQLNet op de repository van \textcite{sqlnet}. De WikiSQL-dataset kan teruggevonden worden op de repository van \textcite{wikisql}. Om met deze algoritmen te kunnen werken, dienen deze op een lokaal systeem beschikbaar te zijn. 
 
-Aangezien de uitvoering van de scripts, horende bij de gekozen algoritmen, faalde in een Windows-omgeving, werd er gekozen om deze algoritmen uit te voeren in een Linux-omgeving. Hiervoor werd gekozen om gebruik te maken van Ubuntu. Er werd een virtuele machine (in Virtual Box) aangemaakt waarin dit besturingssysteem draait.
+De scripts, horende bij de gekozen algoritmen, werden in eerste instantie uitgevoerd in een Windows-omgeving. Spijtig genoeg faalde de uitvoering. Daarom werd ervoor gekozen de scripts uit te voeren in een Linux-omgeving. Er werd gekozen gebruik te maken van het Ubuntu besturingssysteem. Dit besturingssysteem werd in eerste instantie geïnstalleerd in een virtuele machine (in Virtual Box), maar ook hier faalden de uitvoeringen van de scripts. 
+
+Om dit op te lossen werd Ubuntu geïnstalleerd op een andere computer (HP Pavilion 17 laptop met een Intel Core i7-4510U processor, 12 gigabyte RAM, één terabyte harde schijf en een NVIDIA GeForce 840M grafische kaart). Op de harde schijf van deze computer werd een partitie van 150 gigabyte aangemaakt. Ubuntu werd op deze partitie geïnstalleerd.In sectie \ref{sec:sqlnet} wordt dit verder besproken.
 
 Wanneer de Ubuntu setup compleet was, werden ook de volgende tools geïnstalleerd:
 \begin{description}
