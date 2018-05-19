@@ -41,7 +41,7 @@ Om het algoritme lokaal op het systeem te draaien, dient het geheel eerst en voo
 \begin{center}
 	\textit{sudo python3.6 -m pip install -r requirements.txt}
 \end{center}
-Sudo wordt gebruikt opdat de gebruiker direct de correcte rechten bezit om zaken te installeren op het systeem. Door het gebruik van \textit{python3.6 -m} worden de modules enerzijds direct geïnstalleerd voor deze Python-versie, anderzijds helpt Python het zoeken naar deze modules. Er wordt daarnaast ook gebruik gemaakt van de "-r"-tag. Deze tag zorgt ervoor dat het \textit{requirements.txt} gelezen wordt en alle vermelde modules geïnstalleerd worden.
+Sudo wordt gebruikt opdat de gebruiker direct de correcte rechten bezit om zaken te installeren op het systeem. Door het gebruik van \textit{python3.6 -m} worden de modules enerzijds direct geïnstalleerd voor deze Python-versie, anderzijds helpt Python het zoeken naar deze modules. Er wordt daarnaast ook gebruik gemaakt van de "-r"-parameter. Deze parameter zorgt ervoor dat het \textit{requirements.txt} gelezen wordt en alle vermelde modules geïnstalleerd worden.
 
 De data, nodig voor de uitvoering van de scripts, is terug te vinden in het data.tar.bz2 bestand. Dit bestand dient door de gebruiker uitgepakt te worden. De gebruiker is nu klaar voor de eigenlijke uitvoering van de scripts.
 
@@ -140,6 +140,7 @@ In het overzicht van de Github-repository worden er een aantal andere bestanden 
 \end{description}
 
 \subsection{Uitvoering}
+\label{sec:uitvsqln}
 
 In tegenstelling tot het WikiSQL algoritme, wordt voor de uitvoering van SQLNet gebruik gemaakt van Python-versie 2.7.12. De Python-syntax in de scripts is eigen aan de Python-versie. 
 
@@ -177,13 +178,84 @@ Vervolgens werd er een shell-script uitgevoerd, \textit{download\_glove.sh}, wel
 
 Bij het uitvoeren van dit script, wordt er eerst gekeken of er een map \textit{glove} bestaat in de map van het algoritme. Zo ja, wordt het glove-bestand naar die map gedownload en uitgepakt. Anders maakt het script eerst een map \textit{glove} aan, wordt het glove-bestand daarin gedownload en uitgepakt. 
 
---train--
+Zoals bij alle neurale netwerkalgoritmen, dient dit algoritme ook getraind te worden. Dit gebeurt door \textit{train.py} uit te voeren in het terminal venster. In het overzicht wordt vermeld dat dit script met verschillende parameters kan worden uitgevoerd. Deze parameters worden uitgelegd wanneer men volgend commando uitvoert:
 
---test--
+\begin{center}
+	\textit{sudo python train.py -h}
+\end{center}
+
+Wanneer er een NVIDIA-GPU gebruikt wordt voor deze scripts uit te voeren, geeft het systeem volgende foutmelding terug: \textit{Segmentation fault (core dumped)}. Deze foutmelding kan vermeden worden door gebruik te maken van een andere geïnstalleerde GPU. Voor de interne werking van de scripts dient er een NVIDIA-driver geïnstalleerd te zijn op het systeem. Wanneer het laatst beschreven script is uitgevoerd, wordt volgende lijst met parameters getoond:
+
+\begin{table}[htb]
+	\centering
+	\begin{tabular}{ | l | p{5cm} |}
+		\hline
+		Parameter 			& Uitleg \\ \hline
+		-h, --help 			& Toont de helpboodschap voor dit script \\ \hline
+		--toy 				& Wordt gebruikt voor snelle debugging \\ \hline
+		--suffix SUFFIX		& De suffix op het einde van een saved model naam \\ \hline
+		--ca				& Gebruik makend van conditional attention \\ \hline
+		--dataset DATASET 	& 0: originele dataset, 1: re-split dataset \\ \hline
+		--rl				& Gebruiken van Reïnforcement Learning voor Seq2SQL (vereist voorafgetrainde models) \\ \hline
+		--baseline			& Wanneer vermeld wordt Seq2SQL model getraind, standaard wordt het SQLNet model getraind \\ \hline
+		--train\_emb		& Het trainen van word embedding voor SQLNet (vereist voorafgetrainde models) \\ \hline	 
+	\end{tabular}
+	\caption{Parameters train.py}
+\end{table}
+
+Een typische uitvoering van het train-script, is het volgende:
+
+\begin{center}
+	\textit{sudo python train.py --ca}
+\end{center}
+
+Met de uitvoering van dit script wordt het algoritme getraind met column attention. Naast dit commando worden volgende commando's ook vaak gebruikt voor de training van het algoritme:
+
+\begin{center}
+	\textit{sudo python train.py --ca --train\_emb}
+\end{center}
+
+Het trainen van het algoritme met column attention en trainbare woordembedding. Hier dient het algoritme wel eerst getraind zonder embedding.
+
+\begin{center}
+	\textit{sudo python train.py --baseline --dataset 1}
+\end{center}
+
+Het vooraf trainen van een Seq2SQL model. Dit met een re-splitted dataset. 
+
+\begin{center}
+	\textit{sudo python train.py --baseline --dataset 1 --rl}
+\end{center}
+
+Het trainen van het Seq2SQL model met Reïnforcement Learning, nadat het model al vooraf getraind is.
+
+Tijdens het uitvoeren van de scripts, worden eerst alle data-bestanden opgehaald. Het systeem meld welke bestanden worden ingeladen en welke reeds ingeladen zijn. Nadat alle bestanden uit de data-map ingeladen zijn, wordt uit het bestand uit de glove-map ingeladen. 
+
+Het vervolg van de uitvoering van dit script loopt fout. Het systeem geeft namelijk een \textit{CUDA Runtime Error}. De eerste foutmelding meldt het volgende:
+
+\begin{center}
+	\textit{CUDA Runtime Error (35): CUDA Driver version is insufficient for CUDA Runtime version}
+\end{center}
+
+Deze foutmelding komt voor wanneer het systeem oudere componenten van het stuurprogramma voor de GPU aanwezig zijn op het systeem. Ook is er een oudere/verkeerde versie van de CUDA-toolkit aanwezig op het systeem. Dit kan verholpen worden door eerst beide stuurprogramma's te verwijderen en deze beide terug te installeren.
+
+Het verwijderen van het NVIDIA-stuurprogramma kan gebeuren met het \textit{sudo apt-get purge}-commando, namelijk \textit{sudo apt-get purge nvidia-*}. Hiermee worden alle reeds geïnstalleerde versies van dit stuurprogramma worden verwijderd. Ook alle configuratiebestanden worden hierdoor verwijderd. Om het NVIDIA-stuurprogramma opnieuw te installeren, kan bijvoorbeeld het \textit{sudo apt-get install nvidia-current}-commando gebruikt worden.
+
+Voor het verwijderen en de herinstallatie van de CUDA-toolkit, werd de blogpost van \textcite{cudainstall} gevolgt. In deze blog wordt beschreven hoe de laatste CUDA-versie kan geïnstalleerd worden voor het besturingssysteem dat gebruikt werd tijdens de experimenten.
+
+Wanneer dit alles geïnstalleerd is, dient het systeem heropgestart te worden. Hier liep het voor de tweede keer fout. Het was enkel mogelijk om Ubuntu te gebruiken vanuit de terminal (bereikbaar door CTRL - ALT - F1 tegelijkertijd ingedrukt te houden). Vanuit deze terminal werd er opnieuw een poging ondernomen voor het uitvoeren van eht trainingsscript, maar opnieuw liep het mis. Nu werd tijdens de uitvoering volgende foutmelding weergegeven:
+
+\begin{center}
+	\textit{CUDA Runtime Error (30) unknown error at /pytorch/aten/src/THC/THCGeneral.cpp:70}
+\end{center}
+
+Op de blog van \textcite{cudablog} werd een mogelijke oplossing gevonden voor dit probleem. Ook werd het onmiddelijk duidelijk dat deze fout niets te maken had met versie probleem bij één van de stuurprogramma's. Volgens de blog kon het probleem opgelost worden door de laptop eens te herstarten. De laptop werd herstart, maar het probleem bleef zich voordoen. Een andere mogelijke oplossing werd niet gevonden. Elke mogelijke oplossing kwam op hetzelfde neer: herstart de computer.
+
+Ook bij de volgende mogelijke uitvoeringen van het script, liep het mis op diezelfde plaats. Altijd kwam dezelfde fout terug. Een gevolg van dit probleem, is het feit dat ook het evaluatiescript, \textit{test.py}, om dezelfde reden niet kon uitgevoerd worden. Dit script zou op dezelfde manier kunnen uitgevoerd worden als het trainingsscript, dus ook met dezelfde parameters.
 
 \subsection{Resultaten}
 
---Resultaten--
+Het was niet mogelijk om de scripts correct uit te voeren (zie sectie \ref{sec:uitvsqln}). Het gevolg hiervan was dan ook dat er geen resultaten bekomen konden worden. 
 
 \section{Seq2SQL}
 
@@ -191,7 +263,7 @@ Bij het uitvoeren van dit script, wordt er eerst gekeken of er een map \textit{g
 
 Het Seq2SQL algoritme (sectie \ref{sec:Salesforce - Seq2SQL}), welke te verkrijgen is via de Github-repository van \textcite{seq2sql}, biedt de gebruiker een neuraal netwerk aan voor de generatie van query's op basis van natuurlijke taal. Dit algoritme is ontwikkeld door Salesforce, welke ook de WikiSQL dataset heeft ontwikkeld. Seq2SQL wordt getraind op basis van deze laatst beschreven dataset.
 
-In tegenstelling tot SQLNet, maat Seq2SQL wel gebruik van reïnforcement learning. Het mechanisme krijgt een ssort belong wanneer er een goede query wordt gegenereerd. 
+In tegenstelling tot SQLNet, maakt Seq2SQL wel gebruik van reïnforcement learning. Het mechanisme krijgt een ssort belong wanneer er een goede query wordt gegenereerd. 
 
 \subsection{Opbouw}
 
@@ -204,6 +276,10 @@ In tegenstelling tot SQLNet, maat Seq2SQL wel gebruik van reïnforcement learnin
 \subsection{Resultaten}
 
 --Resultaten--
+
+\section{Algemeen}
+
+Gezien de onderzochte scripts niet optimaal werkten en de oplossingen ook niet hielpen de problemen te verhelpen, was het ook niet mogelijk deze scripts uit te testen op een andere dataset. Er kon geen duidelijke vergelijking gemaakt worden tussen de originele uitvoering en de uitvoering met de nieuwe dataset.
 
 \begin{table}[]
 	\centering
