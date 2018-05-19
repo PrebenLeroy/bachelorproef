@@ -267,9 +267,23 @@ In tegenstelling tot SQLNet, maakt Seq2SQL wel gebruik van reïnforcement learni
 
 \subsection{Opbouw}
 
---Opbouw--
+De complete Github-repository van Seq2SQL (\textcite{seq2sql}) bestaat grotendeels uit uit te voeren bash-scripts. Deze scripts worden gebruikt voor de uitvoering van het evaluatie script. Naast scripts voor de uitvoering van het algoritme, wordt er ook een script voorzien voor de installatie van het model (\textit{install-g++.sh}).
+
+Ook worden er zes mappen vermeld in het overzicht van de repository:
+
+\begin{description}
+	\item[data] Deze map bevat op zijn beurt ook vijf mappen, elk met .tsv-bestanden die de data bevat, nodig voor de uitvoering van de scripts. Ook wordt hier WikiSQL-data in teruggevonden. De reden hiervoor is, omdat zoals ook al eerder vemeld, het SeqSQL algoritme getraind wordt op basis van deze dataset.
+	\item[evaluator] Deze map bevat programma's en scripts die kunnen gebruit worden voor de evaluatie van eht algoritme. De meeste scripts zijn geschreven in Python en Scala. Maar er kunnen ook programma's en scripts teruggevonden worden in Java. 
+	\item[fig] Deze map bevat afbeeldingen van grafieken waarbij de nauwkeurigheid van het algoritme wordt in aangetoond. Er worden drie verschillende grafieken getoond, onder andere die inzake het sequence-to-sequence model als dat over tokenizatie.
+	\item[lib] Deze map bevat scripts en programma's die nodig zijn voor het uitvoeren van het trainings- en evaluatiescript. Hier vinden we onder andere het script zodat het model toegang krijgt tot de databank.
+	\item[sqlnet] Deze map bevat een link naar de Github-repository van het SQLNet algoritme. Zowel het Seq2SQL algoritme als het SQLNet algoritme zijn op een gelijkaardige manier opgebouwd. Enkel gebruikt Seq2SQL reïnforcement learning, terwijl SQLNet dit niet toepast.
+	\item[src] Deze map bevat een groot aantal scripts en programma's die gebruikt worden tijdens de uitvoering van het script. Het belangrijkste script is \textit{main.py}. Dit script wordt in bijna elk bash-script opgeroepen.
+\end{description}
 
 \subsection{Uitvoering}
+
+% installeren modules: theano, dill, tqdm
+% installeren mysqldb: sudo apt-get install python-mysqldb
 
 --Uitvoering--
 
