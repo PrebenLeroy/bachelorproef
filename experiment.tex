@@ -184,7 +184,7 @@ Zoals bij alle neurale netwerkalgoritmen, dient dit algoritme ook getraind te wo
 	\textit{sudo python train.py -h}
 \end{center}
 
-Wanneer er een NVIDIA-GPU gebruikt wordt voor deze scripts uit te voeren, geeft het systeem volgende foutmelding terug: \textit{Segmentation fault (core dumped)}. Deze foutmelding kan vermeden worden door gebruik te maken van een andere geïnstalleerde GPU. Voor de interne werking van de scripts dient er een NVIDIA-driver geïnstalleerd te zijn op het systeem. Wanneer het laatst beschreven script is uitgevoerd, wordt volgende lijst met parameters getoond:
+Wanneer er een NVIDIA-GPU gebruikt wordt voor deze scripts uit te voeren, geeft het systeem volgende foutmelding terug: \textit{Segmentation fault (core dumped)}. Deze foutmelding kan vermeden worden door gebruik te maken van een andere geïnstalleerde GPU. Voor de interne werking van de scripts dient er een NVIDIA-driver geïnstalleerd te zijn op het systeem. Wanneer het laatst beschreven script is uitgevoerd, worden de parameters uit tabel \ref{table:paramtrain} getoond:
 
 \begin{table}[htb]
 	\centering
@@ -201,6 +201,7 @@ Wanneer er een NVIDIA-GPU gebruikt wordt voor deze scripts uit te voeren, geeft 
 		--train\_emb		& Het trainen van word embedding voor SQLNet (vereist voorafgetrainde models) \\ \hline	 
 	\end{tabular}
 	\caption{Parameters train.py}
+	\label{table:paramtrain}
 \end{table}
 
 Een typische uitvoering van het train-script, is het volgende:
@@ -277,15 +278,93 @@ Ook worden er zes mappen vermeld in het overzicht van de repository:
 	\item[fig] Deze map bevat afbeeldingen van grafieken waarbij de nauwkeurigheid van het algoritme wordt in aangetoond. Er worden drie verschillende grafieken getoond, onder andere die inzake het sequence-to-sequence model als dat over tokenizatie.
 	\item[lib] Deze map bevat scripts en programma's die nodig zijn voor het uitvoeren van het trainings- en evaluatiescript. Hier vinden we onder andere het script zodat het model toegang krijgt tot de databank.
 	\item[sqlnet] Deze map bevat een link naar de Github-repository van het SQLNet algoritme. Zowel het Seq2SQL algoritme als het SQLNet algoritme zijn op een gelijkaardige manier opgebouwd. Enkel gebruikt Seq2SQL reïnforcement learning, terwijl SQLNet dit niet toepast.
-	\item[src] Deze map bevat een groot aantal scripts en programma's die gebruikt worden tijdens de uitvoering van het script. Het belangrijkste script is \textit{main.py}. Dit script wordt in bijna elk bash-script opgeroepen.
+	\item[src] Deze map bevat een groot aantal scripts en programma's die gebruikt worden tijdens de uitvoering van het script. Het belangrijkste script is \textit{main.py}. Dit script wordt tijdens de uitvoering van elk bash-script uitgevoerd.
 \end{description}
 
 \subsection{Uitvoering}
 
-% installeren modules: theano, dill, tqdm
-% installeren mysqldb: sudo apt-get install python-mysqldb
+Er wordt geen \textit{requirements.txt}-bestand voorhanden gegeven in de Github-repository. Op voorhand modules installeren die eventueel nodig waren voor de uitvoering van de scripts lukte dus niet. 
 
---Uitvoering--
+Het eerste bash-script dat werd uitgevoerd was \textit{install-g++.sh}. Dit werd als volgt uitgevoerd:
+
+\begin{center}
+	\textit{bash install-g++.sh}
+\end{center}
+
+Dit script dient voor de installatie van \textit{g++}, een compiler-stuurprogramma van de GNU\footnote{GNU is een besturingssysteem welke ontwikkeld is met vrije software, dus de vrijheid van de gebruiker wordt gerespecteerd (zie ook \textcite{gnu}).} Compiler Collection. \textit{gcc} is ook zo een compiler. \textit{g++} is de GNU C++-compiler, terwijl \textit{gcc} de GNU C-compiler is.
+
+De uitvoering van het script loopt echter fout. Het script meld dat een bepaalde map niet bestaat op het systeem. Er werd gecontroleerd of er reeds een \textit{g++}-compiler geïnstalleerd stond op het systeem, via het "\textit{g++ --version}"-commando. Dit bleek het geval te zijn. Ook was er reeds een versie van de \textit{gcc}-compiler geïnstalleerd.
+
+Vervolgens werd het \textit{scratch.py}-script uitgevoerd. Dit gebeurde via volgend commando:
+
+\begin{center}
+	\textit{sudo python scratch.py}
+\end{center}
+
+Hier werd eerst een melding gegeven dat de module \textit{theano} niet kon gevonden worden. Deze module diende nog geïnstalleerd te worden:
+
+\begin{center}
+	\textit{sudo python -m pip install theano}
+\end{center}
+
+Het scratch-script kon opnieuw uitgevoerd worden. Indien er gemeld zou worden dat de module \textit{numpy} niet zou bestaan, kan deze op een gelijkaardige manier geïnstalleerd worden.
+
+Na de uitvoering wordt het volgende bekomen: \\
+(1, 5, 3) \\
+(3,) \\
+(1, 5)
+
+Tijdens de uitvoering van dit script eerst een array aangemaakt door middel van de \textit{numpy}-module. Op deze array wordt de \textit{expands\_dims}-methode uitgevoerd, waarbij de array uitgebreid wordt door een nieuwe as op de opgegeven positie in te voegen. De \textit{shape}-methode schrijft de dimensie vaan de array uit. 
+
+Vervolgens kan ieder bash-script uitgevoerd worden. Er werd gestart met \textit{atis.sh}, waarbij volgend commando gebruikt werd voor het starten:
+
+\begin{center}
+	\textit{sudo bash atis.sh}
+\end{center}
+
+Tijdens de uitvoering werd wel gemeld dat de module \textit{dill} dient geïnstalleerd te worden. Dit kan ook via het \textit{pip install}-commando, namelijk:
+
+\begin{center}
+	\textit{sudo python -m pip install dill}
+\end{center}
+
+Verder dient de modules \textit{tqdm} en \textit{MySQLdb} geïnstalleerd te worden. \textit{tqdm} kan ook via \textit{pip install} geïnstalleerd worden, terwijl \textit{MySQLdb} op volgende manier kan geïnstalleerd worden:
+
+\begin{center}
+	\textit{sudo apt-get install python-mysqldb}
+\end{center}
+
+Intern wordt \textit{main.py} script uitgevoerd met een aantal parameters. In tabel \ref{table:parammain} worden deze parameters beschreven.
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ | l | p{10cm} |}
+		\hline
+		Parameter 			& Uitleg \\ \hline
+		-d 					& Dimensie van de verborgen eenheden \\ \hline
+		-i 					& Dimensie van input vectoren \\ \hline
+		-o					& Dimensie van output woordvectoren \\ \hline
+		-p					& Manier van het kopiëren van woorden, mogelijkheden: none, attention, attention-logic \\ \hline
+		-u 					& Behandel inputwoorden met <= wanneer deze veel voorkomen als \textit{unknown (UNK)} \\ \hline
+		-t					& Hoeveel perioden het model getraind wordt (standaard is geen training) \\ \hline
+		-c					& Type van continuous recurrent neuraal netwerk (RNN), mogelijkheden: vanillarnn, gru, lstm, atnh \\ \hline
+		-m					& Algemeen model type, mogelijkheden: encoderdecoder, attention, attn2hist \\ \hline	 
+		--stats-file		& Het pad waar de statistieken wordden opgeslagen als JSON-bestanden \\ \hline	 
+		--domain			& Domein waarop getest dient te worden \\ \hline	 
+		-k					& Gebruik bundel zoeken met gegeven bundelgrootte \\ \hline	 
+		--dev-seed			& Willekeurige nummergenerator (RNG) voor de training/dev splits (standaard = 0) \\ \hline	 
+		--model-seed		& Willekeurige nummergenerator (RNG) voor de model initialisatie en SGD ordening (standaard = 0) \\ \hline	 
+		--train-data		& Het pad naar de trainingsdata \\ \hline	 
+		--dev-data			& Het pad naar de developer data \\ \hline	 
+		--train-source-file	& Het bronbestand nodig voor voorspelling \\ \hline	 
+		--train-db-file		& De brondatabank nodig voor voorspelling \\ \hline	 
+		--train-table-file	& Bestand met trainingstabellen \\ \hline	 
+	\end{tabular}
+	\caption{Parameters main.py}
+	\label{table:parammain}
+\end{table}
+
+\lipsum[1]
 
 \subsection{Resultaten}
 
@@ -293,7 +372,7 @@ Ook worden er zes mappen vermeld in het overzicht van de repository:
 
 \section{Algemeen}
 
-Gezien de onderzochte scripts niet optimaal werkten en de oplossingen ook niet hielpen de problemen te verhelpen, was het ook niet mogelijk deze scripts uit te testen op een andere dataset. Er kon geen duidelijke vergelijking gemaakt worden tussen de originele uitvoering en de uitvoering met de nieuwe dataset.
+Gezien de onderzochte scripts niet optimaal werkten en er geen werkende oplossingen voorhanden waren, was het ook niet mogelijk deze scripts uit te testen op een andere dataset. Er kon geen duidelijke vergelijking gemaakt worden tussen de originele uitvoering en de uitvoering met de nieuwe dataset.
 
 \begin{table}[]
 	\centering
