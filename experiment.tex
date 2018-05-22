@@ -334,7 +334,7 @@ Verder dient de modules \textit{tqdm} en \textit{MySQLdb} geïnstalleerd te word
 	\textit{sudo apt-get install python-mysqldb}
 \end{center}
 
-Intern wordt \textit{main.py} script uitgevoerd met een aantal parameters. In tabel \ref{table:parammain} worden deze parameters beschreven.
+Nadat alle nodige modules geïnstalleerd waren, werd het bash-script opnieuw gestart. Intern werd het \textit{main.py} script uitgevoerd met een aantal parameters. In tabel \ref{table:parammain} worden deze parameters beschreven.
 
 \begin{table}[]
 	\centering
@@ -364,15 +364,23 @@ Intern wordt \textit{main.py} script uitgevoerd met een aantal parameters. In ta
 	\label{table:parammain}
 \end{table}
 
-\lipsum[1]
+De uitvoering van het script startte met de initialisatie van het \textit{main.py}-script. Alle parameters worden uitgelezen en toegevoegd aan dat Python-script. Vervolgens wordt de SQL-vocabulair onttrokken. Verder wordt in deze setup alles klaargemaakt om de uitvoering mogelijk te maken. Hier werden echter foutmeldingen gegeven. Het systeem gooit een TypeError. Dit gebeurt een aantal keer. Uiteindelijk meld het systeem dat de setup compleet is en start de uiteindelijke uitvoering.
+
+Tijdens de uitvoering van het script werden de vragen, opgelijst in de tsv-databestanden voor dat script (wat meegegeven werd als parameter bij \textit{--train-data}), overlopen. Hierbij werd voor elke vraag een query getest op de opgegeven dataset. In de terminal werd elke vraag weergegeven, als de bijhorende query. Verder werd een array weergegeven met de kansen dat met de uitvoering van deze query het juiste resultaat zou bekomen worden.
+
+De uitvoering van dit script werd een aantal keren herhaald. Zo werden de vragen en query's na meer dan vierentwintig uur nog steeds doorlopen. Het grote voordeel van dat de uitvoering zich continu herhaald, is het feit dat het duidelijk wordt dat de query's zich altijd trachten te verbeteren. Per iteratie werden de kansen in de array aangepast.
+
+Aangezien de uitvoering zo'n lange tijd in beslag nam, werd er besloten de andere scripts ook te starten. De werking van deze scripts was natuurlijk gelijk aan de werking van het \textit{atis}-script. Ook hier werd per vraag de bijhorende query uitgevoerd op de bijhorende dataset en worden de kansen ook in een array weergegeven.
+
+Het \textit{atis}-script werd gestopt na meer dan 48 uren doorlooptijd. De andere scripts werden gestopt na meer dan vierentwintig uur. Het algoritme bleef alle controles opnieuw uitvoeren en alles opnieuw oplijsten. Zoals reeds eerder vermeld, werd het duidelijk dat het model zich steeds trachtte te verbeteren. De kans op slagen groeide per iteratie. Dit heeft natuurlijk te maken het reïnforcement learning. Het systeem tracht zich altijd te verbeteren, door per iteratie te vertrekken vanuit de best uitgevoerde query. 
 
 \subsection{Resultaten}
 
---Resultaten--
+De uitvoering van sommige scripts duurden meer dan 48 uur. Er werd niet concreet gemeld wanneer de scripts konden gestopt worden, of het weldegelijk mogelijk was om de scripts te stoppen. Verder werden geen enkele scripts voorzien voor het testen en evalueren van het model. Er werd getracht de huidige scripts wat aan te passen, maar de uitvoering bleef maar duren. Ook de scripts, vermeld in de evaluator map, bekomen niet de gewenste resultaten. Er werden dus geen duidelijke resultaten verkregen, alhoewel dat het na een aantal iteraties duidelijk werd dat dit algoritme gebruik maakte van reïnforcement learning. Het algoritme tracht zichzelf iedere iteratie te verbeteren.
 
 \section{Algemeen}
 
-Gezien de onderzochte scripts niet optimaal werkten en er geen werkende oplossingen voorhanden waren, was het ook niet mogelijk deze scripts uit te testen op een andere dataset. Er kon geen duidelijke vergelijking gemaakt worden tussen de originele uitvoering en de uitvoering met de nieuwe dataset.
+Gezien de onderzochte scripts niet optimaal werkten en er geen werkende oplossingen voorhanden waren, was het ook niet mogelijk deze scripts uit te testen op een andere dataset. Er kon geen duidelijke vergelijking gemaakt worden tussen de originele uitvoering en de uitvoering met de nieuwe dataset. Enkel het laatst beschreven algoritme, \textit{Seq2SQL}, werd uitgetest op meerdere datasets, maar de uitvoering van de scripts gaven geen duidelijke resultaten.
 
 \begin{table}[]
 	\centering
