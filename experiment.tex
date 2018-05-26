@@ -5,9 +5,9 @@
 \chapter{Experiment}
 \label{ch:experiment}
 
-In dit hoofstuk zal het complete experiment besproken worden. Eerst en vooral zal er gekeken worden naar de mogelijkheid om de algoritmen werkende te hebben. Indien alles goed zal verlopen, zullen de algoritmen uitgevoerd worden op andere datasets. Hierbij wordt dan gekeken of de bekomen resultaten gelijkaardig zijn aan de verkregen resultaten. 
+In dit hoofstuk zal het complete experiment besproken worden. Eerst en vooral zal er gekeken worden naar de mogelijkheid om de algoritmen werkende te hebben. Indien alles goed zal verlopen, zullen de algoritmen uitgevoerd worden op andere datasets. Hierbij wordt dan nagegaan of de bekomen resultaten gelijkaardig zijn aan de verkregen resultaten. 
 
-Het gevolg van deze experimenten valt dan te lezen in het volgende hoofdstuk. Er wordt getracht een duidelijke conclusie te vormen die antwoord bied op de vooropgestelde onderzoeksvragen. Het kan natuurlijk ook anders uitdraaien. De algoritmen zouden bijvoorbeeld niet kunnen werken of de resultaten zouden niet kunnen kloppen. Dan zal er moeten gezocht worden naar een duidelijke reden waarom het niet werkt.
+Het gevolg van deze experimenten valt te lezen in het volgende hoofdstuk. Er wordt getracht een duidelijke conclusie te vormen dat antwoord biedt op de vooropgestelde onderzoeksvragen. Het kan natuurlijk ook anders uitdraaien. De algoritmen zouden bijvoorbeeld niet kunnen werken of de resultaten zouden niet kunnen kloppen. Dan zal er moeten gezocht worden naar een duidelijke reden waarom het niet werkt.
 
 \section{WikiSQL}
 
@@ -15,7 +15,7 @@ Het gevolg van deze experimenten valt dan te lezen in het volgende hoofdstuk. Er
 
 Het WikiSQL algoritme, welke te verkrijgen is via de Github-repository van \textcite{wikisql}, biedt de gebruiker een geannoteerd semantisch sjabloon voor de ontwikkeling van natuurlijke taalinterfaces. WikiSQL is een dataset, ontworpen door Salesforce en gelijktijdig uitgebracht met hun werk over Seq2SQL. Seq2SQL is reeds besproken in hoofdstuk \ref{ch:stand-van-zaken}, sectie \ref{sec:Salesforce - Seq2SQL}. Dit algoritme wordt later in dit hoofdstuk ook nog kort aangehaald.
 
-Naast Seq2SQL wordt de WikiSQL dataset ook veel gebruikt voor andere algoritmen met doel het natuurlijke taalprogrammering. In hoofdstuk \ref{ch:stand-van-zaken} zijn er reeds een aantal van besproken. Ook wordt bijvoorbeeld SQLNet (sectie \ref{sec:SQLNet}) getraind op basis van de WikiSQL dataset.
+Naast Seq2SQL wordt de WikiSQL dataset ook veel gebruikt voor andere algoritmen met doel het natuurlijke taalprogrammering. In hoofdstuk \ref{ch:stand-van-zaken} zijn er reeds een aantal van deze algoritmen besproken. Ook wordt bijvoorbeeld SQLNet (sectie \ref{sec:SQLNet}) getraind op basis van de WikiSQL dataset.
 
 \subsection{Opbouw}
 
@@ -23,7 +23,7 @@ De complete Github-repository (\textcite{wikisql}) is opgebouwd uit twee mappen 
 
 De volgende map, test, bevat belangrijke scripts en bestanden voor de training en uitvoering van het algoritme. Volgende bestanden kunnen hier teruggevonden worden:
 \begin{description}
-	\item[Dockerfile] Dit bestand wordt gebruikt om een image te maken voor het trainen en het uitvoeren van het algoritme van WikiSQL via een Docker container. In het bestand zelf worden de commando's beschreven de aanmaak van een voorlopige werkomgeving, waarin het geheel wordt uitgevoerd. Daarnaast zijn de commando's voor de installatie van het algoritme in de Dockerfile terug te vinden, alsook de commando's voor training en uitvoering van het algoritme. Hierover later meer.
+	\item[Dockerfile] Dit bestand wordt gebruikt om een image te maken voor het trainen en het uitvoeren van het algoritme van WikiSQL via een Docker container. In het bestand zelf worden de commando's beschreven voor de aanmaak van een voorlopige werkomgeving, waarin het geheel wordt uitgevoerd. Daarnaast zijn de commando's voor de installatie van het algoritme in de Dockerfile terug te vinden, alsook de commando's voor training en uitvoering van het algoritme. Hierover later meer.
 	\item[check.py] Dit Python-script zorgt ervoor dat het algoritme getraind wordt. Het gaat op zoek naar data-bestanden in de data-map om daarmee het algoritme te trainen. Indien er een query geen geldig resultaat teruggeeft, stopt het algoritme en geeft het een foutmelding terug. Ook wordt er een foutmelding gegeven indien er geen correcte query kan teruggevonden worden.
 	\item[example.pred.dev.jsonl.bz2] Dit is een voorbeeld voorspellingsdocument, gebaseerd op de dev-dataset. Via het bzip2-commando is het mogelijk dit bestand uit te pakken en te kijken naar de eventuele resultaten voor deze set.
 \end{description}
@@ -75,17 +75,15 @@ Tijdens deze uitvoering wordt de dev dataset doorlopen om zo een mogelijk result
 
 \subsubsection{Docker-container}
 
-De uitvoering via Docker bestaat ook uit twee verschillende stappen. Zoals reeds vermeld in de opbouw van dit algoritme, bevat de map "test" ook een Dockerfile. Dit bestand is zeer belangrijk voor deze manier van werken. Eerst dient men volgend commando uit te voeren om zo de test uit te voeren.
+De uitvoering via Docker bestaat ook uit twee verschillende stappen. Zoals reeds vermeld in de opbouw van dit algoritme, bevat de map \textit{test} ook een Dockerfile. Dit bestand is zeer belangrijk voor deze manier van werken. Eerst dient men volgend commando uit te voeren om zo de test uit te voeren.
 \begin{center}
 	\textit{sudo docker build -t wikisqltest -f test/Dockerfile .}
 \end{center}
 
-Hier wordt een image gebouwd vanuit de root-map. Via dit commando wordt de uitvoering van het algoritme voorbereid. De echte uitvoering, de uitvoering van de image, gebeurd via volgend commando:
+Hier wordt een image gebouwd vanuit de root-map. Via dit commando wordt de uitvoering van het algoritme voorbereid. De echte uitvoering, de uitvoering van de image, gebeurt via volgend commando:
 \begin{center}
 	\textit{sudo docker run --rm --name wikisqltest wikisqltest}
 \end{center}
-
-De bekomen resultaten worden besproken in subsectie \ref{sec:resultwikisql}.
 
 \subsection{Resultaten}
 \label{sec:resultwikisql}
@@ -111,22 +109,22 @@ Beide methoden bereiken de opgegeven resultaten niet. De nodige resultaten zijn:
 "lf\_accuracy": 0.2334609075997813 \\
 \}
 
-Zowel bij de uitvoering van het algoritme via de terminal als de uitvoering via een Docker container mislukten aangezien de training van het algoritme niet compleet is. Bij het uitvoeren in de terminal worden er in totaal, over de drie verschillende test-datasets gezien, 22 query's niet uitgevoerd tijdens het trainen van het algoritme. Bij het uitvoeren van het algoritme door middel van een Docker container, stopt de training hoogstwaarschijnlijk al na 41 procent bij de uitvoering van de train dataset (zoals reeds vermeld bij de uitvoering via terminal). Dit is de reden waarom de vereiste resultaten niet bereikt kunnen worden.  
+Zowel bij de uitvoering van het algoritme via de terminal, als de uitvoering via een Docker container mislukten aangezien de training van het algoritme niet compleet is. Bij het uitvoeren in de terminal worden er in totaal, over de drie verschillende test-datasets gezien, 22 query's niet uitgevoerd tijdens het trainen van het algoritme. Bij het uitvoeren van het algoritme door middel van een Docker container, stopt de training hoogstwaarschijnlijk al na 41 procent bij de uitvoering van de train dataset (zoals reeds vermeld bij de uitvoering via terminal). Dit is de reden waarom de vereiste resultaten niet bereikt kunnen worden.  
 
 \section{SQLNet}
 \label{sec:sqlnet}
 
 \subsection{Algoritme}
 
-Het SQLNet algoritme (sectie \ref{sec:SQLNet}), welke te verkrijgen is via de Github-repository van \textcite{sqlnet}, biedt de gebruiker een neuraal netwerk aan voor de generatie van query's op basis van natuurlijke taal. Zoals reeds vermeld, wordt het systeem getraind op basis van de WikiSQL dataset. Daarnaast wordt er ook een implementatie gegeven voor het Seq2SQL algoritme voor het voorspellen van SQL-query's.
+Het SQLNet algoritme (sectie \ref{sec:SQLNet}), te verkrijgen via de Github-repository van \textcite{sqlnet}, biedt de gebruiker een neuraal netwerk aan voor de generatie van query's op basis van natuurlijke taal. Zoals reeds vermeld, wordt het systeem getraind op basis van de WikiSQL dataset. Daarnaast wordt er ook een implementatie gegeven voor het Seq2SQL algoritme voor het voorspellen van SQL-query's.
 
-Het algoritme maakt geen gebruik van reïnforcement learning. Dit is het mechanisme dat ervoor zorgt dat het algoritme een soort beloning krijgt vanaf wanneer er een goede query wordt gegenereerd. Dit in tegenstelling tot Seq2SQL, waar reïnforcement learning weldegelijk wordt toegepast.
+Het algoritme maakt geen gebruik van reïnforcement learning. Dit is het mechanisme dat ervoor zorgt dat het algoritme een soort beloning krijgt vanaf wanneer er een goede query wordt gegenereerd. Dit in tegenstelling tot Seq2SQL, waar reïnforcement learning wel degelijk wordt toegepast.
 
 \subsection{Opbouw}
 
 De complete Github-repository van SQLNet (\textcite{sqlnet}) is opgebouwd uit twee mappen (namelijk \textit{saved\_model} en sqlnet), drie Python-scripts, één tekstbestand en een aantal andere bestanden. De saved\_model-map bevat één bestand, \textit{.keep}. Dit lege bestand zorgt ervoor dat de map waarin het document zich bevindt beschikbaar blijft bij het publiceren op Github.
 
-De tweede map, sqlnet, bevat ook twee mappen (\textit{lib} en \textit{model}) en twee Python-scripts. De lib-map bevat twee Python-scripts welke aangeroepen worden bij de uitvoering van het algoritme. Deze map bevat het script dat toegang bied tot de databank. De model-map bevat op zijn beurt ook nog een map (\textit{modules}) alsook drie verschillende Python-scripts. Dit geheel aan scripts wordt op zijn beurd ook opgeroepen bij de uitvoering van het algoritme. 
+De tweede map, sqlnet, bevat ook twee mappen (\textit{lib} en \textit{model}) en twee Python-scripts. De lib-map bevat twee Python-scripts welke aangeroepen worden bij de uitvoering van het algoritme. Deze map bevat het script dat toegang geeft tot de databank. De model-map bevat op zijn beurt ook nog een map (\textit{modules}) alsook drie verschillende Python-scripts. Dit geheel aan scripts wordt op zijn beurt ook opgeroepen bij de uitvoering van het algoritme. 
 
 In het overzicht van de Github-repository worden er een aantal andere bestanden opgegeven, naast de hierboven beschreven mappen. De belangrijkste bestanden hierbij zijn:
 
@@ -136,7 +134,7 @@ In het overzicht van de Github-repository worden er een aantal andere bestanden 
 	\item[extract\_vocab.py] Dit script extraheert de glove embedding van het tekstbestand. Verder zorgt dit script voor de training van de word embedding. 
 	\item[requirements.txt] Dit tekstbestand bevat, net zoals bij WikiSQL, alle, via pip install, te installeren modules om de uitvoering van de Python-scripts mogelijk te maken.
 	\item[train.py] Dit script dient uitgevoerd te worden om het SQLNet algoritme te trainen. Dit script maakt gebruik van de CUDA-toolkit \footnote{CUDA staat voor Compute Unified Device Architecture. Deze technologie zorgt ervoor dat de programmeur in staat is om algoritmes op de GPU (grafische processor) uit te voeren. Dit mechanisme is ontwikkeld door NVIDIA.} en heeft vereist de aanwezigheid van een NVIDIA-driver \footnote{Oracle Virtual Box maakt gebruik van een eigen, virtuele GPU. Het is niet mogelijk om GPU van het lokale systeem te delen met een virtuele machine. Daarom werd er besloten Ubuntu te installeren op een andere laptop met NVIDIA GPU, zoals vermeld in sectie \ref{sec:opzet} van hoofdstuk \ref{ch:methodologie}.}
-	\item[test.py] Dit script zorgt voor de evaluatie van het SQLNet algoritme. Dit op de \textit{dev}- en \textit{test}-dataset. Ook hier wordt gebruik gemaakt van de CUDA-toolkit. Dit algoritme wordt dus ook op de grafische processor (op de grafische kaart) uitgevoerd.
+	\item[test.py] Dit script zorgt voor de evaluatie van het SQLNet algoritme, op de \textit{dev}- en \textit{test}-dataset. Ook hier wordt gebruik gemaakt van de CUDA-toolkit. Dit algoritme wordt dus ook op de grafische processor (op de grafische kaart) uitgevoerd.
 \end{description}
 
 \subsection{Uitvoering}
@@ -164,19 +162,19 @@ Het script stopt tijdens de installatie van module \textit{pkg-resources}, versi
 	\textit{sudo apt-get install python-pkg-resources}
 \end{center}
 
-Er zijn dan nog twee mogelijkheden om de overige modules te installeren. Ofwel kan pkg-resources uit het document gehaald worden en kan het "pip install"-commando opnieuw worden uitgevoerd. Ofwel dient de gebruiker nog alle te installeren modules apart te installeren. Dit kan door middel van volgend commando:
+Er zijn dan nog twee mogelijkheden om de overige modules te installeren. Ofwel kan pkg-resources uit het document gehaald worden en kan het "pip install"-commando opnieuw worden uitgevoerd, ofwel dient de gebruiker nog alle te installeren modules apart te installeren. Dit kan door middel van volgend commando:
 
 \begin{center}
 	\textit{sudo python -m pip install <<module>>}
 \end{center}
 
-Vervolgens werd er een shell-script uitgevoerd, \textit{download\_glove.sh}, welke de vooraf getrainde glove embedding download. Dit wordt uitgevoerd door volgend commando uit te voeren:
+Vervolgens werd er een shell-script uitgevoerd, \textit{download\_glove.sh}, welke de vooraf getrainde glove embedding heeft download. Dit wordt uitgevoerd door volgend commando uit te voeren:
 
 \begin{center}
 	\textit{bash download\_glove.sh}
 \end{center}
 
-Bij het uitvoeren van dit script, wordt er eerst gekeken of er een map \textit{glove} bestaat in de map van het algoritme. Zo ja, wordt het glove-bestand naar die map gedownload en uitgepakt. Anders maakt het script eerst een map \textit{glove} aan, wordt het glove-bestand daarin gedownload en uitgepakt. 
+Bij het uitvoeren van dit script, wordt er eerst gekeken of er een map \textit{glove} bestaat in de map van het algoritme. Zo ja, wordt het glove-bestand naar die map gedownload en uitgepakt. Anders maakt het script eerst een map \textit{glove} aan en wordt daarna het glove-bestand daarin gedownload en uitgepakt. 
 
 Zoals bij alle neurale netwerkalgoritmen, dient dit algoritme ook getraind te worden. Dit gebeurt door \textit{train.py} uit te voeren in het terminal venster. In het overzicht wordt vermeld dat dit script met verschillende parameters kan worden uitgevoerd. Deze parameters worden uitgelegd wanneer men volgend commando uitvoert:
 
@@ -184,7 +182,7 @@ Zoals bij alle neurale netwerkalgoritmen, dient dit algoritme ook getraind te wo
 	\textit{sudo python train.py -h}
 \end{center}
 
-Wanneer er een NVIDIA-GPU gebruikt wordt voor deze scripts uit te voeren, geeft het systeem volgende foutmelding terug: \textit{Segmentation fault (core dumped)}. Deze foutmelding kan vermeden worden door gebruik te maken van een andere geïnstalleerde GPU. Voor de interne werking van de scripts dient er een NVIDIA-driver geïnstalleerd te zijn op het systeem. Wanneer het laatst beschreven script is uitgevoerd, worden de parameters uit tabel \ref{table:paramtrain} getoond:
+Wanneer er een NVIDIA-GPU gebruikt wordt om deze scripts uit te voeren, geeft het systeem volgende foutmelding terug: \textit{Segmentation fault (core dumped)}. Deze foutmelding kan vermeden worden door gebruik te maken van een andere geïnstalleerde GPU. Voor de interne werking van de scripts dient er een NVIDIA-driver geïnstalleerd te zijn op het systeem. Wanneer het laatst beschreven script is uitgevoerd, worden de parameters uit tabel \ref{table:paramtrain} getoond:
 
 \begin{table}[htb]
 	\centering
@@ -197,7 +195,7 @@ Wanneer er een NVIDIA-GPU gebruikt wordt voor deze scripts uit te voeren, geeft 
 		--ca				& Gebruik makend van conditional attention \\ \hline
 		--dataset DATASET 	& 0: originele dataset, 1: re-split dataset \\ \hline
 		--rl				& Gebruiken van Reïnforcement Learning voor Seq2SQL (vereist voorafgetrainde models) \\ \hline
-		--baseline			& Wanneer vermeld wordt Seq2SQL model getraind, standaard wordt het SQLNet model getraind \\ \hline
+		--baseline			& Indien deze parameter wordt vermeld dient het model als Seq2SQL getraind te worden, standaard is dat SQLNet \\ \hline
 		--train\_emb		& Het trainen van word embedding voor SQLNet (vereist voorafgetrainde models) \\ \hline	 
 	\end{tabular}
 	\caption{Parameters train.py}
@@ -222,7 +220,7 @@ Het trainen van het algoritme met column attention en trainbare woordembedding. 
 	\textit{sudo python train.py --baseline --dataset 1}
 \end{center}
 
-Het vooraf trainen van een Seq2SQL model. Dit met een re-splitted dataset. 
+Het vooraf trainen van een Seq2SQL model met een re-splitted dataset. 
 
 \begin{center}
 	\textit{sudo python train.py --baseline --dataset 1 --rl}
@@ -230,7 +228,7 @@ Het vooraf trainen van een Seq2SQL model. Dit met een re-splitted dataset.
 
 Het trainen van het Seq2SQL model met Reïnforcement Learning, nadat het model al vooraf getraind is.
 
-Tijdens het uitvoeren van de scripts, worden eerst alle data-bestanden opgehaald. Het systeem meld welke bestanden worden ingeladen en welke reeds ingeladen zijn. Nadat alle bestanden uit de data-map ingeladen zijn, wordt uit het bestand uit de glove-map ingeladen. 
+Tijdens het uitvoeren van de scripts, worden eerst alle data-bestanden opgehaald. Het systeem meldt welke bestanden worden ingeladen en welke reeds ingeladen zijn. Nadat alle bestanden uit de data-map ingeladen zijn, wordt uit het bestand uit de glove-map ingeladen. 
 
 Het vervolg van de uitvoering van dit script loopt fout. Het systeem geeft namelijk een \textit{CUDA Runtime Error}. De eerste foutmelding meldt het volgende:
 
@@ -242,15 +240,15 @@ Deze foutmelding komt voor wanneer het systeem oudere componenten van het stuurp
 
 Het verwijderen van het NVIDIA-stuurprogramma kan gebeuren met het \textit{sudo apt-get purge}-commando, namelijk \textit{sudo apt-get purge nvidia-*}. Hiermee worden alle reeds geïnstalleerde versies van dit stuurprogramma worden verwijderd. Ook alle configuratiebestanden worden hierdoor verwijderd. Om het NVIDIA-stuurprogramma opnieuw te installeren, kan bijvoorbeeld het \textit{sudo apt-get install nvidia-current}-commando gebruikt worden.
 
-Voor het verwijderen en de herinstallatie van de CUDA-toolkit, werd de blogpost van \textcite{cudainstall} gevolgt. In deze blog wordt beschreven hoe de laatste CUDA-versie kan geïnstalleerd worden voor het besturingssysteem dat gebruikt werd tijdens de experimenten.
+Voor het verwijderen en de herinstallatie van de CUDA-toolkit, werd de blogpost van \textcite{cudainstall} gevolgd. In deze blog wordt beschreven hoe de laatste CUDA-versie kan geïnstalleerd worden voor het besturingssysteem dat gebruikt werd tijdens de experimenten.
 
-Wanneer dit alles geïnstalleerd is, dient het systeem heropgestart te worden. Hier liep het voor de tweede keer fout. Het was enkel mogelijk om Ubuntu te gebruiken vanuit de terminal (bereikbaar door CTRL - ALT - F1 tegelijkertijd ingedrukt te houden). Vanuit deze terminal werd er opnieuw een poging ondernomen voor het uitvoeren van eht trainingsscript, maar opnieuw liep het mis. Nu werd tijdens de uitvoering volgende foutmelding weergegeven:
+Wanneer dit alles geïnstalleerd is, dient het systeem heropgestart te worden. Hier liep het voor de tweede keer fout. Het was enkel mogelijk om Ubuntu te gebruiken vanuit de terminal (bereikbaar door CTRL - ALT - F1 tegelijkertijd ingedrukt te houden). Vanuit deze terminal werd er opnieuw een poging ondernomen voor het uitvoeren van het trainingsscript, maar opnieuw liep het mis. Nu werd tijdens de uitvoering volgende foutmelding weergegeven:
 
 \begin{center}
 	\textit{CUDA Runtime Error (30) unknown error at /pytorch/aten/src/THC/THCGeneral.cpp:70}
 \end{center}
 
-Op de blog van \textcite{cudablog} werd een mogelijke oplossing gevonden voor dit probleem. Ook werd het onmiddelijk duidelijk dat deze fout niets te maken had met versie probleem bij één van de stuurprogramma's. Volgens de blog kon het probleem opgelost worden door de laptop eens te herstarten. De laptop werd herstart, maar het probleem bleef zich voordoen. Een andere mogelijke oplossing werd niet gevonden. Elke mogelijke oplossing kwam op hetzelfde neer: herstart de computer.
+Op de blog van \textcite{cudablog} werd een mogelijke oplossing gevonden voor dit probleem. Ook werd het onmiddelijk duidelijk dat deze fout niets te maken had met versie-probleem bij één van de stuurprogramma's. Volgens de blog kon het probleem opgelost worden door de laptop eens te herstarten. De laptop werd herstart, maar het probleem bleef zich vertonen. Een andere mogelijke oplossing werd niet gevonden. Elke mogelijke oplossing kwam op hetzelfde neer: herstart de computer.
 
 Ook bij de volgende mogelijke uitvoeringen van het script, liep het mis op diezelfde plaats. Altijd kwam dezelfde fout terug. Een gevolg van dit probleem, is het feit dat ook het evaluatiescript, \textit{test.py}, om dezelfde reden niet kon uitgevoerd worden. Dit script zou op dezelfde manier kunnen uitgevoerd worden als het trainingsscript, dus ook met dezelfde parameters.
 
@@ -264,7 +262,7 @@ Het was niet mogelijk om de scripts correct uit te voeren (zie sectie \ref{sec:u
 
 Het Seq2SQL algoritme (sectie \ref{sec:Salesforce - Seq2SQL}), welke te verkrijgen is via de Github-repository van \textcite{seq2sql}, biedt de gebruiker een neuraal netwerk aan voor de generatie van query's op basis van natuurlijke taal. Dit algoritme is ontwikkeld door Salesforce, welke ook de WikiSQL dataset heeft ontwikkeld. Seq2SQL wordt getraind op basis van deze laatst beschreven dataset.
 
-In tegenstelling tot SQLNet, maakt Seq2SQL wel gebruik van reïnforcement learning. Het mechanisme krijgt een ssort belong wanneer er een goede query wordt gegenereerd. 
+In tegenstelling tot SQLNet, maakt Seq2SQL wel gebruik van reïnforcement learning. Het mechanisme krijgt een soort beloning wanneer er een goede query wordt gegenereerd. 
 
 \subsection{Opbouw}
 
@@ -273,8 +271,8 @@ De complete Github-repository van Seq2SQL (\textcite{seq2sql}) bestaat grotendee
 Ook worden er zes mappen vermeld in het overzicht van de repository:
 
 \begin{description}
-	\item[data] Deze map bevat op zijn beurt ook vijf mappen, elk met .tsv-bestanden die de data bevat, nodig voor de uitvoering van de scripts. Ook wordt hier WikiSQL-data in teruggevonden. De reden hiervoor is, omdat zoals ook al eerder vemeld, het SeqSQL algoritme getraind wordt op basis van deze dataset.
-	\item[evaluator] Deze map bevat programma's en scripts die kunnen gebruit worden voor de evaluatie van eht algoritme. De meeste scripts zijn geschreven in Python en Scala. Maar er kunnen ook programma's en scripts teruggevonden worden in Java. 
+	\item[data] Deze map bevat op zijn beurt ook vijf mappen, elk met .tsv-bestanden die de data bevat, nodig voor de uitvoering van de scripts. Ook wordt hier WikiSQL-data in teruggevonden. De reden hiervoor is, zoals eerder al vemeld, dat het SeqSQL algoritme getraind wordt op basis van deze dataset.
+	\item[evaluator] Deze map bevat programma's en scripts die kunnen gebruit worden voor de evaluatie van het algoritme. De meeste scripts zijn geschreven in Python en Scala. Er kunnen ook programma's en scripts teruggevonden worden in Java. 
 	\item[fig] Deze map bevat afbeeldingen van grafieken waarbij de nauwkeurigheid van het algoritme wordt in aangetoond. Er worden drie verschillende grafieken getoond, onder andere die inzake het sequence-to-sequence model als dat over tokenizatie.
 	\item[lib] Deze map bevat scripts en programma's die nodig zijn voor het uitvoeren van het trainings- en evaluatiescript. Hier vinden we onder andere het script zodat het model toegang krijgt tot de databank.
 	\item[sqlnet] Deze map bevat een link naar de Github-repository van het SQLNet algoritme. Zowel het Seq2SQL algoritme als het SQLNet algoritme zijn op een gelijkaardige manier opgebouwd. Enkel gebruikt Seq2SQL reïnforcement learning, terwijl SQLNet dit niet toepast.
@@ -293,7 +291,7 @@ Het eerste bash-script dat werd uitgevoerd was \textit{install-g++.sh}. Dit werd
 
 Dit script dient voor de installatie van \textit{g++}, een compiler-stuurprogramma van de GNU\footnote{GNU is een besturingssysteem welke ontwikkeld is met vrije software, dus de vrijheid van de gebruiker wordt gerespecteerd (zie ook \textcite{gnu}).} Compiler Collection. \textit{gcc} is ook zo een compiler. \textit{g++} is de GNU C++-compiler, terwijl \textit{gcc} de GNU C-compiler is.
 
-De uitvoering van het script loopt echter fout. Het script meld dat een bepaalde map niet bestaat op het systeem. Er werd gecontroleerd of er reeds een \textit{g++}-compiler geïnstalleerd stond op het systeem, via het "\textit{g++ --version}"-commando. Dit bleek het geval te zijn. Ook was er reeds een versie van de \textit{gcc}-compiler geïnstalleerd.
+De uitvoering van het script loopt echter fout. Het script meldt dat een bepaalde map niet bestaat op het systeem. Er werd gecontroleerd of er reeds een \textit{g++}-compiler geïnstalleerd stond op het systeem, via het "\textit{g++ --version}"-commando. Dit bleek het geval te zijn. Ook was er reeds een versie van de \textit{gcc}-compiler geïnstalleerd.
 
 Vervolgens werd het \textit{scratch.py}-script uitgevoerd. Dit gebeurde via volgend commando:
 
@@ -314,7 +312,7 @@ Na de uitvoering wordt het volgende bekomen: \\
 (3,) \\
 (1, 5)
 
-Tijdens de uitvoering van dit script eerst een array aangemaakt door middel van de \textit{numpy}-module. Op deze array wordt de \textit{expands\_dims}-methode uitgevoerd, waarbij de array uitgebreid wordt door een nieuwe as op de opgegeven positie in te voegen. De \textit{shape}-methode schrijft de dimensie vaan de array uit. 
+Tijdens de uitvoering van dit script wordt er in eerste instantie een array aangemaakt door middel van de \textit{numpy}-module. Op deze array wordt de \textit{expands\_dims}-methode uitgevoerd, waarbij de array uitgebreid wordt door een nieuwe as op de opgegeven positie in te voegen. De \textit{shape}-methode schrijft de dimensie van de array uit. 
 
 Vervolgens kan ieder bash-script uitgevoerd worden. Er werd gestart met \textit{atis.sh}, waarbij volgend commando gebruikt werd voor het starten:
 
@@ -364,19 +362,19 @@ Nadat alle nodige modules geïnstalleerd waren, werd het bash-script opnieuw ges
 	\label{table:parammain}
 \end{table}
 
-De uitvoering van het script startte met de initialisatie van het \textit{main.py}-script. Alle parameters worden uitgelezen en toegevoegd aan dat Python-script. Vervolgens wordt de SQL-vocabulair onttrokken. Verder wordt in deze setup alles klaargemaakt om de uitvoering mogelijk te maken. Hier werden echter foutmeldingen gegeven. Het systeem gooit een TypeError. Dit gebeurt een aantal keer. Uiteindelijk meld het systeem dat de setup compleet is en start de uiteindelijke uitvoering.
+De uitvoering van het script startte met de initialisatie van het \textit{main.py}-script. Alle parameters worden uitgelezen en toegevoegd aan dat Python-script. Vervolgens wordt de SQL-vocabulair onttrokken. Verder wordt in deze setup alles klaargemaakt om de uitvoering mogelijk te maken. Hier werden echter foutmeldingen gegeven. Het systeem gooit een TypeError. Dit gebeurt een aantal keer. Uiteindelijk meldt het systeem dat de setup compleet is en start de uiteindelijke uitvoering.
 
 Tijdens de uitvoering van het script werden de vragen, opgelijst in de tsv-databestanden voor dat script (wat meegegeven werd als parameter bij \textit{--train-data}), overlopen. Hierbij werd voor elke vraag een query getest op de opgegeven dataset. In de terminal werd elke vraag weergegeven, als de bijhorende query. Verder werd een array weergegeven met de kansen dat met de uitvoering van deze query het juiste resultaat zou bekomen worden.
 
-De uitvoering van dit script werd een aantal keren herhaald. Zo werden de vragen en query's na meer dan vierentwintig uur nog steeds doorlopen. Het grote voordeel van dat de uitvoering zich continu herhaald, is het feit dat het duidelijk wordt dat de query's zich altijd trachten te verbeteren. Per iteratie werden de kansen in de array aangepast.
+De uitvoering van dit script werd een aantal keren herhaald. Zo werden de vragen en query's na meer dan vierentwintig uur nog steeds doorlopen. De uitvoering herhaalde zich continu. Het grote voordeel hiervan is dat het duidelijk wordt dat de query's zich altijd trachten te verbeteren. Per iteratie werden de kansen in de array aangepast.
 
-Aangezien de uitvoering zo'n lange tijd in beslag nam, werd er besloten de andere scripts ook te starten. De werking van deze scripts was natuurlijk gelijk aan de werking van het \textit{atis}-script. Ook hier werd per vraag de bijhorende query uitgevoerd op de bijhorende dataset en worden de kansen ook in een array weergegeven.
+Aangezien de uitvoering zo'n lange tijd in beslag nam, werd er besloten de andere scripts ook te starten. De werking van deze scripts was natuurlijk gelijk aan de werking van het \textit{atis}-script. Ook hier werd per vraag de bijhorende query uitgevoerd op de bijhorende dataset en werden de kansen ook in een array weergegeven.
 
-Het \textit{atis}-script werd gestopt na meer dan 48 uren doorlooptijd. De andere scripts werden gestopt na meer dan vierentwintig uur. Het algoritme bleef alle controles opnieuw uitvoeren en alles opnieuw oplijsten. Zoals reeds eerder vermeld, werd het duidelijk dat het model zich steeds trachtte te verbeteren. De kans op slagen groeide per iteratie. Dit heeft natuurlijk te maken het reïnforcement learning. Het systeem tracht zich altijd te verbeteren, door per iteratie te vertrekken vanuit de best uitgevoerde query. 
+Het \textit{atis}-script werd gestopt na meer dan 48 uren doorlooptijd. De andere scripts werden gestopt na meer dan vierentwintig uur. Het algoritme bleef alle controles opnieuw uitvoeren en alles opnieuw oplijsten. Zoals reeds eerder vermeld, werd het duidelijk dat het model zich steeds trachtte te verbeteren. De kans op slagen groeide per iteratie. Dit had natuurlijk te maken het reïnforcement learning. Het systeem trachtte zich altijd te verbeteren, door per iteratie te vertrekken vanuit de best uitgevoerde query. 
 
 \subsection{Resultaten}
 
-De uitvoering van sommige scripts duurden meer dan 48 uur. Er werd niet concreet gemeld wanneer de scripts konden gestopt worden, of het weldegelijk mogelijk was om de scripts te stoppen. Verder werden geen enkele scripts voorzien voor het testen en evalueren van het model. Er werd getracht de huidige scripts wat aan te passen, maar de uitvoering bleef maar duren. Ook de scripts, vermeld in de evaluator map, bekomen niet de gewenste resultaten. Er werden dus geen duidelijke resultaten verkregen, alhoewel dat het na een aantal iteraties duidelijk werd dat dit algoritme gebruik maakte van reïnforcement learning. Het algoritme tracht zichzelf iedere iteratie te verbeteren.
+De uitvoering van sommige scripts duurden meer dan 48 uur. Er werd niet concreet gemeld wanneer de scripts konden gestopt worden en of het weldegelijk mogelijk was om de scripts te stoppen. Verder werden geen enkele scripts voorzien voor het testen en evalueren van het model. Er werd getracht de huidige scripts wat aan te passen, maar de uitvoering bleef maar duren. Ook de scripts, vermeld in de evaluator map, bekomen niet de gewenste resultaten. Er werden dus geen duidelijke resultaten verkregen, hoewel het na een aantal iteraties duidelijk werd dat dit algoritme gebruik maakte van reïnforcement learning. Het algoritme tracht zichzelf na iedere iteratie te verbeteren.
 
 \section{Algemeen}
 
